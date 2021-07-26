@@ -18,15 +18,15 @@ public abstract class BaseActivity<P extends BasePresenter,CONTRACT> extends App
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(getContentViewId());
+        //setContentView(getContentViewId());
         Log.d("正在运行",getClass().getSimpleName());
 
         initView();
         initData();
         initListener();
 
-        mPresenter = getPresenterInstance();
-        mPresenter.bindView(this);
+//        mPresenter = getPresenterInstance();
+//        mPresenter.bindView(this);
     }
 
     public abstract void initView();
