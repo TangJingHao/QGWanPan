@@ -22,6 +22,7 @@ public abstract class BaseActivity<P extends BasePresenter,CONTRACT> extends App
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //setContentView(getContentViewId());
         //加载布局 加入活动管理器
         setContentView(getContentViewId());
         ActivityCollector.addActivity(this);
@@ -32,9 +33,9 @@ public abstract class BaseActivity<P extends BasePresenter,CONTRACT> extends App
         initData();
         initListener();
 
+//        mPresenter = getPresenterInstance();
+//        mPresenter.bindView(this);
         //绑定p层
-        mPresenter = getPresenterInstance();
-        mPresenter.bindView(this);
     }
 
 
