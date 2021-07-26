@@ -56,7 +56,6 @@ public class UploadFileUtil {
             }
         });
         return Constants.SUCCESS_CODE;
-
     }
 
     public static String getFileMD5(File file) {
