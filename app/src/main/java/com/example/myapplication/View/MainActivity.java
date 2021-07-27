@@ -12,6 +12,7 @@ import com.example.myapplication.Adapter.BottomPagerAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseActivity;
 import com.example.myapplication.basic.BasePresenter;
+import com.example.myapplication.basic.SuperBaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
@@ -19,16 +20,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends SuperBaseActivity {
     private List<Fragment> mList=new ArrayList<>();
     private BottomPagerAdapter mAdapter;
     private ViewPager mViewPager;
     private BottomNavigationView mBnView;
-
-    @Override
-    public Object getContract() {
-        return null;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,45 +91,5 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
-    }
-
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void initData() {
-
-    }
-
-    @Override
-    public void initListener() {
-
-    }
-
-    @Override
-    public int getContentViewId() {
-        return 0;
-    }
-
-    @Override
-    public BasePresenter getPresenterInstance() {
-        return null;
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public void responseError(Object o, Throwable throwable) {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 }
