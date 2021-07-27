@@ -6,7 +6,7 @@ package com.example.myapplication.basic;
  * @Author： Suzy.Mo
  * @Date： 2021/7/26 11:33
  */
-public abstract class BasePresenter<M extends BaseModel,V extends BaseActivity,CONTRACT> extends SuperBase<CONTRACT>{
+public abstract class BasePresenter<M extends BaseModel,V,CONTRACT> extends SuperBase<CONTRACT>{
 
     public V mView;
 

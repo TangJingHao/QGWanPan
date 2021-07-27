@@ -48,10 +48,6 @@ public abstract class BaseActivity<P extends BasePresenter,CONTRACT> extends Sup
      */
     public abstract int getContentViewId();
 
-    /**
-     * 获取p进行实例化
-     * @return p
-     */
     public abstract P getPresenterInstance();
 
     @Override
