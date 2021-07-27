@@ -7,7 +7,7 @@ import com.example.myapplication.basic.BaseModel;
 import com.example.myapplication.contract.ILogin;
 
 /**
- * @Name：My Application
+ * @Name： LoginModel
  * @Description：
  * @Author：Suzy.Mo
  * @Date：2021/7/27 9:29
