@@ -93,8 +93,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILogin.VP> {
     //  初始化控件的函数
     @Override
     public void initView() {
-        PermissionCheck();
         initBeginView();
+        PermissionCheck();
     }
 
     /**
@@ -104,10 +104,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILogin.VP> {
         PermissionUtils.verifyStoragePermissions(LoginActivity.this);
         if (!PermissionUtils.isConn(LoginActivity.this)) {
             PermissionUtils.setNetworkMethod(LoginActivity.this);
-            //再次检查，并通知用户
-            if(!PermissionUtils.isConn(LoginActivity.this)){
-                Toast.makeText(LoginActivity.this,"离线状态下只能看本机文件",Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
