@@ -47,19 +47,20 @@ public class LoginModel extends BaseModel<LoginPresenter, ILogin.M> {
                         if(flag){
                             UserData userData=response.body().getData();//这部分内容存入数据库
                             int ID=userData.getId();
-                            mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID);
+                            String jwt=userData.getJwt();
+                            mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID,jwt);
                         }else{
                             String message=response.body().getMessage();
                             if(message.equals("无该用户名，登录失败")){
-                                mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_USERNAME_CODE,Constants.ERROR_ID );
+                                mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_USERNAME_CODE,Constants.ERROR_ID,Constants.ERROR_JWT);
                             }else if(message.equals("用户密码错误，登录失败")){
-                                mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_PASSWORD_CODE,Constants.ERROR_ID);
+                                mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_PASSWORD_CODE,Constants.ERROR_ID,Constants.ERROR_JWT);
                             }
                         }
                     }
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        mPresenter.getContract().responseLoginResult(Constants.NETWORK_ERROR, Constants.ERROR_ID);
+                        mPresenter.getContract().responseLoginResult(Constants.NETWORK_ERROR, Constants.ERROR_ID,Constants.ERROR_JWT);
                     }
                 });
             }

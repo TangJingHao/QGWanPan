@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.Model.IsRegister;
+import com.example.myapplication.DataBean.IsRegister;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.contract.IPost;

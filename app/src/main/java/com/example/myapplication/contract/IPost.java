@@ -1,6 +1,6 @@
 package com.example.myapplication.contract;
 
-import com.example.myapplication.Model.IsRegister;
+import com.example.myapplication.DataBean.IsRegister;
 import com.example.myapplication.Model.User;
 
 import retrofit2.Call;

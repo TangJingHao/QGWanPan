@@ -47,6 +47,7 @@ public class User {
 }
 
 class UserData{
+    private String jwt;
     private int id;
     private String username;
     private String password;
@@ -56,7 +57,16 @@ class UserData{
     public UserData() {
     }
 
-    public UserData(int id, String username, String password, String nickname, String image) {
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
+
+    public UserData(String jwt, int id, String username, String password, String nickname, String image) {
+        this.jwt = jwt;
         this.id = id;
         this.username = username;
         this.password = password;

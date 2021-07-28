@@ -44,9 +44,9 @@ public class LoginPresenter extends BasePresenter<LoginModel,LoginActivity, ILog
                 }
             }
             @Override
-            public void responseLoginResult(int loginStatusResult, int ID) {
+            public void responseLoginResult(int loginStatusResult, int ID,String jwt) {
                 //解析数据或者把请求码传给View
-                mView.getContract().responseLoginResult(loginStatusResult,ID);
+                mView.getContract().responseLoginResult(loginStatusResult,ID,jwt);
             }
         };
     }

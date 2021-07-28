@@ -1,23 +1,16 @@
 package com.example.myapplication.View;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
 import com.example.myapplication.Presenter.FilePresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
 import com.example.myapplication.contract.IFile;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.example.myapplication.Model;
 
+import com.example.myapplication.DataBean.IsRegister;
 import com.example.myapplication.Presenter.RegisterPresenter;
 import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;

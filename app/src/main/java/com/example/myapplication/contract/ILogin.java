@@ -17,6 +17,6 @@ public interface ILogin {
         //请求登录
         void requestLogin(String name, String pwd);
         //返回登录结果
-        void responseLoginResult(int loginStatusResult,int ID);
+        void responseLoginResult(int loginStatusResult,int ID,String jwt);
     }
 }

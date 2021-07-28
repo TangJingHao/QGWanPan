@@ -1,6 +1,7 @@
 package com.example.myapplication.View;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -29,16 +30,18 @@ public class MainActivity extends SuperBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         int ID=getIntent().getIntExtra("ID",-1);//接受用户的id
+        String jwt=getIntent().getStringExtra("jwt");
         if(ID!=-1){
-            createView(ID);
+            createView(ID,jwt);
         }
     }
 
-    private void createView(int ID) {
+    private void createView(int ID,String jwt) {
         mList.add(new FileFragment(ID));
         mList.add(new HomeFragment(ID));
         mList.add(new GroupFragment());
-        mList.add(new MyPageFragment());
+        Log.d("=============",jwt);
+        mList.add(new MyPageFragment(ID,jwt));
         mAdapter=new BottomPagerAdapter(getSupportFragmentManager(),mList);
         mViewPager= this.findViewById(R.id.fragment_viewPager);
         mBnView=this.findViewById(R.id.select_bottomNavigationView);

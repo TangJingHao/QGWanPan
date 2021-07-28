@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILogin.VP> {
             }
 
             @Override
-            public void responseLoginResult(int loginStatusResult, int ID) {
+            public void responseLoginResult(int loginStatusResult, int ID,String jwt) {
                 //覆写这个函数传入的参数就是拿到的返回码
                 //可以根据返回码进行UI的更新
                 //下面只是例子
@@ -68,6 +68,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, ILogin.VP> {
                         }else if(loginStatusResult==Constants.SUCCESS_LOGIN_CODE){
                             saveLoginData();
                             Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                            intent.putExtra("jwt",jwt);
                             intent.putExtra("ID",ID);
                             startActivity(intent);
                         }

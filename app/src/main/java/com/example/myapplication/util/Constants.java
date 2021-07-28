@@ -9,6 +9,7 @@ public class Constants {
     public static int SUCCESS_CODE=1;//成功码
     public static int FAIL_CODE=0;//失败码
     public static int ERROR_ID=0;//登录失败的默认ID
+    public static String ERROR_JWT="";
     public static int NETWORK_ERROR=0;//网络错误码
     public static int SUCCESS_LOGIN_CODE=1;//登录成功码
     public static int FAIL_LOGIN_PASSWORD_CODE=2;//用户密码错误
