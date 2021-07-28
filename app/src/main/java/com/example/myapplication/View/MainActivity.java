@@ -28,6 +28,7 @@ public class MainActivity extends SuperBaseActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        createView();
     }
 
     private void createView() {
