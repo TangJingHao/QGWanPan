@@ -1,40 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <EditText
-        android:id="@+id/editTextTextPassword"
+    <LinearLayout
+        android:id="@+id/edit_login_ll"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="39dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/editTextNumberPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:orientation="vertical">
+        <TextView
+            android:text="用户名:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:maxLength="11"
+            android:inputType="number"
+            android:id="@+id/username_et"
+            android:textColor="@color/black"
+            android:background="@drawable/edittext_background"
+            android:hint="请输入你的手机号"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="密码:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/password_et"
+            android:hint="请输入您的密码"
+            android:textColor="@color/black"
+            android:inputType="textPassword"
+            android:background="@drawable/edittext_background"
+            android:maxLength="20"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextNumberPassword"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="223dp"
-        android:ems="10"
-        android:inputType="numberPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="105dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberPassword" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@id/edit_login_ll"
+        android:layout_marginBottom="-60dp"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/remember_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:text="记住密码"/>
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="40sp"
+            android:layout_marginLeft="20sp"
+            android:text="登录" />
+    </LinearLayout>
+</RelativeLayout>
