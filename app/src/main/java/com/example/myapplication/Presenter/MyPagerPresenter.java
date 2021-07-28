@@ -23,13 +23,17 @@ public class MyPagerPresenter extends BasePresenter<MyPagerModel, MyPageFragment
     public IMyPager.VP getContract() {
         return new IMyPager.VP() {
             @Override
-            public void requestMyData() {
-
+            public void requestMyData(int ID,String jwt) {
+                try {
+                    mModel.getContract().requestMyData(ID,jwt);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void requestMyDataResult(MyPagerBean myData) {
-
+                mView.getContract().requestMyDataResult(myData);
             }
         };
     }

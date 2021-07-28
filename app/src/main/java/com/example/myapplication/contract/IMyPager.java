@@ -11,12 +11,12 @@ import com.example.myapplication.DataBean.MyPagerBean;
 public interface IMyPager {
     public interface M{
         //请求获取用户个人信息数据
-        void requestMyData()throws Exception;
+        void requestMyData(int ID,String jwt)throws Exception;
     }
 
     public interface VP{
         //请求获取用户个人信息数据
-        void requestMyData();
+        void requestMyData(int ID,String jwt);
         //返回获取结果  用户的类 MyPagerBean
         void requestMyDataResult(MyPagerBean myData);
     }
