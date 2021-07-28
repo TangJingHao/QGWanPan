@@ -1,8 +1,15 @@
 package com.example.myapplication.basic;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @Name：My Application
@@ -20,8 +27,55 @@ public abstract class BaseFragment<P extends BasePresenter,CONTRACT> extends Fra
     public  P mPresenter;
 
 
+    public abstract void initView();
+
+    public abstract void initData();
+
+    public abstract void initListener();
+
+    /**
+     * 获取id给Activity进行加载视图
+     * @return  layout的id
+     */
+    public abstract int getContentViewId();
+
+    public abstract P getPresenterInstance();
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        //初始化控件 数据 监听器
+        initView();
+        initData();
+        initListener();
+
+
+    }
+
+    @Nullable
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        //绑定p层
+        mPresenter = getPresenterInstance();
+        View view = inflater.inflate(getContentViewId(),container,false);
+        mPresenter.bindView(view);
+        return view;
+    }
+
     @Override
     public void onClick(View v) {
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.unBindView();
+        destroy();
+    }
+
+    public abstract void destroy();
 }

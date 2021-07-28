@@ -6,10 +6,10 @@ import com.example.myapplication.basic.BasePresenter;
 import com.example.myapplication.contract.ILogin;
 
 /**
- * @Name：My Application
+ * @Name： LoginPresenter
  * @Description：
- * @Author：Suzy.Mo
- * @Date：2021/7/27 9:30
+ * @Author： Suzy.Mo
+ * @Date： 2021/7/27 9:30
  */
 public class LoginPresenter extends BasePresenter<LoginModel,LoginActivity, ILogin.VP> {
 

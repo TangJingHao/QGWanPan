@@ -1,14 +1,24 @@
-package com.example.myapplication.View;
+package com.example.myapplication.Presenter;
 
-import com.example.myapplication.Presenter.FilePresenter;
-import com.example.myapplication.R;
-import com.example.myapplication.basic.BaseFragment;
+import com.example.myapplication.Model.FileModel;
+import com.example.myapplication.View.FileFragment;
+import com.example.myapplication.basic.BasePresenter;
 import com.example.myapplication.contract.IFile;
 
 import java.util.List;
 
-public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
+/**
+ * @Name： FilePresenter
+ * @Description：
+ * @Author： Suzy.Mo
+ * @Date： 2021/7/27 13:36
+ */
+public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.VP> {
 
+    @Override
+    public FileModel getModelInstance() {
+        return new FileModel(this);
+    }
 
     @Override
     public IFile.VP getContract() {
@@ -53,35 +63,5 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
             }
         };
-    }
-
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void initData() {
-
-    }
-
-    @Override
-    public void initListener() {
-
-    }
-
-    @Override
-    public int getContentViewId() {
-        return R.layout.fragment_file;
-    }
-
-    @Override
-    public FilePresenter getPresenterInstance() {
-        return new FilePresenter();
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }

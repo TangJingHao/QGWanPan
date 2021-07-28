@@ -12,7 +12,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * @Name：My Application
+ * @Name： LoginModel
  * @Description：
  * @Author：Suzy.Mo
  * @Date：2021/7/27 9:29
