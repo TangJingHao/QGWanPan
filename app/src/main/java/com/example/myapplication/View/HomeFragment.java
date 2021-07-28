@@ -8,6 +8,10 @@ import com.example.myapplication.contract.IHome;
 import java.util.List;
 
 public class HomeFragment extends BaseFragment<HomePresenter, IHome.VP> {
+    private int ID;
+    public HomeFragment(int ID) {
+        this.ID=ID;
+    }
 
     @Override
     public IHome.VP getContract() {

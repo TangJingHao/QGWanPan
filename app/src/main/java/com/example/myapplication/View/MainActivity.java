@@ -28,12 +28,15 @@ public class MainActivity extends SuperBaseActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createView();
+        int ID=getIntent().getIntExtra("ID",-1);//接受用户的id
+        if(ID!=-1){
+            createView(ID);
+        }
     }
 
-    private void createView() {
+    private void createView(int ID) {
         mList.add(new FileFragment());
-        mList.add(new HomeFragment());
+        mList.add(new HomeFragment(ID));
         mList.add(new GroupFragment());
         mList.add(new MyPageFragment());
         mAdapter=new BottomPagerAdapter(getSupportFragmentManager(),mList);
