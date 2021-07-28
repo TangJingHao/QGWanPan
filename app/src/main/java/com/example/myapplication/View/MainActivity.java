@@ -2,16 +2,14 @@ package com.example.myapplication.View;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myapplication.Adapter.BottomPagerAdapter;
 import com.example.myapplication.R;
-import com.example.myapplication.basic.BaseActivity;
-import com.example.myapplication.basic.BasePresenter;
 import com.example.myapplication.basic.SuperBaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -27,10 +25,9 @@ public class MainActivity extends SuperBaseActivity {
     private BottomNavigationView mBnView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-//        createView();
+        setContentView(R.layout.activity_main);
     }
 
     private void createView() {
