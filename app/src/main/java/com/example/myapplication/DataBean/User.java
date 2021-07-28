@@ -1,7 +1,5 @@
 package com.example.myapplication.DataBean;
 
-import android.service.autofill.UserData;
-
 /**
  * Created with Android studio
  *
@@ -12,15 +10,9 @@ import android.service.autofill.UserData;
 public class User {
     private Boolean flag;//登录状态
     private String message;//登录的信息
-    private android.service.autofill.UserData data;//用户的数据
+    private UserData data;//用户的数据
 
     public User() {
-    }
-
-    public User(Boolean flag, String message, UserData data) {
-        this.flag = flag;
-        this.message = message;
-        this.data = data;
     }
 
     public Boolean getFlag() {
@@ -44,6 +36,12 @@ public class User {
     }
 
     public void setData(UserData data) {
+        this.data = data;
+    }
+
+    public User(Boolean flag, String message, UserData data) {
+        this.flag = flag;
+        this.message = message;
         this.data = data;
     }
 }

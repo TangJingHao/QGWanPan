@@ -9,16 +9,16 @@ package com.example.myapplication.DataBean;
  */
 public class MyPagerBean {
     private Boolean flag;
-    private String message;
     private MyPagerBeanData data;
-
-    public MyPagerBean(Boolean flag, String message, MyPagerBeanData data) {
-        this.flag = flag;
-        this.message = message;
-        this.data = data;
-    }
+    private String message;
 
     public MyPagerBean() {
+    }
+
+    public MyPagerBean(Boolean flag, MyPagerBeanData data, String message) {
+        this.flag = flag;
+        this.data = data;
+        this.message = message;
     }
 
     public Boolean getFlag() {
@@ -29,19 +29,19 @@ public class MyPagerBean {
         this.flag = flag;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public MyPagerBeanData getData() {
         return data;
     }
 
     public void setData(MyPagerBeanData data) {
         this.data = data;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

@@ -13,16 +13,18 @@ public class MyPagerBeanData {
     private String password;
     private String nickname;
     private String image;
+    private double space;
 
     public MyPagerBeanData() {
     }
 
-    public MyPagerBeanData(int id, String username, String password, String nickname, String image) {
+    public MyPagerBeanData(int id, String username, String password, String nickname, String image, double space) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.image = image;
+        this.space = space;
     }
 
     public int getId() {
@@ -63,5 +65,13 @@ public class MyPagerBeanData {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public double getSpace() {
+        return space;
+    }
+
+    public void setSpace(double space) {
+        this.space = space;
     }
 }

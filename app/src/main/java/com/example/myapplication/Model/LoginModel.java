@@ -1,5 +1,8 @@
 package com.example.myapplication.Model;
 
+
+import com.example.myapplication.DataBean.User;
+import com.example.myapplication.DataBean.UserData;
 import com.example.myapplication.Presenter.LoginPresenter;
 import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
@@ -10,6 +13,7 @@ import com.example.myapplication.util.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 /**
  * @Name： LoginModel
@@ -45,9 +49,9 @@ public class LoginModel extends BaseModel<LoginPresenter, ILogin.M> {
                     public void onResponse(Call<User> call, Response<User> response) {
                         Boolean flag=response.body().getFlag();//登录状态
                         if(flag){
-                            UserData userData=response.body().getData();//这部分内容存入数据库
-                            int ID=userData.getId();
-                            String jwt=userData.getJwt();
+                            UserData data=response.body().getData();//这部分内容存入数据库
+                            int ID=data.getId();
+                            String jwt=data.getJwt();
                             mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID,jwt);
                         }else{
                             String message=response.body().getMessage();
