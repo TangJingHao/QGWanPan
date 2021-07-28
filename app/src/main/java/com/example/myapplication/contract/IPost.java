@@ -1,6 +1,8 @@
 package com.example.myapplication.contract;
 
 import com.example.myapplication.DataBean.IsRegister;
+import com.example.myapplication.DataBean.SearchHistoryBean;
+import com.example.myapplication.DataBean.SearchResult;
 import com.example.myapplication.Model.User;
 
 import retrofit2.Call;
@@ -23,4 +25,19 @@ public interface IPost {
     @FormUrlEncoded
     @POST("user/login")
     Call<User> loginData(@Field("username")String username,@Field("password")String password);
+
+    @FormUrlEncoded
+    @POST("file/findDocsByName")
+    Call<SearchResult> loginData(@Field("docname")String docname,@Field("uid")int uid);
+
+    @FormUrlEncoded
+    @POST("search/history")
+    Call<SearchHistoryBean> loginData(@Field("num")int num, @Field("uid")int uid);
+
+    @FormUrlEncoded
+    @POST("search/deleteAll")
+    Call<SearchHistoryBean> loginData(@Field("uid")int uid);
+
+
+
 }
