@@ -1,7 +1,5 @@
 package com.example.myapplication.Presenter;
 
-import android.util.Log;
-
 import com.example.myapplication.Model.LoginModel;
 import com.example.myapplication.View.LoginActivity;
 import com.example.myapplication.basic.BasePresenter;
@@ -45,11 +43,10 @@ public class LoginPresenter extends BasePresenter<LoginModel,LoginActivity, ILog
                     //保存日记等等
                 }
             }
-
             @Override
-            public void responseLoginResult(int loginStatusResult) {
+            public void responseLoginResult(int loginStatusResult, int ID) {
                 //解析数据或者把请求码传给View
-                mView.getContract().responseLoginResult(loginStatusResult);
+                mView.getContract().responseLoginResult(loginStatusResult,ID);
             }
         };
     }

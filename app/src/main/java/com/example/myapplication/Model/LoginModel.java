@@ -1,10 +1,15 @@
 package com.example.myapplication.Model;
 
-import android.util.Log;
-
 import com.example.myapplication.Presenter.LoginPresenter;
+import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
 import com.example.myapplication.contract.ILogin;
+import com.example.myapplication.contract.IPost;
+import com.example.myapplication.util.Constants;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @Name：My Application
@@ -26,14 +31,37 @@ public class LoginModel extends BaseModel<LoginPresenter, ILogin.M> {
                 //请求服务器登录接口，然后拿到服务器返回JSON数据
                 //下面这个判断的具逻辑可以改 这只是一个例子
                 //调用mPresenter.getContract().responseLoginResult(1);即可进行回传
-                if("abc".equals(name)&&"123".equals(pwd)){
-                    Log.d("Login1",name+"true");
-                    mPresenter.getContract().responseLoginResult(1);
-
-                }else {
-                    Log.d("Login1",name+"false");
-                    mPresenter.getContract().responseLoginResult(0);
-                }
+//                if("abc".equals(name)&&"123".equals(pwd)){
+//                    Log.d("Login1",name+"true");
+//                    mPresenter.getContract().responseLoginResult(1);
+//
+//                }else {
+//                    Log.d("Login1",name+"false");
+//                    mPresenter.getContract().responseLoginResult(0);
+//                }
+                IPost post= BaseCreator.create(IPost.class);
+                post.loginData(name,pwd).enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        Boolean flag=response.body().getFlag();//登录状态
+                        if(flag){
+                            UserData userData=response.body().getData();//这部分内容存入数据库
+                            int ID=userData.getId();
+                            mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID);
+                        }else{
+                            String message=response.body().getMessage();
+                            if(message.equals("无该用户名，登录失败")){
+                                mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_USERNAME_CODE,Constants.ERROR_ID );
+                            }else if(message.equals("用户密码错误，登录失败")){
+                                mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_PASSWORD_CODE,Constants.ERROR_ID);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        mPresenter.getContract().responseLoginResult(Constants.NETWORK_ERROR, Constants.ERROR_ID);
+                    }
+                });
             }
         };
     }
