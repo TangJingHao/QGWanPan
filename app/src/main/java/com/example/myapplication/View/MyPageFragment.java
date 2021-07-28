@@ -1,5 +1,7 @@
 package com.example.myapplication.View;
 
+import android.view.View;
+
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.DataBean.MyPagerBean;
@@ -27,7 +29,7 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
     }
 
     @Override
-    public void initView() {
+    public void initView(View view) {
 
     }
 

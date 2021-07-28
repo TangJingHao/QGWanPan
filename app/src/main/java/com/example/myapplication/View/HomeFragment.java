@@ -1,5 +1,7 @@
 package com.example.myapplication.View;
 
+import android.view.View;
+
 import com.example.myapplication.Presenter.HomePresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
@@ -39,7 +41,7 @@ public class HomeFragment extends BaseFragment<HomePresenter, IHome.VP> {
     }
 
     @Override
-    public void initView() {
+    public void initView(View view) {
 
     }
 

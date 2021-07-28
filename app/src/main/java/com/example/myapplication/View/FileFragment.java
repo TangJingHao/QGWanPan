@@ -1,14 +1,37 @@
 package com.example.myapplication.View;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+
 import com.example.myapplication.Presenter.FilePresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
 import com.example.myapplication.contract.IFile;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
+    private int ID;
+    private TextView newTv;
+    private CardView searchCv;
+    private Switch fileSwitch;
+
+
+    public FileFragment(int ID) {
+        this.ID = ID;
+    }
 
     @Override
     public IFile.VP getContract() {
@@ -56,8 +79,10 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     }
 
     @Override
-    public void initView() {
-
+    public void initView(View view) {
+        newTv = view.findViewById(R.id.file_new_bt);
+        searchCv = view.findViewById(R.id.file_search_cv);
+        fileSwitch = view.findViewById(R.id.file_switch);
     }
 
     @Override
@@ -67,7 +92,9 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
     @Override
     public void initListener() {
-
+        newTv.setOnClickListener(this);
+        searchCv.setOnClickListener(this);
+        fileSwitch.setOnClickListener(this);
     }
 
     @Override
@@ -83,5 +110,15 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     @Override
     public void destroy() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.file_search_cv:
+                Intent intent=new Intent(getContext(),SearchActivity.class);
+                intent.putExtra("ID",ID);
+                startActivity(intent);
+        }
     }
 }

@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:maxLength="11"
-            android:inputType="number"
             android:id="@+id/username_et"
             android:textColor="@color/black"
             android:background="@drawable/edittext_background"
@@ -46,6 +45,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -70,7 +70,7 @@
             android:text="登录" />
     </LinearLayout>
     <LinearLayout
-        android:layout_alignBottom="@id/login"
+        android:layout_alignBottom="@+id/login"
         android:layout_marginBottom="-50dp"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"

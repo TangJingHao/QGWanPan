@@ -1,5 +1,7 @@
 package com.example.myapplication.View;
 
+import android.view.View;
+
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Presenter.GroupPresenter;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.function.DoublePredicate;
 
 public class GroupFragment extends BaseFragment<GroupPresenter, IGroup.VP> {
+
 
     @Override
     public IGroup.VP getContract() {
@@ -28,7 +31,7 @@ public class GroupFragment extends BaseFragment<GroupPresenter, IGroup.VP> {
     }
 
     @Override
-    public void initView() {
+    public void initView(View view) {
 
     }
 

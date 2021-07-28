@@ -25,11 +25,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.MainActivity">
-
         </activity>
         <activity android:name=".View.RegisterActivity">
         </activity>
         <activity android:name=".View.TestActivity">
+        </activity>
+        <activity android:name=".View.SearchActivity">
         </activity>
     </application>
 

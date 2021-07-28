@@ -26,8 +26,8 @@ public abstract class BaseFragment<P extends BasePresenter,CONTRACT> extends Fra
 
     public  P mPresenter;
 
-
-    public abstract void initView();
+    //要传入view把初始化的view给fragment
+    public abstract void initView(View view);
 
     public abstract void initData();
 
@@ -44,14 +44,6 @@ public abstract class BaseFragment<P extends BasePresenter,CONTRACT> extends Fra
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        //初始化控件 数据 监听器
-        initView();
-        initData();
-        initListener();
-
-
     }
 
     @Nullable
@@ -62,6 +54,11 @@ public abstract class BaseFragment<P extends BasePresenter,CONTRACT> extends Fra
         mPresenter = getPresenterInstance();
         View view = inflater.inflate(getContentViewId(),container,false);
         mPresenter.bindView(view);
+
+        //初始化控件 数据 监听器
+        initView(view);
+        initData();
+        initListener();
         return view;
     }
 

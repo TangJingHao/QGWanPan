@@ -35,7 +35,7 @@ public class MainActivity extends SuperBaseActivity {
     }
 
     private void createView(int ID) {
-        mList.add(new FileFragment());
+        mList.add(new FileFragment(ID));
         mList.add(new HomeFragment(ID));
         mList.add(new GroupFragment());
         mList.add(new MyPageFragment());

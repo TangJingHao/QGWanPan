@@ -13,6 +13,7 @@ import com.example.myapplication.contract.IMyPager;
  * @Date：2021/7/27 13:53
  */
 public class MyPagerPresenter extends BasePresenter<MyPagerModel, MyPageFragment, IMyPager.VP> {
+
     @Override
     public MyPagerModel getModelInstance() {
         return new MyPagerModel(this);
