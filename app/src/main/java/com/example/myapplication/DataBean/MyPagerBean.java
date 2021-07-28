@@ -7,18 +7,10 @@ package com.example.myapplication.DataBean;
  * @Date： 2021/7/28 1:09
  */
 public class MyPagerBean {
+
     private Boolean flag;
+    private DataBean data;
     private String message;
-    private MyPagerBeanData data;
-
-    public MyPagerBean(Boolean flag, String message, MyPagerBeanData data) {
-        this.flag = flag;
-        this.message = message;
-        this.data = data;
-    }
-
-    public MyPagerBean() {
-    }
 
     public Boolean getFlag() {
         return flag;
@@ -26,6 +18,14 @@ public class MyPagerBean {
 
     public void setFlag(Boolean flag) {
         this.flag = flag;
+    }
+
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
     public String getMessage() {
@@ -36,12 +36,61 @@ public class MyPagerBean {
         this.message = message;
     }
 
-    public MyPagerBeanData getData() {
-        return data;
-    }
+    public static class DataBean {
+        private Integer id;
+        private String username;
+        private String password;
+        private String nickname;
+        private Object image;
+        private Double space;
 
-    public void setData(MyPagerBeanData data) {
-        this.data = data;
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public Object getImage() {
+            return image;
+        }
+
+        public void setImage(Object image) {
+            this.image = image;
+        }
+
+        public Double getSpace() {
+            return space;
+        }
+
+        public void setSpace(Double space) {
+            this.space = space;
+        }
     }
 }
 

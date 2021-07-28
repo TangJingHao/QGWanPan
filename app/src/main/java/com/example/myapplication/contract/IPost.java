@@ -1,5 +1,6 @@
 package com.example.myapplication.contract;
 
+import com.example.myapplication.DataBean.IsDeleteHistory;
 import com.example.myapplication.DataBean.IsRegister;
 import com.example.myapplication.DataBean.SearchHistoryBean;
 import com.example.myapplication.DataBean.SearchResult;
@@ -33,16 +34,14 @@ public interface IPost {
 
     @FormUrlEncoded
     @POST("file/findDocsByName")
-    Call<SearchResult> loginData(@Field("docname")String docname,@Field("uid")int uid);
+    Call<SearchResult> findDocs(@Field("docname")String docname,@Field("uid")int uid);
 
     @FormUrlEncoded
     @POST("search/history")
-    Call<SearchHistoryBean> loginData(@Field("num")int num, @Field("uid")int uid);
+    Call<SearchHistoryBean> searchHistory(@Field("num")int num, @Field("uid")int uid);
 
     @FormUrlEncoded
     @POST("search/deleteAll")
-    Call<SearchHistoryBean> loginData(@Field("uid")int uid);
-
-
+    Call<IsDeleteHistory> deleteAll(@Field("uid")int uid);
 
 }

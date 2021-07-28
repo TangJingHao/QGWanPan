@@ -1,5 +1,6 @@
 package com.example.myapplication.View;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -47,14 +48,17 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        MyPagerBeanData myPagerBeanData=myData.getData();
-                        if(myPagerBeanData==null){
+                        //MyPagerBeanData myPagerBeanData=myData.getData();
+                        //MyPagerBeanData myPagerBeanData=myData.getData();
+                        //if(myPagerBeanData==null){
+                        if(myData==null){
                             Toast.makeText(getContext(),"发生未知错误，请重试!",Toast.LENGTH_SHORT).show();
                         }else{
-                            mUserID.setText(myPagerBeanData.getId());
-                            mUsernameTv.setText(myPagerBeanData.getUsername());
-                            mUserNickname.setText(myPagerBeanData.getNickname());
-                            mPasswordTv.setText(myPagerBeanData.getPassword());
+                            Log.d("test",myData.getData().getNickname()+myData.getData().getId()+myData.getData().getUsername());
+                            mUserID.setText(myData.getData().getId());
+                            mUsernameTv.setText(myData.getData().getUsername());
+                            mUserNickname.setText(myData.getData().getNickname());
+                            mPasswordTv.setText(myData.getData().getPassword());
                         }
                     }
                 });

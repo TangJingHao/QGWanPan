@@ -37,10 +37,10 @@ public class MyPagerModel extends BaseModel<MyPagerPresenter, IMyPager.M> {
                 post.userLoginData(jwt,ID).enqueue(new Callback<MyPagerBean>() {
                     @Override
                     public void onResponse(Call<MyPagerBean> call, Response<MyPagerBean> response) {
-                        MyPagerBeanData data = response.body().getData();
-                        MyPagerBean myPagerBean=new MyPagerBean();
-                        myPagerBean.setData(data);
-                        mPresenter.getContract().requestMyDataResult(myPagerBean);
+                        //MyPagerBeanData data = response.body().getData();
+                        //MyPagerBean myPagerBean=new MyPagerBean();
+                        //myPagerBean.setData(data);
+                        mPresenter.getContract().requestMyDataResult(response.body());
                     }
 
                     @Override
