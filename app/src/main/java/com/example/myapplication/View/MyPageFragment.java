@@ -64,15 +64,15 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
 
     @Override
     public void initView(View view) {
-//        mCurrentTv=view.findViewById(R.id.my_cloud_disk_current_tv);
-//        mMaxTv=view.findViewById(R.id.my_cloud_disk_max_tv);
-//        mPercentage=view.findViewById(R.id.my_cloud_disk_percentage);
-//        mUsernameTv=view.findViewById(R.id.fragment_my_user_username_tv);
-//        mPasswordTv=view.findViewById(R.id.fragment_my_user_password_tv);
-//        mProgressBar=view.findViewById(R.id.fragment_my_progressbar);
-//        mUserID=view.findViewById(R.id.user_id_tv);
-//        mUserNickname=view.findViewById(R.id.user_nickname_tv);
-//        mMyIcon=view.findViewById(R.id.myIcon_iv);
+        mCurrentTv=view.findViewById(R.id.my_cloud_disk_current_tv);
+        mMaxTv=view.findViewById(R.id.my_cloud_disk_max_tv);
+        mPercentage=view.findViewById(R.id.my_cloud_disk_percentage);
+        mUsernameTv=view.findViewById(R.id.fragment_my_user_username_tv);
+        mPasswordTv=view.findViewById(R.id.fragment_my_user_password_tv);
+        mProgressBar=view.findViewById(R.id.fragment_my_progressbar);
+        mUserID=view.findViewById(R.id.user_id_tv);
+        mUserNickname=view.findViewById(R.id.user_nickname_tv);
+        mMyIcon=view.findViewById(R.id.myIcon_iv);
     }
 
     @Override
