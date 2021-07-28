@@ -7,7 +7,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.DataBean.MyPagerBean;
-import com.example.myapplication.DataBean.MyPagerBeanData;
 import com.example.myapplication.Presenter.MyPagerPresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
@@ -47,14 +46,16 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        MyPagerBeanData myPagerBeanData=myData.getData();
-                        if(myPagerBeanData==null){
+                        MyPagerBean myPagerBean=new MyPagerBean();
+                        myPagerBean.setData(myData.getData());
+
+                        if(myPagerBean.getData()==null){
                             Toast.makeText(getContext(),"发生未知错误，请重试!",Toast.LENGTH_SHORT).show();
                         }else{
-                            mUserID.setText(myPagerBeanData.getId());
-                            mUsernameTv.setText(myPagerBeanData.getUsername());
-                            mUserNickname.setText(myPagerBeanData.getNickname());
-                            mPasswordTv.setText(myPagerBeanData.getPassword());
+                            mUserID.setText(myPagerBean.getData().getId());
+                            mUsernameTv.setText(myPagerBean.getData().getUsername());
+                            mUserNickname.setText(myPagerBean.getData().getNickname());
+                            mPasswordTv.setText(myPagerBean.getData().getPassword());
                         }
                     }
                 });

@@ -4,7 +4,7 @@ package com.example.myapplication.DataBean;
  * Created with Android studio
  *
  * @Author: EDGClearlove7
- * @Date: 2021/07/28/22:48
+ * @Date: 2021/07/29/0:20
  * @Description:
  */
 public class MyPagerBeanData {
