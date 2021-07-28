@@ -37,7 +37,7 @@
             android:id="@+id/password_et"
             android:hint="请输入您的密码"
             android:textColor="@color/black"
-            android:inputType="textPassword"
+            android:inputType="numberPassword"
             android:background="@drawable/edittext_background"
             android:maxLength="20"
             android:layout_width="200dp"
