@@ -1,5 +1,7 @@
 package com.example.myapplication.Model;
 
+import android.util.Log;
+
 import com.example.myapplication.DataBean.MyPagerBean;
 import com.example.myapplication.DataBean.MyPagerBeanData;
 import com.example.myapplication.Presenter.MyPagerPresenter;
@@ -37,10 +39,16 @@ public class MyPagerModel extends BaseModel<MyPagerPresenter, IMyPager.M> {
                 post.userLoginData(jwt,ID).enqueue(new Callback<MyPagerBean>() {
                     @Override
                     public void onResponse(Call<MyPagerBean> call, Response<MyPagerBean> response) {
-                        MyPagerBeanData data = response.body().getData();
-                        MyPagerBean myPagerBean=new MyPagerBean();
-                        myPagerBean.setData(data);
-                        mPresenter.getContract().requestMyDataResult(myPagerBean);
+                        Boolean flag = response.body().getFlag();
+                        if(flag){
+                            MyPagerBeanData data = response.body().getData();
+                            MyPagerBean myPagerBean=new MyPagerBean();
+                            myPagerBean.setData(data);
+                            mPresenter.getContract().requestMyDataResult(myPagerBean);
+                        }else{
+                            String message = response.body().getMessage();
+                            Log.d("========",message);
+                        }
                     }
 
                     @Override
@@ -48,6 +56,7 @@ public class MyPagerModel extends BaseModel<MyPagerPresenter, IMyPager.M> {
                         MyPagerBean myPagerBean=new MyPagerBean();
                         myPagerBean.setData(null);
                         mPresenter.getContract().requestMyDataResult(myPagerBean);
+                        t.printStackTrace();
                     }
                 });
             }
