@@ -13,6 +13,10 @@ import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.contract.IPost;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +45,8 @@ public class TestActivity extends AppCompatActivity {
                         String Msg=response.body().getMessage();
                         Log.d("==============",flag+"");
                         Log.d("==============",Msg);
+                        File file=new File("");
+                        RequestBody responseBody = RequestBody.create(MediaType.parse("image/*"), file);//file为文件
                     }
                     @Override
                     public void onFailure(Call<IsRegister> call, Throwable t) {

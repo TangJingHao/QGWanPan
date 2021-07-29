@@ -101,7 +101,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter, IRegister.
             case R.id.register_user_btn:
                 String username=mRegisterUsernameEt.getText().toString();
                 String password=mRegisterPasswordEt.getText().toString();
-                String nickname=mRegisterNicknameEt.getText().toString();
+                String nickname=mRegisterNicknameEt.getText().toString().trim();//去掉空格
                 if(username==null&&password!=null){
                     Toast.makeText(RegisterActivity.this,"账户不能为空",Toast.LENGTH_SHORT).show();
                 }else if(password==null&&username!=null){
@@ -109,7 +109,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter, IRegister.
                 }else if(password==null&&username==null){
                     Toast.makeText(RegisterActivity.this,"账号和密码不能为空",Toast.LENGTH_SHORT).show();
                 }else if(username!=null&&password!=null){
-                    if(nickname==null){
+                    if(nickname.length()==0||nickname.equals("")){
                         nickname="QG云域新用户";
                     }
                     getContract().requestRegister(username,password,nickname);
