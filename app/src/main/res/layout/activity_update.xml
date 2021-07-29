@@ -25,6 +25,66 @@
             android:layout_width="50dp"
             android:layout_height="50dp"/>
     </RelativeLayout>
-
+    <LinearLayout
+        android:id="@+id/user_current_information_ll"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/user_current_information_rl"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/black"
+            android:layout_gravity="left"
+            android:text="填入修改昵称"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/update_user_nickname_et"
+            android:hint="请输入"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textColor="@color/black"
+            android:layout_gravity="left"
+            android:text="填入修改密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:hint="请输入"
+            android:id="@+id/update_password_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textColor="@color/black"
+            android:layout_gravity="left"
+            android:text="再次确认修改密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:hint="请输入"
+            android:id="@+id/sure_update_password_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="140dp"
+        android:layout_below="@id/user_current_information_ll"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:paddingLeft="60dp"
+        android:paddingRight="50dp"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="确认修改"
+            android:id="@+id/sure_update_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_marginLeft="80dp"
+            android:text="暂时不修改"
+            android:id="@+id/unsure_update_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </RelativeLayout>
 
