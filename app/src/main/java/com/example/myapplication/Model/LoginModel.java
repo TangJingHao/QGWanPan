@@ -1,8 +1,6 @@
 package com.example.myapplication.Model;
 
-
-import com.example.myapplication.DataBean.User;
-import com.example.myapplication.DataBean.UserData;
+import com.example.myapplication.DataBean.UserDataBean;
 import com.example.myapplication.Presenter.LoginPresenter;
 import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
@@ -13,7 +11,6 @@ import com.example.myapplication.util.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 /**
  * @Name： LoginModel
@@ -44,14 +41,17 @@ public class LoginModel extends BaseModel<LoginPresenter, ILogin.M> {
 //                    mPresenter.getContract().responseLoginResult(0);
 //                }
                 IPost post= BaseCreator.create(IPost.class);
-                post.loginData(name,pwd).enqueue(new Callback<User>() {
+                post.loginData(name,pwd).enqueue(new Callback<UserDataBean>() {
                     @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
+                    public void onResponse(Call<UserDataBean> call, Response<UserDataBean> response) {
+                        UserDataBean userDataBean = response.body();
                         Boolean flag=response.body().getFlag();//登录状态
                         if(flag){
-                            UserData data=response.body().getData();//这部分内容存入数据库
-                            int ID=data.getUser().getId();
-                            String jwt=data.getJwt();
+                            //UserData userData=response.body().getData();//这部分内容存入数据库
+                            //int ID=userData.getId();
+                            //String jwt=userData.getJwt();
+                            int ID = userDataBean.getData().getUser().getId();
+                            String jwt = userDataBean.getData().getJwt();
                             mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID,jwt);
                         }else{
                             String message=response.body().getMessage();
@@ -63,7 +63,7 @@ public class LoginModel extends BaseModel<LoginPresenter, ILogin.M> {
                         }
                     }
                     @Override
-                    public void onFailure(Call<User> call, Throwable t) {
+                    public void onFailure(Call<UserDataBean> call, Throwable t) {
                         mPresenter.getContract().responseLoginResult(Constants.NETWORK_ERROR, Constants.ERROR_ID,Constants.ERROR_JWT);
                     }
                 });

@@ -1,25 +1,24 @@
-package com.example.myapplication.View;
-
-import android.view.View;
+package com.example.myapplication.Presenter;
 
 import com.example.myapplication.DataBean.SearchHistoryBean;
 import com.example.myapplication.DataBean.SearchResult;
-import com.example.myapplication.Presenter.SearchPresenter;
-import com.example.myapplication.R;
-import com.example.myapplication.basic.BaseActivity;
+import com.example.myapplication.Model.SearchModel;
+import com.example.myapplication.View.SearchActivity;
 import com.example.myapplication.basic.BasePresenter;
 import com.example.myapplication.contract.ISearch;
 
 /**
- * @Name：My Application
+ * @Name：SearchPresenter
  * @Description：
- * @Author：Suzy.Mo
- * @Date：2021/7/28 18:04
+ * @Author：  Suzy.Mo
+ * @Date： 2021/7/28 22:30
  */
-public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
+public class SearchPresenter extends BasePresenter<SearchModel, SearchActivity, ISearch.VP> {
 
-    private int ID;
-
+    @Override
+    public SearchModel getModelInstance() {
+        return new SearchModel(this);
+    }
 
     @Override
     public ISearch.VP getContract() {
@@ -54,41 +53,5 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
 
             }
         };
-    }
-
-    @Override
-    public void initView() {
-        this.ID=getIntent().getIntExtra("ID",-1);//接受用户的id
-    }
-
-    @Override
-    public void initData() {
-
-    }
-
-    @Override
-    public void initListener() {
-
-    }
-
-    @Override
-    public int getContentViewId() {
-        return R.layout.activity_search;
-    }
-
-    @Override
-    public SearchPresenter getPresenterInstance() {
-        return new SearchPresenter();
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
-
-    @Override
-    public void onClick(View v) {
-
     }
 }

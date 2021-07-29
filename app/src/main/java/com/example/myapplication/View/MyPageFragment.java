@@ -1,5 +1,6 @@
 package com.example.myapplication.View;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.DataBean.MyPagerBean;
+import com.example.myapplication.DataBean.MyPagerBeanData;
 import com.example.myapplication.Presenter.MyPagerPresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
@@ -38,7 +40,10 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
         return new IMyPager.VP() {
             @Override
             public void requestMyData(int ID,String jwt) {
-                mPresenter.getContract().requestMyData(ID,jwt);
+                new Thread(()->{
+                    mPresenter.getContract().requestMyData(ID,jwt);
+                }).start();
+
             }
 
             @Override
@@ -46,16 +51,18 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        MyPagerBean myPagerBean=new MyPagerBean();
-                        myPagerBean.setData(myData.getData());
-
-                        if(myPagerBean.getData()==null){
+                        //MyPagerBeanData myPagerBeanData=myData.getData();
+                        //MyPagerBeanData myPagerBeanData=myData.getData();
+                        //if(myPagerBeanData==null){
+                        //改了一下  根据返回的flag来判断进行更改  返回为空的话会崩
+                        if(!myData.getFlag()){
                             Toast.makeText(getContext(),"发生未知错误，请重试!",Toast.LENGTH_SHORT).show();
                         }else{
-                            mUserID.setText(myPagerBean.getData().getId());
-                            mUsernameTv.setText(myPagerBean.getData().getUsername());
-                            mUserNickname.setText(myPagerBean.getData().getNickname());
-                            mPasswordTv.setText(myPagerBean.getData().getPassword());
+                            Log.d("test",myData.getData().getNickname()+myData.getData().getId()+myData.getData().getUsername());
+                            mUserID.setText(myData.getData().getId().toString());
+                            mUsernameTv.setText(myData.getData().getUsername());
+                            mUserNickname.setText(myData.getData().getNickname());
+                            mPasswordTv.setText(myData.getData().getPassword());
                         }
                     }
                 });

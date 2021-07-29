@@ -1,7 +1,8 @@
 package com.example.myapplication.contract;
 
 import com.example.myapplication.DataBean.IsRegister;
-import com.example.myapplication.DataBean.User;
+import com.example.myapplication.DataBean.MyPagerBean;
+import com.example.myapplication.Model.User;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -23,13 +24,8 @@ public interface IPost {
 
     @FormUrlEncoded
     @POST("user/login")
-    Call<User> loginData(@Field("username")String username, @Field("password")String password);
-
-//    @FormUrlEncoded
-//    @POST("user/userInfo")
-//    Call<MyPagerBean> userLoginData(@Header("Authorization")String jwt, @Field("userid")int ID);
-//
+    Call<User> loginData(@Field("username")String username,@Field("password")String password);
     @FormUrlEncoded
     @POST("user/userInfo")
-    Call<String> userLoginData(@Header("Authorization")String jwt, @Field("userid")int ID);
+    Call<MyPagerBean> userLoginData(@Header("Authorization ")String jwt,@Field("userid")int ID);
 }

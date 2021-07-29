@@ -1,25 +1,16 @@
 package com.example.myapplication.DataBean;
 
 /**
- * Created with Android studio
- *
- * @Author: EDGClearlove7
- * @Date: 2021/07/29/0:19
- * @Description:
+ * @Name：  MyPagerBean
+ * @Description： 存储个人信息的类 包括头像 组群 个人信息等 具体再添加
+ * @Author： Suzy.Mo
+ * @Date： 2021/7/28 1:09
  */
 public class MyPagerBean {
+
     private Boolean flag;
-    private MyPagerBeanData data;
+    private DataBean data;
     private String message;
-
-    public MyPagerBean() {
-    }
-
-    public MyPagerBean(Boolean flag, MyPagerBeanData data, String message) {
-        this.flag = flag;
-        this.data = data;
-        this.message = message;
-    }
 
     public Boolean getFlag() {
         return flag;
@@ -29,11 +20,11 @@ public class MyPagerBean {
         this.flag = flag;
     }
 
-    public MyPagerBeanData getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(MyPagerBeanData data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
@@ -44,4 +35,62 @@ public class MyPagerBean {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public static class DataBean {
+        private Integer id;
+        private String username;
+        private String password;
+        private String nickname;
+        private Object image;
+        private Double space;
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public Object getImage() {
+            return image;
+        }
+
+        public void setImage(Object image) {
+            this.image = image;
+        }
+
+        public Double getSpace() {
+            return space;
+        }
+
+        public void setSpace(Double space) {
+            this.space = space;
+        }
+    }
 }
+
