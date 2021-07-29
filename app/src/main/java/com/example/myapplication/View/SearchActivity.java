@@ -5,15 +5,19 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.Adapter.SearchHistoryAdapter;
+import com.example.myapplication.DataBean.IsDeleteHistory;
 import com.example.myapplication.DataBean.SearchHistoryBean;
 import com.example.myapplication.DataBean.SearchResult;
 import com.example.myapplication.Presenter.SearchPresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseActivity;
 import com.example.myapplication.contract.ISearch;
+import com.example.myapplication.util.Constants;
 
 import java.util.List;
 
@@ -26,8 +30,7 @@ import java.util.List;
 public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
 
     private int ID;
-    private List<SearchHistoryBean> searchHistoryBeans;//搜索历史的数据
-    private SearchResult searchDoc;//搜索文件的数据
+    private String jwt;
 
     private RecyclerView historyRv;
     private SearchView mSearchView;
@@ -35,37 +38,50 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
     private TextView resultTV;
     private ImageView deleteIv,backTv;
 
+    private SearchHistoryAdapter searchHistoryAdapter;
+
     @Override
     public ISearch.VP getContract() {
         return new ISearch.VP() {
             @Override
-            public void searchFile(String docname, int uid) {
-
+            public void searchFile(String docname, int uid, String jwt) {
+                mPresenter.getContract().searchFile(docname,uid,jwt);
             }
 
             @Override
             public void searchFileResult(SearchResult searchFileData) {
-
+                runOnUiThread(()->{
+                    //返回主线程更新UI
+                    Toast.makeText(SearchActivity.this,searchFileData.getMassage(),Toast.LENGTH_SHORT).show();
+                });
             }
 
             @Override
-            public void searchHistory(int uid, int num) {
-
+            public void searchHistory(int uid, int num, String jwt) {
+                mPresenter.getContract().searchHistory(uid,num,jwt);
             }
 
             @Override
             public void searchHistoryResult(SearchHistoryBean searchHistoryResult) {
-
+                runOnUiThread(()->{
+                    //返回主线程更新UI
+                    searchHistoryAdapter = new SearchHistoryAdapter(searchHistoryResult);
+                    historyRv.setAdapter(searchHistoryAdapter);
+                    searchHistoryAdapter.notifyDataSetChanged();
+                });
             }
 
             @Override
-            public void deleteHistory(int uid, int num) {
-
+            public void deleteHistory(int uid,String jwt) {
+                mPresenter.getContract().deleteHistory(uid, jwt);
             }
 
             @Override
-            public void deleteHistoryResult(SearchHistoryBean searchHistoryResult) {
-
+            public void deleteHistoryResult(IsDeleteHistory isDeleteHistory) {
+                runOnUiThread(()->{
+                    //返回主线程更新UI
+                    Toast.makeText(SearchActivity.this,isDeleteHistory.getMessage(),Toast.LENGTH_SHORT).show();
+                });
             }
         };
     }
@@ -73,12 +89,39 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
     @Override
     public void initView() {
         this.ID=getIntent().getIntExtra("ID",-1);//接受用户的id
+        this.jwt = getIntent().getStringExtra("jwt");
         resultTV = findViewById(R.id.search_rescult_tv);
         historyRv = findViewById(R.id.search_history_rv);
         mSearchView = findViewById(R.id.search_searchView);
         mProcessBar = findViewById(R.id.search_progress_bar);
         deleteIv = findViewById(R.id.search_history_delete_iv);
         backTv = findViewById(R.id.search_back);
+        mProcessBar.setVisibility(View.INVISIBLE);
+
+        //进行页面初始化
+        initHistoryView();
+
+        //点击搜索按钮时的监听
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            //提交搜索内容时
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mProcessBar.setVisibility(View.VISIBLE);
+                historyRv.setVisibility(View.INVISIBLE);
+                resultTV.setVisibility(View.INVISIBLE);
+                getContract().searchFile(query,ID,jwt);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+
+    private void initHistoryView() {
+        getContract().searchHistory(ID, Constants.SEARCH_HISTORY_NUM,jwt);
     }
 
     @Override
@@ -91,6 +134,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
         backTv.setOnClickListener(this);
         deleteIv.setOnClickListener(this);
     }
+
 
     @Override
     public int getContentViewId() {
@@ -116,7 +160,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
                 break;
             case R.id.search_history_delete_iv:
             {
-                mPresenter.getContract().deleteHistory(ID,20);
+                getContract().deleteHistory(ID,jwt);
             }
         }
     }

@@ -20,4 +20,5 @@ public class Constants {
     public static int REGISTER_SUCCESS_CODE=1;//注册成功码
     public static int REGISTER_ERROR_NETWORK=2;//注册服务器异常
     public static int REGISTER_ERROR_USERNAME=3;//注册重复用户名
+    public static int SEARCH_HISTORY_NUM = 20;//搜索历史记录的条目
 }
