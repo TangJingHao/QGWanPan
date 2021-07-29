@@ -9,8 +9,8 @@ package com.example.myapplication.DataBean;
  */
 public class User {
     private Boolean flag;//登录状态
-    private String message;//登录的信息
     private UserData data;//用户的数据
+    private String message;//登录的信息
 
     public User() {
     }

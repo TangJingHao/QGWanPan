@@ -50,7 +50,7 @@ public class LoginModel extends BaseModel<LoginPresenter, ILogin.M> {
                         Boolean flag=response.body().getFlag();//登录状态
                         if(flag){
                             UserData data=response.body().getData();//这部分内容存入数据库
-                            int ID=data.getId();
+                            int ID=data.getUser().getId();
                             String jwt=data.getJwt();
                             mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID,jwt);
                         }else{
