@@ -1,8 +1,11 @@
 package com.example.myapplication.contract;
 
+import com.example.myapplication.DataBean.IsDeleteHistory;
 import com.example.myapplication.DataBean.IsRegister;
 import com.example.myapplication.DataBean.MyPagerBean;
-import com.example.myapplication.Model.User;
+import com.example.myapplication.DataBean.SearchHistoryBean;
+import com.example.myapplication.DataBean.SearchResult;
+import com.example.myapplication.DataBean.UserDataBean;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -24,8 +27,21 @@ public interface IPost {
 
     @FormUrlEncoded
     @POST("user/login")
-    Call<User> loginData(@Field("username")String username,@Field("password")String password);
+    Call<UserDataBean> loginData(@Field("username")String username, @Field("password")String password);
+
     @FormUrlEncoded
     @POST("user/userInfo")
-    Call<MyPagerBean> userLoginData(@Header("Authorization ")String jwt,@Field("userid")int ID);
+    Call<MyPagerBean> userLoginData(@Header("Authorization")String jwt,@Field("userid")int ID);
+
+    @FormUrlEncoded
+    @POST("file/findDocsByName")
+    Call<SearchResult> findDocs(@Field("docname")String docname, @Field("uid")int uid);
+
+    @FormUrlEncoded
+    @POST("search/history")
+    Call<SearchHistoryBean> searchHistory(@Field("num")int num, @Field("uid")int uid);
+
+    @FormUrlEncoded
+    @POST("search/deleteAll")
+    Call<IsDeleteHistory> deleteAll(@Field("uid")int uid);
 }

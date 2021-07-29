@@ -53,7 +53,7 @@ public abstract class BaseFragment<P extends BasePresenter,CONTRACT> extends Fra
         //绑定p层
         mPresenter = getPresenterInstance();
         View view = inflater.inflate(getContentViewId(),container,false);
-        mPresenter.bindView(view);
+        mPresenter.bindView(this);
 
         //初始化控件 数据 监听器
         initView(view);
