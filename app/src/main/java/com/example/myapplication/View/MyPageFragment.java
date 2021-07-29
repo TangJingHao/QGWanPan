@@ -54,11 +54,11 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                         if(myData==null){
                             Toast.makeText(getContext(),"发生未知错误，请重试!",Toast.LENGTH_SHORT).show();
                         }else{
-                            Log.d("test",myData.getData().getNickname()+myData.getData().getId()+myData.getData().getUsername());
+                            //Log.d("test",myData.getData().getNickname()+myData.getData().getId()+myData.getData().getUsername());
                             mUserID.setText(myData.getData().getId());
-                            mUsernameTv.setText(myData.getData().getUsername());
-                            mUserNickname.setText(myData.getData().getNickname());
-                            mPasswordTv.setText(myData.getData().getPassword());
+                            //mUsernameTv.setText(myData.getData().getUsername());
+                            //mUserNickname.setText(myData.getData().getNickname());
+                            //mPasswordTv.setText(myData.getPassword());
                         }
                     }
                 });

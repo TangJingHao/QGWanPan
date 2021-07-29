@@ -38,15 +38,17 @@ public class MyPagerModel extends BaseModel<MyPagerPresenter, IMyPager.M> {
                     @Override
                     public void onResponse(Call<MyPagerBean> call, Response<MyPagerBean> response) {
                         //MyPagerBeanData data = response.body().getData();
-                        //MyPagerBean myPagerBean=new MyPagerBean();
+                        MyPagerBean myPagerBean=response.body();
                         //myPagerBean.setData(data);
-                        mPresenter.getContract().requestMyDataResult(response.body());
+                        mPresenter.getContract().requestMyDataResult(myPagerBean);
+
+                        String Nickname = myPagerBean.getData().getNickname();
+                        
                     }
 
                     @Override
                     public void onFailure(Call<MyPagerBean> call, Throwable t) {
                         MyPagerBean myPagerBean=new MyPagerBean();
-                        myPagerBean.setData(null);
                         mPresenter.getContract().requestMyDataResult(myPagerBean);
                     }
                 });
