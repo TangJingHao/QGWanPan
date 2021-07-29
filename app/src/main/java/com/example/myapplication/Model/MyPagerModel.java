@@ -7,6 +7,7 @@ import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
 import com.example.myapplication.contract.IMyPager;
 import com.example.myapplication.contract.IPost;
+import com.example.myapplication.util.Constants;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,13 +43,13 @@ public class MyPagerModel extends BaseModel<MyPagerPresenter, IMyPager.M> {
                         //myPagerBean.setData(data);
                         mPresenter.getContract().requestMyDataResult(myPagerBean);
 
-                        String Nickname = myPagerBean.getData().getNickname();
-                        
                     }
 
                     @Override
                     public void onFailure(Call<MyPagerBean> call, Throwable t) {
                         MyPagerBean myPagerBean=new MyPagerBean();
+                        //设置返回码为失败
+                        myPagerBean.setFlag(false);
                         mPresenter.getContract().requestMyDataResult(myPagerBean);
                     }
                 });

@@ -40,7 +40,10 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
         return new IMyPager.VP() {
             @Override
             public void requestMyData(int ID,String jwt) {
-                mPresenter.getContract().requestMyData(ID,jwt);
+                new Thread(()->{
+                    mPresenter.getContract().requestMyData(ID,jwt);
+                }).start();
+
             }
 
             @Override
@@ -51,14 +54,15 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                         //MyPagerBeanData myPagerBeanData=myData.getData();
                         //MyPagerBeanData myPagerBeanData=myData.getData();
                         //if(myPagerBeanData==null){
-                        if(myData==null){
+                        //改了一下  根据返回的flag来判断进行更改  返回为空的话会崩
+                        if(!myData.getFlag()){
                             Toast.makeText(getContext(),"发生未知错误，请重试!",Toast.LENGTH_SHORT).show();
                         }else{
-                            //Log.d("test",myData.getData().getNickname()+myData.getData().getId()+myData.getData().getUsername());
+                            Log.d("test",myData.getData().getNickname()+myData.getData().getId()+myData.getData().getUsername());
                             mUserID.setText(myData.getData().getId());
-                            //mUsernameTv.setText(myData.getData().getUsername());
-                            //mUserNickname.setText(myData.getData().getNickname());
-                            //mPasswordTv.setText(myData.getPassword());
+                            mUsernameTv.setText(myData.getData().getUsername());
+                            mUserNickname.setText(myData.getData().getNickname());
+                            mPasswordTv.setText(myData.getData().getPassword());
                         }
                     }
                 });
