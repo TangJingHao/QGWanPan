@@ -1,7 +1,7 @@
 package com.example.myapplication.DataBean;
 
 /**
- * @Name：My Application
+ * @Name： UserDataBean
  * @Description：
  * @Author：Suzy.Mo
  * @Date：2021/7/29 9:27

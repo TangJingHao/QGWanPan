@@ -6,7 +6,6 @@ import com.example.myapplication.DataBean.SearchHistoryBean;
 import com.example.myapplication.DataBean.SearchResult;
 import com.example.myapplication.DataBean.MyPagerBean;
 import com.example.myapplication.DataBean.UserDataBean;
-import com.example.myapplication.Model.User;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -36,14 +35,14 @@ public interface IPost {
 
     @FormUrlEncoded
     @POST("file/findDocsByName")
-    Call<SearchResult> findDocs(@Field("docname")String docname,@Field("uid")int uid);
+    Call<SearchResult> findDocs(@Header("Authorization")@Field("docname")String docname, @Field("uid")int uid);
 
     @FormUrlEncoded
     @POST("search/history")
-    Call<SearchHistoryBean> searchHistory(@Field("num")int num, @Field("uid")int uid);
+    Call<SearchHistoryBean> searchHistory(@Header("Authorization")@Field("num")int num, @Field("uid")int uid);
 
     @FormUrlEncoded
     @POST("search/deleteAll")
-    Call<IsDeleteHistory> deleteAll(@Field("uid")int uid);
+    Call<IsDeleteHistory> deleteAll(@Header("Authorization")@Field("uid")int uid);
 
 }
