@@ -8,7 +8,7 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="32dp"
         android:textColorHint="#707070"
-        android:hint="你的名字"
+        android:hint="你的用户名"
         android:textColor="@color/black"
         android:id="@+id/fragment_register_user_real_name_et"
         android:layout_width="280dp"
@@ -16,14 +16,34 @@
         android:layout_height="32dp"/>
     <EditText
         android:id="@+id/fragment_register_user_mailbox_et"
+        android:inputType="number"
         android:layout_below="@id/fragment_register_user_real_name_et"
         android:layout_marginTop="32dp"
         android:hint="注册邮箱"
         android:layout_marginLeft="24dp"
-        android:layout_width="280dp"
+        android:layout_width="160dp"
         android:background="@drawable/login_edittext_background"
         android:textColorHint="#707070"
         android:layout_height="32dp"/>
+    <TextView
+        android:id="@+id/register_tv"
+        android:layout_marginTop="32dp"
+        android:layout_toRightOf="@+id/fragment_register_user_mailbox_et"
+        android:layout_below="@id/fragment_register_user_real_name_et"
+        android:textSize="20dp"
+        android:text=" @ "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/fragment_register_user_mailbox_back_et"
+        android:layout_width="80dp"
+        android:layout_height="32dp"
+        android:layout_below="@id/fragment_register_user_real_name_et"
+        android:layout_marginTop="32dp"
+        android:layout_toRightOf="@id/register_tv"
+        android:background="@drawable/login_edittext_background"
+        android:hint="后缀"
+        android:textColorHint="#707070" />
     <EditText
         android:id="@+id/fragment_register_verification_code_et"
         android:layout_marginTop="32dp"
@@ -45,8 +65,9 @@
         android:layout_height="32dp"/>
     <EditText
         android:id="@+id/fragment_register_password_et"
-        android:inputType="numberPassword"
-        android:hint="输入你的密码"
+        android:inputType="number"
+        android:maxLength="14"
+        android:hint="输入你的密码(14位)"
         android:layout_marginTop="32dp"
         android:layout_below="@id/fragment_register_verification_code_et"
         android:layout_marginLeft="24dp"
@@ -65,6 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="32dp"/>
     <Button
+        android:id="@+id/fragment_register_user_btn"
         android:layout_marginTop="32dp"
         android:layout_below="@id/fragment_register_password_et"
         android:text="注册"

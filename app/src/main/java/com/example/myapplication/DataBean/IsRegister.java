@@ -10,13 +10,24 @@ package com.example.myapplication.DataBean;
 public class IsRegister {
     private Boolean flag;
     private String message;
+    private Object data;
+
 
     public IsRegister() {
     }
 
-    public IsRegister(Boolean flag, String message) {
+    public IsRegister(Boolean flag, String message, Object data) {
         this.flag = flag;
         this.message = message;
+        this.data = data;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 
     public Boolean getFlag() {
