@@ -47,9 +47,6 @@ public class LoginModel extends BaseModel<LoginPresenter, ILogin.M> {
                         UserDataBean userDataBean = response.body();
                         Boolean flag=response.body().getFlag();//登录状态
                         if(flag){
-                            //UserData userData=response.body().getData();//这部分内容存入数据库
-                            //int ID=userData.getId();
-                            //String jwt=userData.getJwt();
                             int ID = userDataBean.getData().getUser().getId();
                             String jwt = userDataBean.getData().getJwt();
                             mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID,jwt);

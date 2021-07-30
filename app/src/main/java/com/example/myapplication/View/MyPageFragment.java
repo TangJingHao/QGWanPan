@@ -1,5 +1,6 @@
 package com.example.myapplication.View;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -8,12 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.DataBean.MyPagerBean;
-import com.example.myapplication.DataBean.MyPagerBeanData;
 import com.example.myapplication.Presenter.MyPagerPresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
 import com.example.myapplication.bean.CircleImageView;
 import com.example.myapplication.contract.IMyPager;
+import com.example.myapplication.util.Constants;
 
 public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> {
     private int ID;
@@ -51,18 +52,22 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //MyPagerBeanData myPagerBeanData=myData.getData();
-                        //MyPagerBeanData myPagerBeanData=myData.getData();
-                        //if(myPagerBeanData==null){
                         //改了一下  根据返回的flag来判断进行更改  返回为空的话会崩
                         if(!myData.getFlag()){
                             Toast.makeText(getContext(),"发生未知错误，请重试!",Toast.LENGTH_SHORT).show();
                         }else{
                             Log.d("test",myData.getData().getNickname()+myData.getData().getId()+myData.getData().getUsername());
+                            double useSpace=(myData.getData().getSpace()/(1024*1024));//用户剩余可用空间
+                            double UserCurrentSpace=Constants.USER_TOTAL_SPACE-useSpace;//用户已经用的空间
+                            double percentage=(UserCurrentSpace/ Constants.USER_TOTAL_SPACE)*100;
                             mUserID.setText(myData.getData().getId().toString());
                             mUsernameTv.setText(myData.getData().getUsername());
                             mUserNickname.setText(myData.getData().getNickname());
                             mPasswordTv.setText(myData.getData().getPassword());
+                            mCurrentTv.setText(UserCurrentSpace+"");
+                            mMaxTv.setText("G/1G");
+                            mPercentage.setText(percentage+"%");
+                            mProgressBar.setProgress((int) (mProgressBar.getProgress()+percentage));
                         }
                     }
                 });
@@ -81,6 +86,8 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
         mUserID=view.findViewById(R.id.user_id_tv);
         mUserNickname=view.findViewById(R.id.user_nickname_tv);
         mMyIcon=view.findViewById(R.id.myIcon_iv);
+        mQuitLoginBtn=view.findViewById(R.id.quit_login_btn);
+        mUpdateUserInformationBtn=view.findViewById(R.id.update_user_information_btn);
     }
 
     @Override
@@ -90,7 +97,7 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
 
     @Override
     public void initListener() {
-
+        mQuitLoginBtn.setOnClickListener(this);
     }
 
     @Override
@@ -106,5 +113,18 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
     @Override
     public void destroy() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.quit_login_btn:
+                Intent intent=new Intent(getContext(),LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+                break;
+
+        }
     }
 }

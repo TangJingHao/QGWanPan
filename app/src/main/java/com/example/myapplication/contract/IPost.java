@@ -2,9 +2,9 @@ package com.example.myapplication.contract;
 
 import com.example.myapplication.DataBean.IsDeleteHistory;
 import com.example.myapplication.DataBean.IsRegister;
+import com.example.myapplication.DataBean.MyPagerBean;
 import com.example.myapplication.DataBean.SearchHistoryBean;
 import com.example.myapplication.DataBean.SearchResult;
-import com.example.myapplication.DataBean.MyPagerBean;
 import com.example.myapplication.DataBean.UserDataBean;
 
 import retrofit2.Call;

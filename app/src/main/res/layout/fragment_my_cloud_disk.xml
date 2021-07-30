@@ -61,7 +61,7 @@
                 android:layout_alignParentRight="true" />
         </RelativeLayout>
         <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:max="100"
             android:id="@+id/fragment_my_progressbar"
             android:layout_marginTop="10dp"

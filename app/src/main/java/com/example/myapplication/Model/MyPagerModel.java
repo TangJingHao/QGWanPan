@@ -1,13 +1,11 @@
 package com.example.myapplication.Model;
 
 import com.example.myapplication.DataBean.MyPagerBean;
-import com.example.myapplication.DataBean.MyPagerBeanData;
 import com.example.myapplication.Presenter.MyPagerPresenter;
 import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
 import com.example.myapplication.contract.IMyPager;
 import com.example.myapplication.contract.IPost;
-import com.example.myapplication.util.Constants;
 
 import retrofit2.Call;
 import retrofit2.Callback;

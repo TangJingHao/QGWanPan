@@ -50,11 +50,10 @@ public abstract class BaseFragment<P extends BasePresenter,CONTRACT> extends Fra
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(getContentViewId(),container,false);
         //绑定p层
         mPresenter = getPresenterInstance();
-        mPresenter.bindView(BaseFragment.this);
+        View view = inflater.inflate(getContentViewId(),container,false);
+        mPresenter.bindView(this);
 
         //初始化控件 数据 监听器
         initView(view);
