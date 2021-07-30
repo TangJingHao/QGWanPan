@@ -2,6 +2,7 @@ package com.example.myapplication.Presenter;
 
 import com.example.myapplication.Model.RegisterModel;
 import com.example.myapplication.View.RegisterActivity;
+import com.example.myapplication.View.RegisterFragment;
 import com.example.myapplication.basic.BasePresenter;
 import com.example.myapplication.contract.IRegister;
 
@@ -12,7 +13,7 @@ import com.example.myapplication.contract.IRegister;
  * @Date: 2021/07/27/12:44
  * @Description:
  */
-public class RegisterPresenter extends BasePresenter<RegisterModel, RegisterActivity, IRegister.VP> {
+public class RegisterPresenter extends BasePresenter<RegisterModel, RegisterFragment, IRegister.VP> {
     @Override
     public RegisterModel getModelInstance() {
         return new RegisterModel(this);
