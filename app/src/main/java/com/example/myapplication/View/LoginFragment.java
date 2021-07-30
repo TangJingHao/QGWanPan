@@ -1,6 +1,7 @@
 package com.example.myapplication.View;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter, ILogin.VP> {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Log.d("MainActivity",loginStatusResult+ID+jwt);
                         if(loginStatusResult== Constants.NETWORK_ERROR){
                             Toast.makeText(getContext(),"网络异常，请检查你的网络连接！",Toast.LENGTH_SHORT).show();
                         }else if(loginStatusResult==Constants.FAIL_LOGIN_USERNAME_CODE){
@@ -56,8 +58,8 @@ public class LoginFragment extends BaseFragment<LoginPresenter, ILogin.VP> {
 
     @Override
     public void initView(View view) {
-        mUsernameEt=getView().findViewById(R.id.fragment_my_user_username_tv);
-        mPasswordEt=getView().findViewById(R.id.fragment_my_user_password_tv);
+        mUsernameEt=view.findViewById(R.id.fragment_my_user_username_tv);
+        mPasswordEt=view.findViewById(R.id.fragment_my_user_password_tv);
     }
 
     @Override

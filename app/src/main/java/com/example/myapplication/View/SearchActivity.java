@@ -121,7 +121,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
     }
 
     private void initHistoryView() {
-        getContract().searchHistory(ID, Constants.SEARCH_HISTORY_NUM,jwt);
+        getContract().searchHistory(ID,20,jwt);
     }
 
     @Override

@@ -21,4 +21,5 @@ public class Constants {
     public static int REGISTER_ERROR_NETWORK=2;//注册服务器异常
     public static int REGISTER_ERROR_USERNAME=3;//注册重复用户名
     public static double USER_TOTAL_SPACE=1.0;//用户总云盘空间（1G）
+    public static int SEARCH_HISTORY_NUM = 20;//查询搜索历史的数目
 }
