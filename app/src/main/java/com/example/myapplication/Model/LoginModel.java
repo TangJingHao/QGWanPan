@@ -4,16 +4,19 @@ import com.example.myapplication.DataBean.UserDataBean;
 import com.example.myapplication.Presenter.LoginPresenter;
 import com.example.myapplication.basic.BaseModel;
 import com.example.myapplication.contract.ILogin;
-import com.example.myapplication.http.IHttpClient;
-import com.example.myapplication.http.IRequest;
-import com.example.myapplication.http.IResponse;
-import com.example.myapplication.http.impl.OkHttpClientImpl;
-import com.example.myapplication.http.impl.RequestImpl;
 import com.example.myapplication.util.Constants;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * @Name： LoginModel
@@ -73,15 +76,18 @@ public class LoginModel extends BaseModel<LoginPresenter, ILogin.M> {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        IRequest request=new RequestImpl("http://39.98.41.126:31109/"+"user/login?username="+name+"&password="+pwd);
-                        IHttpClient httpClient=new OkHttpClientImpl();
-                        IResponse response=httpClient.get(request);
+                        RequestBody requestBody=new FormBody.Builder().add("username",name).add("password",pwd).build();
+                        Request request1=new Request.Builder().url(Constants.ServerURL+"user/login?").post(requestBody).build();
+                        OkHttpClient okHttpClient=new OkHttpClient();
+                        Response response1= null;
                         try {
-                            JSONObject jsonObject=new JSONObject(response.getData());
+                            response1 = okHttpClient.newCall(request1).execute();
+                            String requestData=response1.body().string();
+                            JSONObject jsonObject=new JSONObject(requestData);
                             boolean flag = jsonObject.getBoolean("flag");
                             if(flag){
                                 Gson gson=new Gson();
-                                UserDataBean userDataBean=gson.fromJson(response.getData(),UserDataBean.class);
+                                UserDataBean userDataBean=gson.fromJson(requestData,UserDataBean.class);
                                 int ID = userDataBean.getData().getUser().getId();
                                 String jwt = userDataBean.getData().getJwt();
                                 mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID,jwt);
@@ -93,6 +99,8 @@ public class LoginModel extends BaseModel<LoginPresenter, ILogin.M> {
                                     mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_PASSWORD_CODE,Constants.ERROR_ID,Constants.ERROR_JWT);
                                 }
                             }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
