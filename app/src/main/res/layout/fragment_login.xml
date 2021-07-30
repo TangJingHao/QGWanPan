@@ -10,7 +10,7 @@
         android:id="@+id/fragment_login_username_et"
         android:layout_centerHorizontal="true"
         android:layout_width="280dp"
-        android:background="@drawable/edittext_background"
+        android:background="@drawable/login_edittext_background"
         android:textColorHint="#707070"
         android:hint="注册邮箱"
         android:layout_height="32dp"/>
@@ -21,7 +21,7 @@
         android:layout_below="@id/fragment_login_username_et"
         android:id="@+id/fragment_login_password_et"
         android:layout_width="280dp"
-        android:background="@drawable/edittext_background"
+        android:background="@drawable/login_edittext_background"
         android:textColorHint="#707070"
         android:hint="登录密码"
         android:layout_height="32dp"/>
