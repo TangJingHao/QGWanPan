@@ -46,22 +46,31 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
            @Override
            public void requestRegister(String username, String password, String nickname, String userEmail, String checkCode) throws Exception {
                IPost post= BaseCreator.create(IPost.class);
+               Log.d("=========","daozheli");
                post.registerData(username,password,nickname).enqueue(new Callback<IsRegister>() {
                    @Override
                    public void onResponse(Call<IsRegister> call, Response<IsRegister> response) {
                        Boolean flag=response.body().getFlag();
                        if(flag){
                            try {
-                               mPresenter.getContract().responseRegisterResult(Constants.REGISTER_SUCCESS_CODE);
+                               mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_SUCCESS_CODE);
                            } catch (Exception e) {
                                e.printStackTrace();
                            }
                        }else{
                            String Msg=response.body().getMessage();
                            if(Msg.equals("注册失败，服务器网络异常")){
-//                               mPresenter.getContract().responseRegisterResult(Constants.REGISTER_ERROR_NETWORK,username,password );
+                               try {
+                                   mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_ERROR_NETWORK);
+                               } catch (Exception e) {
+                                   e.printStackTrace();
+                               }
                            }else if(Msg.equals("已存在该用户名，注册失败")){
-//                               mPresenter.getContract().responseRegisterResult(Constants.REGISTER_ERROR_USERNAME, username,password );
+                               try {
+                                   mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_ERROR_USERNAME);
+                               } catch (Exception e) {
+                                   e.printStackTrace();
+                               }
                            }
                        }
                    }
@@ -69,7 +78,7 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
                    @Override
                    public void onFailure(Call<IsRegister> call, Throwable t) {
                        try {
-                           mPresenter.getContract().responseRegisterResult(Constants.NETWORK_ERROR);
+                           mPresenter.getContract().responseRegister(username,password,Constants.NETWORK_ERROR);
                        } catch (Exception e) {
                            e.printStackTrace();
                        }
@@ -79,8 +88,8 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
 
            @Override
            public void requestCheckCode(String userEmail) throws Exception {
-               Log.d("==================",userEmail+"qq.com");
-               RequestBody requestBody=new FormBody.Builder().add("userEmail","762795632@qq.com").build();
+               Log.d("==================",userEmail);
+               RequestBody requestBody=new FormBody.Builder().add("userEmail",userEmail).build();
                Request request=new Request.Builder().url("http://39.98.41.126:31109/user/sendCheckCode?").post(requestBody).build();
                OkHttpClient okHttpClient=new OkHttpClient();
                okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
@@ -96,9 +105,9 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
                            JSONObject jsonObject=new JSONObject(responseData);
                            Boolean flag=jsonObject.getBoolean("flag");
                            if(flag){
-                               mPresenter.getContract().responseRegisterResult(Constants.SUCCESS_REGISTER_CODE);
+                               mPresenter.getContract().responseRegisterCodeResult(Constants.SUCCESS_REGISTER_CODE);
                            }else{
-                               mPresenter.getContract().responseRegisterResult(Constants.ERROR_REGISTER_CODE);
+                               mPresenter.getContract().responseRegisterCodeResult(Constants.ERROR_REGISTER_CODE);
                            }
                        } catch (JSONException e) {
                            e.printStackTrace();

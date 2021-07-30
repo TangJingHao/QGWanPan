@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/fragment_register_user_mailbox_back_et"
-        android:layout_width="50dp"
+        android:layout_width="80dp"
         android:layout_height="32dp"
         android:layout_below="@id/fragment_register_user_real_name_et"
         android:layout_marginTop="32dp"
@@ -65,7 +65,7 @@
         android:layout_height="32dp"/>
     <EditText
         android:id="@+id/fragment_register_password_et"
-        android:inputType="numberPassword"
+        android:inputType="number"
         android:maxLength="14"
         android:hint="输入你的密码(14位)"
         android:layout_marginTop="32dp"

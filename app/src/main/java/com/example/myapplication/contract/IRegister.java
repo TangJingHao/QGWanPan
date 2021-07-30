@@ -17,6 +17,7 @@ public interface IRegister {
         void requestRegister(String username,String password,String nickname,String userEmail,String checkCode);
         void requestCheckCode(String userEmail) throws Exception;
         //返回注册结果
-        void responseRegisterResult(int registerStatusResult) throws Exception;
+        void responseRegisterCodeResult(int registerStatusResult) throws Exception;
+        void responseRegister(String username,String password,int code) throws Exception;
     }
 }

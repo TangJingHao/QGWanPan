@@ -36,8 +36,13 @@ public class RegisterPresenter extends BasePresenter<RegisterModel, RegisterFrag
             }
 
             @Override
-            public void responseRegisterResult(int registerStatusResult) throws Exception {
-                mView.getContract().responseRegisterResult(registerStatusResult);
+            public void responseRegisterCodeResult(int registerStatusResult) throws Exception {
+                mView.getContract().responseRegisterCodeResult(registerStatusResult);
+            }
+
+            @Override
+            public void responseRegister(String username, String password, int code) throws Exception {
+                mView.getContract().responseRegister(username,password,code);
             }
         };
     }
