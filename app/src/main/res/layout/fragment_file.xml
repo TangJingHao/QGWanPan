@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/file_search_cv"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="35dp"
+        android:onClick="SearchLayout"
+        android:layout_alignParentStart="true"
+        app:cardBackgroundColor="@color/list_color"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        android:layout_alignParentLeft="true">
+
+
+        <ImageView
+            android:id="@+id/file_search_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/ic_search" />
+
+    </androidx.cardview.widget.CardView>
+    <RelativeLayout
+        android:id="@+id/file_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/file_search_cv"
+        >
+        <TextView
+            android:id="@+id/file_title_tv"
+            style="@style/TitleText"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="按文件夹名称排序"/>
+        <Switch
+            android:id="@+id/file_switch"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/file_title_tv"
+            android:layout_marginRight="50dp"/>
+        <Button
+            android:id="@+id/file_new_bt"
+            style="@style/TitleText"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:text="新建"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/file_list"
+        android:layout_below="@+id/file_title_layout"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+</RelativeLayout>
