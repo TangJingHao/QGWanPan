@@ -29,7 +29,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter, ILogin.VP> {
         return new ILogin.VP() {
             @Override
             public void requestLogin(String name, String pwd) {
-
+                mPresenter.getContract().requestLogin(name,pwd);
             }
 
             @Override
@@ -58,8 +58,9 @@ public class LoginFragment extends BaseFragment<LoginPresenter, ILogin.VP> {
 
     @Override
     public void initView(View view) {
-        mUsernameEt=view.findViewById(R.id.fragment_my_user_username_tv);
-        mPasswordEt=view.findViewById(R.id.fragment_my_user_password_tv);
+        mUsernameEt=view.findViewById(R.id.fragment_login_username_et);
+        mPasswordEt=view.findViewById(R.id.fragment_login_password_et);
+        mLogin=view.findViewById(R.id.fragment_login_btn);
     }
 
     @Override
@@ -69,7 +70,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter, ILogin.VP> {
 
     @Override
     public void initListener() {
-
+        mLogin.setOnClickListener(this);
     }
 
     @Override
@@ -90,7 +91,21 @@ public class LoginFragment extends BaseFragment<LoginPresenter, ILogin.VP> {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-
+        switch (v.getId()){
+            case R.id.fragment_login_btn:
+                String username=mUsernameEt.getText().toString();
+                String password=mPasswordEt.getText().toString();
+                //判断用户输入处理
+                if(username==null&&password!=null){
+                    Toast.makeText(getContext(),"账户不能为空",Toast.LENGTH_SHORT).show();
+                }else if(password==null&&username!=null){
+                    Toast.makeText(getContext(),"密码不能为空",Toast.LENGTH_SHORT).show();
+                }else if(password==null&&username==null){
+                    Toast.makeText(getContext(),"账号和密码不能为空",Toast.LENGTH_SHORT).show();
+                }else if(username!=null&&password!=null){
+                    getContract().requestLogin(username,password);
+                }
+        }
     }
 
     //    @Nullable

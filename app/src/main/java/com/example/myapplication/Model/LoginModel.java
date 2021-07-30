@@ -2,15 +2,18 @@ package com.example.myapplication.Model;
 
 import com.example.myapplication.DataBean.UserDataBean;
 import com.example.myapplication.Presenter.LoginPresenter;
-import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
 import com.example.myapplication.contract.ILogin;
-import com.example.myapplication.contract.IPost;
+import com.example.myapplication.http.IHttpClient;
+import com.example.myapplication.http.IRequest;
+import com.example.myapplication.http.IResponse;
+import com.example.myapplication.http.impl.OkHttpClientImpl;
+import com.example.myapplication.http.impl.RequestImpl;
 import com.example.myapplication.util.Constants;
+import com.google.gson.Gson;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * @Name： LoginModel
@@ -40,31 +43,64 @@ public class LoginModel extends BaseModel<LoginPresenter, ILogin.M> {
 //                    Log.d("Login1",name+"false");
 //                    mPresenter.getContract().responseLoginResult(0);
 //                }
-                IPost post= BaseCreator.create(IPost.class);
-                post.loginData(name,pwd).enqueue(new Callback<UserDataBean>() {
+//                IPost post= BaseCreator.create(IPost.class);
+//                post.loginData(name,pwd).enqueue(new Callback<UserDataBean>() {
+//                    @Override
+//                    public void onResponse(Call<UserDataBean> call, Response<UserDataBean> response) {
+//                        UserDataBean userDataBean = response.body();
+//                        Boolean flag=response.body().getFlag();//登录状态
+//                        if(flag){
+//                            int ID = userDataBean.getData().getUser().getId();
+//                            String jwt = userDataBean.getData().getJwt();
+//                            mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID,jwt);
+//                        }else{
+//                            String message=response.body().getMessage();
+//                            if(message.equals("无该用户名，登录失败")){
+//                                mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_USERNAME_CODE,Constants.ERROR_ID,Constants.ERROR_JWT);
+//                            }else if(message.equals("用户密码错误，登录失败")){
+//                                mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_PASSWORD_CODE,Constants.ERROR_ID,Constants.ERROR_JWT);
+//                            }
+//                        }
+//                    }
+//                    @Override
+//                    public void onFailure(Call<UserDataBean> call, Throwable t) {
+//                        mPresenter.getContract().responseLoginResult(Constants.NETWORK_ERROR, Constants.ERROR_ID,Constants.ERROR_JWT);
+//                    }
+//                });
+                /**
+                 * 开启子线程接受数据
+                 */
+                new Thread(new Runnable() {
                     @Override
-                    public void onResponse(Call<UserDataBean> call, Response<UserDataBean> response) {
-                        UserDataBean userDataBean = response.body();
-                        Boolean flag=response.body().getFlag();//登录状态
-                        if(flag){
-                            int ID = userDataBean.getData().getUser().getId();
-                            String jwt = userDataBean.getData().getJwt();
-                            mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID,jwt);
-                        }else{
-                            String message=response.body().getMessage();
-                            if(message.equals("无该用户名，登录失败")){
-                                mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_USERNAME_CODE,Constants.ERROR_ID,Constants.ERROR_JWT);
-                            }else if(message.equals("用户密码错误，登录失败")){
-                                mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_PASSWORD_CODE,Constants.ERROR_ID,Constants.ERROR_JWT);
+                    public void run() {
+                        IRequest request=new RequestImpl("http://39.98.41.126:31109/"+"user/login?username="+name+"&password="+pwd);
+                        IHttpClient httpClient=new OkHttpClientImpl();
+                        IResponse response=httpClient.get(request);
+                        try {
+                            JSONObject jsonObject=new JSONObject(response.getData());
+                            boolean flag = jsonObject.getBoolean("flag");
+                            if(flag){
+                                Gson gson=new Gson();
+                                UserDataBean userDataBean=gson.fromJson(response.getData(),UserDataBean.class);
+                                int ID = userDataBean.getData().getUser().getId();
+                                String jwt = userDataBean.getData().getJwt();
+                                mPresenter.getContract().responseLoginResult(Constants.SUCCESS_LOGIN_CODE,ID,jwt);
+                            }else{
+                                String message=jsonObject.getString("message");
+                                if(message.equals("无该用户名，登录失败")){
+                                    mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_USERNAME_CODE,Constants.ERROR_ID,Constants.ERROR_JWT);
+                                }else if(message.equals("用户密码错误，登录失败")){
+                                    mPresenter.getContract().responseLoginResult(Constants.FAIL_LOGIN_PASSWORD_CODE,Constants.ERROR_ID,Constants.ERROR_JWT);
+                                }
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-                    @Override
-                    public void onFailure(Call<UserDataBean> call, Throwable t) {
-                        mPresenter.getContract().responseLoginResult(Constants.NETWORK_ERROR, Constants.ERROR_ID,Constants.ERROR_JWT);
-                    }
-                });
-            }
-        };
+                }).start();
+
+                }
+            };
+        }
     }
-}
+

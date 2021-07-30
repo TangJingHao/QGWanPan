@@ -1,7 +1,7 @@
 package com.example.myapplication.Presenter;
 
 import com.example.myapplication.Model.LoginModel;
-import com.example.myapplication.View.LoginActivity;
+import com.example.myapplication.View.LoginFragment;
 import com.example.myapplication.basic.BasePresenter;
 import com.example.myapplication.contract.ILogin;
 
@@ -11,7 +11,7 @@ import com.example.myapplication.contract.ILogin;
  * @Author： Suzy.Mo
  * @Date： 2021/7/27 9:30
  */
-public class LoginPresenter extends BasePresenter<LoginModel,LoginActivity, ILogin.VP> {
+public class LoginPresenter extends BasePresenter<LoginModel, LoginFragment, ILogin.VP> {
 
     private final String TAG = "LoginPresenter";
 

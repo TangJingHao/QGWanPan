@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="#FFFFFF"
     android:layout_height="match_parent">
     <EditText
         android:textColor="@color/black"
@@ -26,6 +26,7 @@
         android:hint="登录密码"
         android:layout_height="32dp"/>
     <Button
+        android:id="@+id/fragment_login_btn"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/fragment_login_password_et"
         android:layout_marginTop="72dp"
