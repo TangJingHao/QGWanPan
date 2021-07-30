@@ -54,7 +54,10 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
             @Override
             public void searchFileResult(SearchResult searchFileData) {
                 runOnUiThread(()->{
+                    mProcessBar.setVisibility(View.INVISIBLE);
+                    resultTV.setVisibility(View.VISIBLE);
                     //返回主线程更新UI
+                    resultTV.setText(searchFileData.toString());
                     Toast.makeText(SearchActivity.this,searchFileData.getMassage(),Toast.LENGTH_SHORT).show();
                 });
             }
@@ -64,16 +67,18 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
                 if(mPresenter!=null){
                     mPresenter.getContract().searchHistory(uid,num,jwt);
                 }
-
             }
 
             @Override
             public void searchHistoryResult(SearchHistoryBean searchHistoryResult) {
                 runOnUiThread(()->{
+                    resultTV.setVisibility(View.VISIBLE);
                     //返回主线程更新UI
+                    initHistoryView();
                     searchHistoryAdapter = new SearchHistoryAdapter(searchHistoryResult);
                     historyRv.setAdapter(searchHistoryAdapter);
                     searchHistoryAdapter.notifyDataSetChanged();
+                    Toast.makeText(SearchActivity.this, (CharSequence) searchHistoryResult.getData().get(1),Toast.LENGTH_SHORT).show();
                 });
             }
 
@@ -88,6 +93,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
             @Override
             public void deleteHistoryResult(IsDeleteHistory isDeleteHistory) {
                 runOnUiThread(()->{
+
+                    initHistoryView();
                     //返回主线程更新UI
                     Toast.makeText(SearchActivity.this,isDeleteHistory.getMessage(),Toast.LENGTH_SHORT).show();
                 });

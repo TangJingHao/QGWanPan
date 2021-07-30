@@ -43,6 +43,12 @@ public class SearchHistoryBean {
         private String word;
         private Integer uid;
 
+        public DataBean(Integer id, String word, Integer uid) {
+            this.id = id;
+            this.word = word;
+            this.uid = uid;
+        }
+
         public Integer getId() {
             return id;
         }
@@ -67,4 +73,5 @@ public class SearchHistoryBean {
             this.uid = uid;
         }
     }
+
 }
