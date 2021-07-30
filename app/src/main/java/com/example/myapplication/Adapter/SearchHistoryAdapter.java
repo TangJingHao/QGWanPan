@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,8 +52,10 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
 
     public static class SearchHistoryViewHolder extends RecyclerView.ViewHolder{
         TextView nameTv;
+        ImageView deleteIV;
         public SearchHistoryViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
+            deleteIV = itemView.findViewById(R.id.search_history_item_delete);
             nameTv = itemView.findViewById(R.id.search_item_name_tv);
         }
     }

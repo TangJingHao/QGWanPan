@@ -7,6 +7,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.SearchHistoryAdapter;
@@ -121,7 +122,9 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
     }
 
     private void initHistoryView() {
-        getContract().searchHistory(ID,20,jwt);
+        getContract().searchHistory(ID,Constants.SEARCH_HISTORY_NUM,jwt);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        historyRv.setLayoutManager(gridLayoutManager);
     }
 
     @Override

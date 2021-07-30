@@ -6,17 +6,28 @@
 
 
     <ImageView
+        android:id="@+id/search_history_item_clock"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/search_ic_clock"
+        android:layout_centerVertical="true"/>
+
+
+    <ImageView
         android:id="@+id/search_history_item_delete"
         android:layout_alignParentRight="true"
         android:padding="10dp"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_delete"
+        android:src="@mipmap/search_delete"
         android:layout_centerVertical="true"/>
     <LinearLayout
         android:id="@+id/result_item_"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/search_history_item_clock"
         android:layout_toLeftOf="@+id/search_history_item_delete"
         android:orientation="vertical">
 
