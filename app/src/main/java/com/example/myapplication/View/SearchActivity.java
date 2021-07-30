@@ -20,8 +20,6 @@ import com.example.myapplication.basic.BaseActivity;
 import com.example.myapplication.contract.ISearch;
 import com.example.myapplication.util.Constants;
 
-import java.util.List;
-
 /**
  * @Name：My Application
  * @Description：
@@ -38,6 +36,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
     private ProgressBar mProcessBar;
     private TextView resultTV;
     private ImageView deleteIv,backTv;
+    private View viewBefore;
 
     private SearchHistoryAdapter searchHistoryAdapter;
 
@@ -56,6 +55,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
                 runOnUiThread(()->{
                     mProcessBar.setVisibility(View.INVISIBLE);
                     resultTV.setVisibility(View.VISIBLE);
+                    viewBefore.setVisibility(View.INVISIBLE);
                     //返回主线程更新UI
                     resultTV.setText(searchFileData.toString());
                     Toast.makeText(SearchActivity.this,searchFileData.getMassage(),Toast.LENGTH_SHORT).show();
@@ -72,7 +72,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
             @Override
             public void searchHistoryResult(SearchHistoryBean searchHistoryResult) {
                 runOnUiThread(()->{
-                    resultTV.setVisibility(View.VISIBLE);
+                    historyRv.setVisibility(View.VISIBLE);
                     //返回主线程更新UI
                     initHistoryView();
                     searchHistoryAdapter = new SearchHistoryAdapter(searchHistoryResult);
@@ -112,6 +112,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
         mProcessBar = findViewById(R.id.search_progress_bar);
         deleteIv = findViewById(R.id.search_history_delete_iv);
         backTv = findViewById(R.id.search_back);
+        viewBefore = findViewById(R.id.search_history_before);
         mProcessBar.setVisibility(View.INVISIBLE);
         resultTV.setVisibility(View.INVISIBLE);
         //进行页面初始化
