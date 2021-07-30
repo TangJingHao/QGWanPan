@@ -61,7 +61,7 @@ public class UserDataBean {
             private String username;
             private String password;
             private String nickname;
-            private Object image;
+            private String image;
             private Double space;
 
             public Integer getId() {
@@ -96,11 +96,11 @@ public class UserDataBean {
                 this.nickname = nickname;
             }
 
-            public Object getImage() {
+            public String getImage() {
                 return image;
             }
 
-            public void setImage(Object image) {
+            public void setImage(String image) {
                 this.image = image;
             }
 

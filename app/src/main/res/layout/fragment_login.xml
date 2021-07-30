@@ -26,6 +26,7 @@
         android:hint="登录密码"
         android:layout_height="32dp"/>
     <Button
+        android:id="@+id/fragment_login_btn"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/fragment_login_password_et"
         android:layout_marginTop="72dp"
