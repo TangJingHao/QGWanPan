@@ -59,7 +59,9 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
 
             @Override
             public void searchHistory(int uid, int num, String jwt) {
-                mPresenter.getContract().searchHistory(uid,num,jwt);
+                if(mPresenter!=null){
+                    mPresenter.getContract().searchHistory(uid,num,jwt);
+                }
             }
 
             @Override
