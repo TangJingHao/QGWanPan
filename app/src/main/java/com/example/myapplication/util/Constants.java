@@ -4,7 +4,7 @@ package com.example.myapplication.util;
  * 所有请求码或者数据库之类的常量进行封装
  */
 public class Constants {
-    public static String ServerURL="http://39.98.41.126:31103/";//服务器端地址
+    public static String ServerURL="http://39.98.41.126:31109/";//服务器端地址
     public static String uploadURL="";//上传文件的接口URL
     public static int SUCCESS_CODE=1;//成功码
     public static int FAIL_CODE=0;//失败码
@@ -21,4 +21,9 @@ public class Constants {
     public static int REGISTER_ERROR_NETWORK=2;//注册服务器异常
     public static int REGISTER_ERROR_USERNAME=3;//注册重复用户名
     public static double USER_TOTAL_SPACE=1.0;//用户总云盘空间（1G）
+
+
+
+    public static int SUCCESS_REGISTER_CODE=1;//成功发送
+    public static int ERROR_REGISTER_CODE=0;//失败发送
 }

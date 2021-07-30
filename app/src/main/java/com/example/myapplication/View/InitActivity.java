@@ -10,6 +10,7 @@ import com.example.myapplication.Adapter.InitPageAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.SuperBaseActivity;
 import com.example.myapplication.bean.CircleImageView;
+import com.example.myapplication.util.PermissionUtils;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -32,6 +33,24 @@ public class InitActivity extends SuperBaseActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
+        initView();
+        permissionCheck();
+    }
+
+    /**
+     * 检查权限
+     */
+    private void permissionCheck() {
+        PermissionUtils.verifyStoragePermissions(InitActivity.this);
+        if (!PermissionUtils.isConn(InitActivity.this)) {
+            PermissionUtils.setNetworkMethod(InitActivity.this);
+        }
+    }
+
+    /**
+     * 初始化界面
+     */
+    private void initView() {
         mCircleImageView = this.findViewById(R.id.init_my_icon_cv);
         mTabLayout = this.findViewById(R.id.init_tab_layout);
         mViewPager = this.findViewById(R.id.init_view_pager);

@@ -13,7 +13,6 @@ import android.net.NetworkInfo;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.myapplication.View.LoginActivity;
 
 import java.util.ArrayList;
 

@@ -37,9 +37,8 @@ public class MainActivity extends SuperBaseActivity {
     }
 
     private void createView(int ID,String jwt) {
-        mList.add(new FileFragment(ID));
         mList.add(new HomeFragment(ID));
-        mList.add(new GroupFragment());
+        mList.add(new FileFragment(ID));
         Log.d("=============",jwt);
         mList.add(new MyPageFragment(ID,jwt));
         mAdapter=new BottomPagerAdapter(getSupportFragmentManager(),mList);
@@ -56,15 +55,12 @@ public class MainActivity extends SuperBaseActivity {
             public void onPageSelected(int position) {
                 switch (position){
                     case 0:
-                        mBnView.setSelectedItemId(R.id.FilePage);
-                        break;
-                    case 1:
                         mBnView.setSelectedItemId(R.id.HomePage);
                         break;
-                    case 2:
-                        mBnView.setSelectedItemId(R.id.GroupPage);
+                    case 1:
+                        mBnView.setSelectedItemId(R.id.FilePage);
                         break;
-                    case 3:
+                    case 2:
                         mBnView.setSelectedItemId(R.id.MyPage);
                         break;
                 }
@@ -79,17 +75,14 @@ public class MainActivity extends SuperBaseActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.FilePage:
+                    case R.id.HomePage:
                         mViewPager.setCurrentItem(0);
                         break;
-                    case R.id.HomePage:
+                    case R.id.FilePage:
                         mViewPager.setCurrentItem(1);
                         break;
-                    case R.id.GroupPage:
-                        mViewPager.setCurrentItem(2);
-                        break;
                     case R.id.MyPage:
-                        mViewPager.setCurrentItem(3);
+                        mViewPager.setCurrentItem(2);
                         break;
                 }
                 return true;

@@ -13,6 +13,7 @@ import android.widget.EditText;
  * @Description:
  */
 public class SimpleUtil {
+
     public static void MingWen(EditText editText){
         //设置明文显示
         HideReturnsTransformationMethod method = HideReturnsTransformationMethod.getInstance();
@@ -23,4 +24,5 @@ public class SimpleUtil {
         TransformationMethod method = PasswordTransformationMethod.getInstance();
         editText.setTransformationMethod(method);
     }
+
 }

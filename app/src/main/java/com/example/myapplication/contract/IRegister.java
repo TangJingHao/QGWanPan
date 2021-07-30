@@ -9,12 +9,14 @@ package com.example.myapplication.contract;
  */
 public interface IRegister {
     interface M{
-        void requestRegister(String username,String password,String nickname) throws Exception;
+        void requestRegister(String username,String password,String nickname,String userEmail,String checkCode) throws Exception;
+        void requestCheckCode(String userEmail) throws Exception;
     }
     interface VP{
         //请求注册
-        void requestRegister(String username,String password,String nickname);
+        void requestRegister(String username,String password,String nickname,String userEmail,String checkCode);
+        void requestCheckCode(String userEmail) throws Exception;
         //返回注册结果
-        void responseRegisterResult(int registerStatusResult,String username,String password);
+        void responseRegisterResult(int registerStatusResult) throws Exception;
     }
 }
