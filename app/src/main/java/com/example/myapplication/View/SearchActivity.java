@@ -46,7 +46,9 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
         return new ISearch.VP() {
             @Override
             public void searchFile(String docname, int uid, String jwt) {
-                mPresenter.getContract().searchFile(docname,uid,jwt);
+                if (mPresenter!=null){
+                    mPresenter.getContract().searchFile(docname,uid,jwt);
+                }
             }
 
             @Override
@@ -62,6 +64,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
                 if(mPresenter!=null){
                     mPresenter.getContract().searchHistory(uid,num,jwt);
                 }
+
             }
 
             @Override
@@ -76,7 +79,10 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
 
             @Override
             public void deleteHistory(int uid,String jwt) {
-                mPresenter.getContract().deleteHistory(uid, jwt);
+                if (mPresenter!=null){
+                    mPresenter.getContract().deleteHistory(uid, jwt);
+                }
+
             }
 
             @Override
@@ -100,7 +106,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
         deleteIv = findViewById(R.id.search_history_delete_iv);
         backTv = findViewById(R.id.search_back);
         mProcessBar.setVisibility(View.INVISIBLE);
-
+        resultTV.setVisibility(View.INVISIBLE);
         //进行页面初始化
         initHistoryView();
 

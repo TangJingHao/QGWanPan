@@ -18,6 +18,7 @@ public abstract class BaseActivity<P extends BasePresenter,CONTRACT> extends Sup
     public abstract CONTRACT getContract();
 
     public  P mPresenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
