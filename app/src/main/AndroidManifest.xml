@@ -19,19 +19,19 @@
         android:networkSecurityConfig="@xml/network_security_config">
         <activity android:name=".View.InitActivity"
         android:windowSoftInputMode= "stateHidden|adjustResize">
+
+        </activity>
+        <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity>
-        <activity android:name=".View.MainActivity">
-
         </activity>
         <activity android:name=".View.RegisterActivity">
         </activity>
         <activity android:name=".View.TestActivity">
+
         </activity>
         <activity android:name=".View.SearchActivity">
         </activity>
