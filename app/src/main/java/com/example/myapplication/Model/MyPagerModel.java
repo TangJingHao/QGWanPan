@@ -33,7 +33,7 @@ public class MyPagerModel extends BaseModel<MyPagerPresenter, IMyPager.M> {
             @Override
             public void requestMyData(int ID,String jwt) throws Exception {
                 IPost post= BaseCreator.create(IPost.class);
-                post.userLoginData(jwt,ID).enqueue(new Callback<MyPagerBean>() {
+                post.userLoginData(jwt, ID, ID).enqueue(new Callback<MyPagerBean>() {
                     @Override
                     public void onResponse(Call<MyPagerBean> call, Response<MyPagerBean> response) {
                         //MyPagerBeanData data = response.body().getData();

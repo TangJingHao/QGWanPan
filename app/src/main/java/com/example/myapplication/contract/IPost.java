@@ -31,7 +31,7 @@ public interface IPost {
 
     @FormUrlEncoded
     @POST("user/userInfo")
-    Call<MyPagerBean> userLoginData(@Header("Authorization")String jwt,@Field("userid")int ID);
+    Call<MyPagerBean> userLoginData(@Header("Authorization")String jwt,@Header("userId")int id,@Field("userid")int ID);
 
     @FormUrlEncoded
     @POST("file/findDocsByName")

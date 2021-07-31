@@ -18,17 +18,16 @@ import com.example.myapplication.util.Constants;
 
 public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> {
     private int ID;
-    private Button mUpdateUserInformationBtn;//修改用户信息按钮
-    private Button mQuitLoginBtn;//退出登录按钮
     private String jwt;
+    private Button mUpdateUserInformationBtn;//修改用户信息按钮
+    private Button mMyGroupBtn;
+    private Button mMyMemberBtn;
+    private Button mRelateUsBtn;
     private ProgressBar mProgressBar;
     private TextView mCurrentTv;//当前使用云盘大小
+    private TextView mUserPermissionTv;
     private TextView mMaxTv;//云盘最大容量
-    private TextView mPercentage;//百分比
-    private TextView mUsernameTv;//用户名
-    private TextView mPasswordTv;//密码
     private CircleImageView mMyIcon;//头像
-    private TextView mUserID;//用户ID
     private TextView mUserNickname;//用户昵称
 
     public MyPageFragment(int ID,String jwt) {
@@ -57,17 +56,11 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                             Toast.makeText(getContext(),"发生未知错误，请重试!",Toast.LENGTH_SHORT).show();
                         }else{
                             Log.d("test",myData.getData().getNickname()+myData.getData().getId()+myData.getData().getUsername());
-                            double useSpace=(myData.getData().getSpace()/(1024*1024));//用户剩余可用空间
-                            double UserCurrentSpace=Constants.USER_TOTAL_SPACE-useSpace;//用户已经用的空间
-                            double percentage=(UserCurrentSpace/ Constants.USER_TOTAL_SPACE)*100;
-                            mUserID.setText(myData.getData().getId().toString());
-                            mUsernameTv.setText(myData.getData().getUsername());
+                            double useSpace=Double.valueOf(String.format("%.2f",myData.getData().getSpace()/(1024*1024)));//用户剩余可用空间
+                            int percentage= (int) ((1-useSpace)*100);
                             mUserNickname.setText(myData.getData().getNickname());
-                            mPasswordTv.setText(myData.getData().getPassword());
-                            mCurrentTv.setText(UserCurrentSpace+"");
-                            mMaxTv.setText("G/1G");
-                            mPercentage.setText(percentage+"%");
-                            mProgressBar.setProgress((int) (mProgressBar.getProgress()+percentage));
+                            mCurrentTv.setText(useSpace+"GB");
+                            mProgressBar.setProgress(mProgressBar.getProgress()+percentage);
                         }
                     }
                 });
@@ -77,17 +70,16 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
 
     @Override
     public void initView(View view) {
-        mCurrentTv=view.findViewById(R.id.my_cloud_disk_current_tv);
-        mMaxTv=view.findViewById(R.id.my_cloud_disk_max_tv);
-        mPercentage=view.findViewById(R.id.my_cloud_disk_percentage);
-        mUsernameTv=view.findViewById(R.id.fragment_my_user_username_tv);
-        mPasswordTv=view.findViewById(R.id.fragment_my_user_password_tv);
-        mProgressBar=view.findViewById(R.id.fragment_my_progressbar);
-        mUserID=view.findViewById(R.id.user_id_tv);
-        mUserNickname=view.findViewById(R.id.user_nickname_tv);
-        mMyIcon=view.findViewById(R.id.myIcon_iv);
-        mQuitLoginBtn=view.findViewById(R.id.quit_login_btn);
-        mUpdateUserInformationBtn=view.findViewById(R.id.update_user_information_btn);
+        mCurrentTv=view.findViewById(R.id.fragment_my_info_my_rest);
+        mMaxTv=view.findViewById(R.id.fragment_my_info_my_max);
+        mProgressBar=view.findViewById(R.id.fragment_my_info_my_progress);
+        mUserNickname=view.findViewById(R.id.fragment_my_info_nickname_tv);
+        mUserPermissionTv=view.findViewById(R.id.fragment_my_info_my_permission);
+        mMyIcon=view.findViewById(R.id.fragment_my_info_my_icon);
+        mUpdateUserInformationBtn=view.findViewById(R.id.edit_btn);
+        mMyGroupBtn=view.findViewById(R.id.group_by_btn);
+        mMyMemberBtn=view.findViewById(R.id.member_btn);
+        mRelateUsBtn=view.findViewById(R.id.relate_us_btn);
     }
 
     @Override
@@ -97,12 +89,13 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
 
     @Override
     public void initListener() {
-        mQuitLoginBtn.setOnClickListener(this);
+        mMyGroupBtn.setOnClickListener(this);
+        mMyMemberBtn.setOnClickListener(this);
     }
 
     @Override
     public int getContentViewId() {
-        return R.layout.fragment_my;
+        return R.layout.fragment_my_information;
     }
 
     @Override
@@ -119,11 +112,6 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()){
-            case R.id.quit_login_btn:
-                Intent intent=new Intent(getContext(),LoginActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-                break;
 
         }
     }
