@@ -29,7 +29,7 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
     private TextView mMaxTv;//云盘最大容量
     private CircleImageView mMyIcon;//头像
     private TextView mUserNickname;//用户昵称
-
+    private int percentage=0;
     public MyPageFragment(int ID,String jwt) {
         this.ID = ID;
         this.jwt=jwt;
@@ -57,10 +57,10 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                         }else{
                             Log.d("test",myData.getData().getNickname()+myData.getData().getId()+myData.getData().getUsername());
                             double useSpace=Double.valueOf(String.format("%.2f",myData.getData().getSpace()/(1024*1024)));//用户剩余可用空间
-                            int percentage= (int) ((1-useSpace)*100);
+                            percentage= (int) ((1-useSpace)*100);
                             mUserNickname.setText(myData.getData().getNickname());
                             mCurrentTv.setText(useSpace+"GB");
-                            mProgressBar.setProgress(mProgressBar.getProgress()+percentage);
+                            mProgressBar.setProgress(percentage);
                         }
                     }
                 });
@@ -80,6 +80,7 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
         mMyGroupBtn=view.findViewById(R.id.group_by_btn);
         mMyMemberBtn=view.findViewById(R.id.member_btn);
         mRelateUsBtn=view.findViewById(R.id.relate_us_btn);
+        mProgressBar.setProgress(percentage);
     }
 
     @Override

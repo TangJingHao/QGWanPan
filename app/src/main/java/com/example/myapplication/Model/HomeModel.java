@@ -1,5 +1,11 @@
 package com.example.myapplication.Model;
 
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.SearchView;
+import android.widget.TextView;
+
 import com.example.myapplication.Presenter.HomePresenter;
 import com.example.myapplication.basic.BaseModel;
 import com.example.myapplication.contract.IHome;
@@ -24,7 +30,7 @@ public class HomeModel extends BaseModel<HomePresenter, IHome.M> {
     public IHome.M getContract() {
         return new IHome.M() {
             @Override
-            public void requestSizeData() throws Exception {
+            public void requestSizeData(int ID, String jwt) throws Exception {
 
             }
 
