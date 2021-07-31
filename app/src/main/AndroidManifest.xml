@@ -20,16 +20,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity android:name=".View.TransferFileActivity">
-
-        </activity>
-        <activity
-            android:name=".View.InitActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".View.InitActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
         </activity>
         <activity android:name=".View.MainActivity"></activity>
         <activity android:name=".View.RegisterActivity"></activity>
