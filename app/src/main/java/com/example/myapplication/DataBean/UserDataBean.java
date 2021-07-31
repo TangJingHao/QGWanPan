@@ -63,6 +63,15 @@ public class UserDataBean {
             private String nickname;
             private String image;
             private Double space;
+            private String userEmail;
+
+            public String getUserEmail() {
+                return userEmail;
+            }
+
+            public void setUserEmail(String userEmail) {
+                this.userEmail = userEmail;
+            }
 
             public Integer getId() {
                 return id;

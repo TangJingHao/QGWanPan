@@ -1,6 +1,7 @@
 package com.example.myapplication.util;
 
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.Button;
 
 /**
@@ -20,13 +21,13 @@ public class TimeCount extends CountDownTimer {
 
     @Override
     public void onTick(long millisUntilFinished) {
-        btn_count.setEnabled(false);
+        btn_count.setClickable(false);
         btn_count.setText(millisUntilFinished / 1000 + "秒");
     }
 
     @Override
     public void onFinish() {
-        btn_count.setEnabled(true);
+        btn_count.setClickable(true);
         btn_count.setText("获取验证码");
 
     }

@@ -15,6 +15,7 @@
         android:background="@drawable/login_edittext_background"
         android:layout_height="32dp"/>
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/fragment_register_user_mailbox_et"
         android:inputType="number"
         android:layout_below="@id/fragment_register_user_real_name_et"
@@ -32,9 +33,11 @@
         android:layout_below="@id/fragment_register_user_real_name_et"
         android:textSize="20dp"
         android:text=" @ "
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/fragment_register_user_mailbox_back_et"
         android:layout_width="80dp"
         android:layout_height="32dp"
@@ -45,6 +48,7 @@
         android:hint="后缀"
         android:textColorHint="#707070" />
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/fragment_register_verification_code_et"
         android:layout_marginTop="32dp"
         android:layout_below="@id/fragment_register_user_mailbox_et"
@@ -60,10 +64,12 @@
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@id/fragment_register_verification_code_et"
         android:text="获取验证码"
+        android:textSize="10sp"
         android:background="@drawable/post_code"
         android:layout_width="104dp"
         android:layout_height="32dp"/>
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/fragment_register_password_et"
         android:inputType="number"
         android:maxLength="14"
@@ -76,6 +82,7 @@
         android:textColorHint="#707070"
         android:layout_height="32dp"/>
     <Button
+        android:textSize="10sp"
         android:text="显示密码"
         android:textColor="@color/black"
         android:background="@drawable/post_code"
@@ -83,7 +90,7 @@
         android:layout_marginTop="32dp"
         android:layout_below="@id/fragment_register_verification_code_et"
         android:id="@+id/fragment_password_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="104dp"
         android:layout_height="32dp"/>
     <Button
         android:id="@+id/fragment_register_user_btn"
@@ -94,5 +101,5 @@
         android:layout_centerHorizontal="true"
         android:layout_width="280dp"
         android:textColorHint="#707070"
-        android:layout_height="32dp"/>
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
