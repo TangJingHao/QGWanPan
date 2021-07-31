@@ -114,7 +114,19 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter, IRegister.
     public void initListener() {
         mCheckPasswordBtn.setOnClickListener(this);
         mPostCodeBtn.setOnClickListener(this);
-        mRegisterBtn.setOnClickListener(this);
+        mRegisterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mRegisterChekCodeEt.getText().toString().trim().length()!=0&&code!=0){
+                    String newUsername=mRegisterUsernameEt.getText().toString().trim();
+                    String newUserPassword=mRegisterPasswordEt.getText().toString().trim();
+                    String newUserNickname="QG云域新用户";
+                    String newEmail=mRegisterUserEmailEt.getText().toString().trim()+"@"+mRegisterUserEmailBackEt.getText().toString().trim();
+                    String newCheckCode=mRegisterChekCodeEt.getText().toString().trim();
+                    mPresenter.getContract().requestRegister(newUsername,newUserPassword,newUserNickname,newEmail,newCheckCode);
+                }
+            }
+        });
     }
 
     @Override
@@ -162,16 +174,16 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter, IRegister.
                     Toast.makeText(getContext(),"请检查你的输入时候正确！",Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.fragment_register_user_btn:
-                if(mRegisterChekCodeEt.getText().toString().trim().length()!=0&&code!=0){
-                    String newUsername=mRegisterUsernameEt.getText().toString().trim();
-                    String newUserPassword=mRegisterPasswordEt.getText().toString().trim();
-                    String newUserNickname="QG云域新用户";
-                    String newEmail=mRegisterUserEmailEt.getText().toString().trim()+"@"+mRegisterUserEmailBackEt.getText().toString().trim();
-                    String newCheckCode=mRegisterChekCodeEt.getText().toString().trim();
-                    mPresenter.getContract().requestRegister(newUsername,newUserPassword,newUserNickname,newEmail,newCheckCode);
-                }
-                break;
+//            case R.id.fragment_register_user_btn:
+//                if(mRegisterChekCodeEt.getText().toString().trim().length()!=0&&code!=0){
+//                    String newUsername=mRegisterUsernameEt.getText().toString().trim();
+//                    String newUserPassword=mRegisterPasswordEt.getText().toString().trim();
+//                    String newUserNickname="QG云域新用户";
+//                    String newEmail=mRegisterUserEmailEt.getText().toString().trim()+"@"+mRegisterUserEmailBackEt.getText().toString().trim();
+//                    String newCheckCode=mRegisterChekCodeEt.getText().toString().trim();
+//                    mPresenter.getContract().requestRegister(newUsername,newUserPassword,newUserNickname,newEmail,newCheckCode);
+//                }
+//                break;
         }
     }
 }
