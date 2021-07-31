@@ -37,7 +37,7 @@
 
     <SearchView
         android:id="@+id/search_searchView"
-        android:layout_width="328dp"
+        android:layout_width="340dp"
         android:layout_height="40dp"
         android:queryHint="输入文件名开始搜索"
         android:outlineAmbientShadowColor="@color/base_color"
@@ -46,7 +46,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/search_top"/>
     <RelativeLayout
-        android:id="@+id/search_music_history"
+        android:id="@+id/search_history_before"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -62,38 +62,32 @@
             android:layout_alignParentTop="true" />
 
         <ImageView
-            android:id="@+id/search_history_line"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:background="@color/line_bg"
-            android:layout_below="@+id/search_history_title"/>
-        <ImageView
             android:id="@+id/search_history_delete_iv"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginRight="40dp"
             android:layout_alignParentRight="true"
-            android:layout_above="@+id/search_history_line"
+
             android:src="@drawable/ic_delete"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_history_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/search_history_line"
+            android:layout_below="@+id/search_history_delete_iv"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
             />
 
-        <TextView
-            android:id="@+id/search_rescult_tv"
-            style="@style/BrockText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="返回结果" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/search_rescult_tv"
+        style="@style/BrockText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_searchView"
+        android:text="返回结果" />
 
     <ProgressBar
         android:id="@+id/search_progress_bar"

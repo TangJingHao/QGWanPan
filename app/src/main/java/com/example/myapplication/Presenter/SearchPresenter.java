@@ -43,6 +43,11 @@ public class SearchPresenter extends BasePresenter<SearchModel, SearchActivity, 
 
             @Override
             public void searchFileResult(SearchResult searchFileData) {
+                    if(searchFileData.getFlag()){
+                        searchFileData.setMessage(searchFileData.getData().toString());
+                    }else {
+                        searchFileData.setMessage("没有该文件名的相关信息");
+                    }
                 mView.getContract().searchFileResult(searchFileData);
             }
 
