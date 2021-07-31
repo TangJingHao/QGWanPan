@@ -85,10 +85,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
                     //返回主线程更新UI
                     Log.d("SearchActivity","searchHistoryResult"+searchHistoryResult.getData().get(0)+searchHistoryResult.getData().get(1));
                     initHistoryView(searchHistoryResult);
-                    //searchHistoryAdapter = new SearchHistoryAdapter(searchHistoryResult);
-                    //historyRv.setAdapter(searchHistoryAdapter);
-                    //searchHistoryAdapter.notifyDataSetChanged();
-                    Toast.makeText(SearchActivity.this, searchHistoryResult.getData().get(1).getWord(),Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SearchActivity.this, searchHistoryResult.getData().get(1).getWord(),Toast.LENGTH_SHORT).show();
                 });
             }
 
@@ -126,8 +123,6 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
         historyTv = findViewById(R.id.search_history_title);
         mProcessBar.setVisibility(View.INVISIBLE);
         resultTV.setVisibility(View.INVISIBLE);
-        //进行页面初始化
-        initHistoryView(initHistoryData());
 
         //点击搜索按钮时的监听
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

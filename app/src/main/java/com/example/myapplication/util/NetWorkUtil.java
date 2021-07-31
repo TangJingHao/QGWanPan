@@ -2,6 +2,8 @@ package com.example.myapplication.util;
 
 import android.util.Log;
 
+import com.example.myapplication.DataBean.IsDeleteHistory;
+import com.example.myapplication.DataBean.SearchHistoryBean;
 import com.example.myapplication.DataBean.SearchResult;
 import com.google.gson.Gson;
 
@@ -28,8 +30,10 @@ public class NetWorkUtil {
         Request request = new Request.Builder()
                 .url(Constants.ServerURL+urlType)
                 .addHeader("Authorization",jwt)
-                .addHeader("uid",String.valueOf(uid))
+                .addHeader("userid",String.valueOf(uid))
+                .post(formBody)
                 .build();
+        Log.d(TAG,"sendRequestWithOkHttp: "+Constants.ServerURL+urlType+"\n"+jwt+uid+"\n"+request);
         Response response = null;
         try {
             response = client.newCall(request).execute();
@@ -43,10 +47,26 @@ public class NetWorkUtil {
     }
 
 
-    public static SearchResult jsonExchange(String json){
+    public static SearchResult jsonSearchResultExchange(String json){
         Gson gson = new Gson();
         Log.d(TAG,json);
         SearchResult searchResult = gson.fromJson(json,SearchResult.class);
+        Log.d(TAG,searchResult.getMessage());
+        return searchResult;
+    }
+
+    public static SearchHistoryBean jsonHistoryExchange(String json){
+        Gson gson = new Gson();
+        Log.d(TAG,json);
+        SearchHistoryBean searchResult = gson.fromJson(json,SearchHistoryBean.class);
+        Log.d(TAG,searchResult.getMessage());
+        return searchResult;
+    }
+
+    public static IsDeleteHistory jsonDeleteExchange(String json){
+        Gson gson = new Gson();
+        Log.d(TAG,json);
+        IsDeleteHistory searchResult = gson.fromJson(json,IsDeleteHistory.class);
         Log.d(TAG,searchResult.getMessage());
         return searchResult;
     }
