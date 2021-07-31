@@ -1,16 +1,30 @@
 package com.example.myapplication.Model;
 
+import android.util.Log;
+
 import com.example.myapplication.DataBean.IsDeleteHistory;
+import com.example.myapplication.DataBean.IsRegister;
+import com.example.myapplication.DataBean.MyPagerBean;
 import com.example.myapplication.DataBean.SearchHistoryBean;
 import com.example.myapplication.DataBean.SearchResult;
+import com.example.myapplication.DataBean.UserDataBean;
 import com.example.myapplication.Presenter.SearchPresenter;
+import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
+import com.example.myapplication.contract.IPost;
 import com.example.myapplication.contract.ISearch;
+import com.example.myapplication.util.Constants;
+import com.example.myapplication.util.NetWorkUtil;
 
 import org.xml.sax.SAXException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.FormBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @Name：My Application
@@ -28,28 +42,40 @@ public class SearchModel extends BaseModel<SearchPresenter, ISearch.M> {
         super(mPresenter);
     }
 
+    private final String TAG = "SearchModel";
     @Override
     public ISearch.M getContract() {
         return new ISearch.M() {
             @Override
             public void searchFile(String docname, int uid, String jwt) throws Exception {
-                SearchResult searchResult = new SearchResult();
-                searchResult.setMassage("拿到了");
-                mPresenter.getContract().searchFileResult(searchResult);
+                FormBody formBody = new FormBody.Builder().add("docname",docname)
+                        .add("uid",String.valueOf(uid)).build();
+                String response = NetWorkUtil.sendRequestOkHttp(formBody,Constants.SEARCH_FILE_URL,jwt,uid);
+                mPresenter.getContract().searchFileResult(NetWorkUtil.jsonExchange(response));
+//                IPost post = BaseCreator.create(IPost.class);
+//                Log.d(TAG,"searchFilename");
+//                post.findDocs(docname,uid).enqueue(new Callback<SearchResult>() {
+//                    @Override
+//                    public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
+//                        SearchResult searchResult = response.body();
+//                        try {
+//                            mPresenter.getContract().searchFileResult(searchResult);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<SearchResult> call, Throwable t) {
+//                        mPresenter.getContract().searchFileResult(null);
+//                    }
+//                });
             }
 
             @Override
             public void searchHistory(int uid, int num, String jwt) throws Exception {
-                SearchHistoryBean historyBean = new SearchHistoryBean();
-                List<SearchHistoryBean.DataBean> dataBeans= new ArrayList<>();
-                SearchHistoryBean.DataBean data = new SearchHistoryBean.DataBean(1,"文件1",1);
-                SearchHistoryBean.DataBean data2 = new SearchHistoryBean.DataBean(1,"文件2",1);
-                SearchHistoryBean.DataBean data3 = new SearchHistoryBean.DataBean(1,"文件3",1);
-                dataBeans.add(data);
-                dataBeans.add(data2);
-                dataBeans.add(data3);
-                historyBean.setData(dataBeans);
-                mPresenter.getContract().searchHistoryResult(historyBean);
+
+                //mPresenter.getContract().searchHistoryResult(historyBean);
             }
 
             @Override

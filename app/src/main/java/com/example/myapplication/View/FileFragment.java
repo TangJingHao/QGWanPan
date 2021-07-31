@@ -17,13 +17,15 @@ import java.util.List;
 public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
     private int ID;
+    private String jwt;
     private TextView newTv;
     private CardView searchCv;
     private Switch fileSwitch;
 
 
-    public FileFragment(int ID) {
+    public FileFragment(int ID,String jwt) {
         this.ID = ID;
+        this.jwt = jwt;
     }
 
     @Override
@@ -111,6 +113,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
             case R.id.file_search_cv:
                 Intent intent=new Intent(getContext(),SearchActivity.class);
                 intent.putExtra("ID",ID);
+                intent.putExtra("jwt",jwt);
                 startActivity(intent);
         }
     }
