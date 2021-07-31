@@ -1,24 +1,50 @@
 package com.example.myapplication.View;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.myapplication.DataBean.MyPagerBean;
 import com.example.myapplication.Presenter.MyPagerPresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
 import com.example.myapplication.bean.CircleImageView;
 import com.example.myapplication.contract.IMyPager;
-import com.example.myapplication.util.Constants;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> {
     private int ID;
     private String jwt;
+    private String mPassword;
     private Button mUpdateUserInformationBtn;//修改用户信息按钮
     private Button mMyGroupBtn;
     private Button mMyMemberBtn;
@@ -30,9 +56,11 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
     private CircleImageView mMyIcon;//头像
     private TextView mUserNickname;//用户昵称
     private int percentage=0;
-    public MyPageFragment(int ID,String jwt) {
+    private int TAKE_PHOTO=1;
+    public MyPageFragment(int ID,String jwt,String password) {
         this.ID = ID;
         this.jwt=jwt;
+        this.mPassword=password;
     }
 
     @Override
@@ -59,6 +87,9 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                             double useSpace=Double.valueOf(String.format("%.2f",myData.getData().getSpace()/(1024*1024)));//用户剩余可用空间
                             percentage= (int) ((1-useSpace)*100);
                             mUserNickname.setText(myData.getData().getNickname());
+                            if(myData.getData().getImage()!=null){
+
+                            }
                             mCurrentTv.setText(useSpace+"GB");
                             mProgressBar.setProgress(percentage);
                         }
@@ -81,6 +112,40 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
         mMyMemberBtn=view.findViewById(R.id.member_btn);
         mRelateUsBtn=view.findViewById(R.id.relate_us_btn);
         mProgressBar.setProgress(percentage);
+        mMyIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               choosePhoto();
+            }
+        });
+        mUpdateUserInformationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dialog=new AlertDialog.Builder(getContext());
+                View view1=View.inflate(getContext(),R.layout.alter_dialog_background,null);
+                EditText nickname=(EditText)view1.findViewById(R.id.dialog_nickname_et);
+                EditText password=(EditText)view1.findViewById(R.id.dialog_password_et);
+                Button sureBtn=(Button)view1.findViewById(R.id.sure_btn);
+                Button falseBtn=(Button)view1.findViewById(R.id.false_btn);
+                dialog.setView(view1);
+                dialog.show();
+                sureBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(!nickname.getText().toString().equals(mUserNickname.getText().toString())&&!mPassword.equals(password)
+                        ){
+
+                        }
+                    }
+                });
+                falseBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -90,8 +155,8 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
 
     @Override
     public void initListener() {
-        mMyGroupBtn.setOnClickListener(this);
-        mMyMemberBtn.setOnClickListener(this);
+//        mMyGroupBtn.setOnClickListener(this);
+//        mMyMemberBtn.setOnClickListener(this);
     }
 
     @Override
@@ -109,11 +174,73 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
 
     }
 
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        switch (v.getId()){
+    /**
+     * 打开相册
+     */
+    private void choosePhoto() {
+        Intent picture = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(picture, TAKE_PHOTO);
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==TAKE_PHOTO){
+            if(data!=null){
+                Uri uri=data.getData();
+                Glide.with(getContext()).load(uri).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(mMyIcon);
+                String[] filePathColumn={MediaStore.Images.Media.DATA};
+                Cursor cursor=getActivity().getContentResolver().query(uri,filePathColumn,null,null,null);
+                cursor.moveToFirst();
+                int columnIndex=cursor.getColumnIndex(filePathColumn[0]);
+                String picturePath=cursor.getString(columnIndex);
+                uploadImg(picturePath);
+            }
         }
+    }
+
+    private void uploadImg(String imgPath){
+        File file = new File(imgPath);
+        RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file",file.getName(),fileBody)
+                .addFormDataPart("uid", String.valueOf(ID)).addFormDataPart("password",mPassword).addFormDataPart("nickname",mUserNickname.getText().toString())
+                .build();
+        Request request = new Request.Builder().header("Authorization",jwt).addHeader("userId", String.valueOf(ID))
+                .url("http://39.98.41.126:31109/user/updateUser")
+                .post(requestBody)
+                .build();
+        OkHttpClient okHttpClient=new OkHttpClient();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String responseData=response.body().string();
+                            Log.d("===========",responseData);
+                            JSONObject jsonObject=new JSONObject(responseData);
+                            Boolean flag=jsonObject.getBoolean("flag");
+                            if(flag){
+                                Toast.makeText(getContext(),"成功修改用户信息",Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(getContext(),"出bug了",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
     }
 }

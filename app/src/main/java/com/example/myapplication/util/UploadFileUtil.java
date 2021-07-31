@@ -1,6 +1,7 @@
 package com.example.myapplication.util;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.example.myapplication.Model.ToUploadTask;
 import com.example.myapplication.Model.UploadRequestBody;
