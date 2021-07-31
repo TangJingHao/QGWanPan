@@ -6,7 +6,7 @@ package com.example.myapplication.util;
 public class Constants {
     public static String ServerURL="http://39.98.41.126:31109/";//服务器端地址
     public static String uploadURL="";//上传文件的接口URL
-    public static String SEARCH_FILE_URL = "findDocsByName";//搜索文件URL
+    public static String SEARCH_FILE_URL = "file/findDocsByName";//搜索文件URL
     public static String SEARCH_HISTORY_URL = "search/history";//查看搜索历史
     public static String DELETE_HISTORY_ONE_URL = "search/deleteOne";//删除一条搜索历史信息
     public static String DELETE_HISTORY_ONE_ALL = "search/deleteAll";//删除全部搜索历史

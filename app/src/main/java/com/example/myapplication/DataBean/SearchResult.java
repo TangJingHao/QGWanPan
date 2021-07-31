@@ -3,7 +3,7 @@ package com.example.myapplication.DataBean;
 import java.util.List;
 
 /**
- * @Name：My Application
+ * @Name： SearchResult
  * @Description：
  * @Author：Suzy.Mo
  * @Date：2021/7/28 22:49
@@ -53,6 +53,18 @@ public class SearchResult {
         private Integer oth;
         private Long date;
         private Long lastdate;
+
+        @Override
+        public String toString() {
+            return  "文件详情为："+"\n\n"+
+                    "文件名为：" + docname + '\n' +
+                    "文件类型为" + doctype + '\n'
+                    //", upstatus=" + upstatus +
+                    //", downstatus=" + downstatus +
+                    //", date=" + date +
+                    //", lastdate=" + lastdate +
+                    ;
+        }
 
         public Integer getId() {
             return id;
@@ -157,20 +169,7 @@ public class SearchResult {
         public void setLastdate(Long lastdate) {
             this.lastdate = lastdate;
         }
-
-        @Override
-        public String toString() {
-            return  "文件详情为："+"\n\n"+
-                    "文件名为：" + docname + '\n' +
-                    "文件类型为" + doctype + '\n'
-                    //", upstatus=" + upstatus +
-                    //", downstatus=" + downstatus +
-                    //", date=" + date +
-                    //", lastdate=" + lastdate +
-                    ;
-        }
-
     }
-
-
 }
+
+

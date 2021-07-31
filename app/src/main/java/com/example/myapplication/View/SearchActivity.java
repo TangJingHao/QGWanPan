@@ -126,8 +126,6 @@ public class SearchActivity extends BaseActivity<SearchPresenter, ISearch.VP> {
         historyTv = findViewById(R.id.search_history_title);
         mProcessBar.setVisibility(View.INVISIBLE);
         resultTV.setVisibility(View.INVISIBLE);
-        //进行页面初始化
-        initHistoryView(initHistoryData());
 
         //点击搜索按钮时的监听
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
