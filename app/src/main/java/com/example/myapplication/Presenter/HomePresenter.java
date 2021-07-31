@@ -22,7 +22,7 @@ public class HomePresenter extends BasePresenter<HomeModel,HomePresenter, IHome.
     public IHome.VP getContract() {
         return new IHome.VP() {
             @Override
-            public void requestSizeData() {
+            public void requestBaseData(int ID, String jwt) {
 
             }
 
