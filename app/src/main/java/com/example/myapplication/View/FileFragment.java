@@ -14,13 +14,10 @@ import com.example.myapplication.contract.IFile;
 
 import java.util.List;
 
+
 public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
     private int ID;
-    private TextView newTv;
-    private CardView searchCv;
-    private Switch fileSwitch;
-
 
     public FileFragment(int ID) {
         this.ID = ID;
@@ -73,9 +70,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
     @Override
     public void initView(View view) {
-        newTv = view.findViewById(R.id.file_new_bt);
-        searchCv = view.findViewById(R.id.file_search_cv);
-        fileSwitch = view.findViewById(R.id.file_switch);
+
     }
 
     @Override
@@ -85,9 +80,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
     @Override
     public void initListener() {
-        newTv.setOnClickListener(this);
-        searchCv.setOnClickListener(this);
-        fileSwitch.setOnClickListener(this);
+
     }
 
     @Override
@@ -107,11 +100,13 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.file_search_cv:
+
+        /*switch (v.getId()){
+            case R.id.et:
                 Intent intent=new Intent(getContext(),SearchActivity.class);
                 intent.putExtra("ID",ID);
                 startActivity(intent);
-        }
+        }*/
+
     }
 }

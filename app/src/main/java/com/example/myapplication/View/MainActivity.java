@@ -30,21 +30,26 @@ public class MainActivity extends SuperBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         int ID=getIntent().getIntExtra("ID",-1);//接受用户的id
-        String jwt=getIntent().getStringExtra("jwt");
-        if(ID!=-1){
+        /*String jwt=getIntent().getStringExtra("jwt",);*/
+        /*if(ID!=-1){
             createView(ID,jwt);
-        }
+        }*/
+        String jwt = "test";
+        createView(ID,jwt);
     }
 
     private void createView(int ID,String jwt) {
-        mList.add(new FileFragment(ID));
+
+        mAdapter = new BottomPagerAdapter(getSupportFragmentManager(),mList);
+        mViewPager = this.findViewById(R.id.fragment_viewPager);
+        mBnView = this.findViewById(R.id.select_bottomNavigationView);
+
         mList.add(new HomeFragment(ID));
-        mList.add(new GroupFragment());
-        Log.d("=============",jwt);
+        mList.add(new FileFragment(ID));
         mList.add(new MyPageFragment(ID,jwt));
-        mAdapter=new BottomPagerAdapter(getSupportFragmentManager(),mList);
-        mViewPager= this.findViewById(R.id.fragment_viewPager);
-        mBnView=this.findViewById(R.id.select_bottomNavigationView);
+        Log.d("=============",jwt);
+
+
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -54,17 +59,15 @@ public class MainActivity extends SuperBaseActivity {
 
             @Override
             public void onPageSelected(int position) {
+                Log.d("TAG", position + "");
                 switch (position){
                     case 0:
-                        mBnView.setSelectedItemId(R.id.FilePage);
-                        break;
-                    case 1:
                         mBnView.setSelectedItemId(R.id.HomePage);
                         break;
-                    case 2:
-                        mBnView.setSelectedItemId(R.id.GroupPage);
+                    case 1:
+                        mBnView.setSelectedItemId(R.id.FilePage);
                         break;
-                    case 3:
+                    case 2:
                         mBnView.setSelectedItemId(R.id.MyPage);
                         break;
                 }
@@ -79,17 +82,14 @@ public class MainActivity extends SuperBaseActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.FilePage:
+                    case R.id.HomePage:
                         mViewPager.setCurrentItem(0);
                         break;
-                    case R.id.HomePage:
+                    case R.id.FilePage:
                         mViewPager.setCurrentItem(1);
                         break;
-                    case R.id.GroupPage:
-                        mViewPager.setCurrentItem(2);
-                        break;
                     case R.id.MyPage:
-                        mViewPager.setCurrentItem(3);
+                        mViewPager.setCurrentItem(2);
                         break;
                 }
                 return true;

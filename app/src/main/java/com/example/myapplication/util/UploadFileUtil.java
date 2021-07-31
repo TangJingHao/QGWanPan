@@ -1,7 +1,5 @@
 package com.example.myapplication.util;
 
-import android.support.annotation.Nullable;
-
 import com.example.myapplication.Model.ToUploadTask;
 import com.example.myapplication.Model.UploadRequestBody;
 
@@ -80,7 +78,7 @@ public class UploadFileUtil {
         BigInteger bigInt = new BigInteger(1, digest.digest());
         return bigInt.toString(16);
     }
-    public static MediaType getMediaType(@Nullable String filename) {
+    public static MediaType getMediaType(String filename) {
         if (filename == null) return null;
         int index = filename.lastIndexOf(".") + 1;
         String fileSuffix = filename.substring(index);
