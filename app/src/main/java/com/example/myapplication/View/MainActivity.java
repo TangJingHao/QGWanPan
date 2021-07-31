@@ -53,7 +53,6 @@ public class MainActivity extends SuperBaseActivity {
     private void createView(int ID,String jwt) {
         mList.add(new HomeFragment(ID, jwt));
         mList.add(new FileFragment(ID,jwt));
-        Log.d("=============",jwt);
         mList.add(new MyPageFragment(ID,jwt));
         mAdapter=new BottomPagerAdapter(getSupportFragmentManager(),mList);
         mViewPager= this.findViewById(R.id.fragment_viewPager);
