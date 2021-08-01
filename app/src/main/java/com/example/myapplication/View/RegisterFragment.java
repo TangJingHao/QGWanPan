@@ -1,22 +1,10 @@
 package com.example.myapplication.View;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import com.example.myapplication.Presenter.LoginPresenter;
 import com.example.myapplication.Presenter.RegisterPresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
@@ -24,8 +12,6 @@ import com.example.myapplication.contract.IRegister;
 import com.example.myapplication.util.Constants;
 import com.example.myapplication.util.SimpleUtil;
 import com.example.myapplication.util.TimeCount;
-
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Created with Android studio
@@ -44,13 +30,15 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter, IRegister.
     private Button mCheckPasswordBtn;
     private Button mRegisterBtn;
     private int code=0;
+    private String jwt;
+    private String userEmail;
 
     @Override
     public IRegister.VP getContract() {
         return new IRegister.VP() {
             @Override
-            public void requestRegister(String username, String password, String nickname, String userEmail, String checkCode) {
-                mPresenter.getContract().requestRegister(username,password,nickname,userEmail,checkCode);
+            public void requestRegister(String username, String password, String nickname, String userEmail, String checkCode, String jwt) {
+                mPresenter.getContract().requestRegister(username,password,nickname,userEmail,checkCode, jwt);
             }
 
             @Override
@@ -59,11 +47,12 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter, IRegister.
             }
 
             @Override
-            public void responseRegisterCodeResult(int registerStatusResult) throws Exception {
+            public void responseRegisterCodeResult(int registerStatusResult,String data) throws Exception {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (registerStatusResult == Constants.SUCCESS_REGISTER_CODE) {
+                            jwt=data;
                             Toast.makeText(getContext(), "验证码发送成功", Toast.LENGTH_SHORT).show();
                         } else if (registerStatusResult == Constants.ERROR_REGISTER_CODE) {
                             Toast.makeText(getContext(), "验证码发送失败，请检查邮箱地址", Toast.LENGTH_SHORT).show();
@@ -121,9 +110,9 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter, IRegister.
                     String newUsername=mRegisterUsernameEt.getText().toString().trim();
                     String newUserPassword=mRegisterPasswordEt.getText().toString().trim();
                     String newUserNickname="QG云域新用户";
-                    String newEmail=mRegisterUserEmailEt.getText().toString().trim()+"@"+mRegisterUserEmailBackEt.getText().toString().trim();
+                    String newEmail=mRegisterUserEmailEt.getText().toString()+"@"+mRegisterUserEmailBackEt.getText().toString();
                     String newCheckCode=mRegisterChekCodeEt.getText().toString().trim();
-                    mPresenter.getContract().requestRegister(newUsername,newUserPassword,newUserNickname,newEmail,newCheckCode);
+                    mPresenter.getContract().requestRegister(newUsername,newUserPassword,newUserNickname,newEmail,newCheckCode, jwt);
                 }
             }
         });

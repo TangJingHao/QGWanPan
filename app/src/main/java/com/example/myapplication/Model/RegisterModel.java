@@ -2,11 +2,8 @@ package com.example.myapplication.Model;
 
 import android.util.Log;
 
-import com.example.myapplication.DataBean.IsRegister;
 import com.example.myapplication.Presenter.RegisterPresenter;
-import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
-import com.example.myapplication.contract.IPost;
 import com.example.myapplication.contract.IRegister;
 import com.example.myapplication.util.Constants;
 
@@ -19,9 +16,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created with Android studio
@@ -44,12 +38,12 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
     public IRegister.M getContract() {
        return new IRegister.M() {
            @Override
-           public void requestRegister(String username, String password, String nickname, String userEmail, String checkCode) throws Exception {
+           public void requestRegister(String username, String password, String nickname, String userEmail, String checkCode, String jwt) throws Exception {
                RequestBody requestBody=new FormBody.Builder().add("username",username).
                        add("password",password).add("nickname",nickname).add("userEmail",userEmail)
                        .add("checkCode",checkCode)
                        .build();
-               Request request=new Request.Builder().url("http://39.98.41.126:31109/user/register?").post(requestBody).build();
+               Request request=new Request.Builder().addHeader("Authorization",jwt).url("http://39.98.41.126:31109/user/register?").post(requestBody).build();
                OkHttpClient okHttpClient=new OkHttpClient();
                okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
                    @Override
@@ -145,9 +139,10 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
                            JSONObject jsonObject=new JSONObject(responseData);
                            Boolean flag=jsonObject.getBoolean("flag");
                            if(flag){
-                               mPresenter.getContract().responseRegisterCodeResult(Constants.SUCCESS_REGISTER_CODE);
+                               String data=jsonObject.getString("data");
+                               mPresenter.getContract().responseRegisterCodeResult(Constants.SUCCESS_REGISTER_CODE,data);
                            }else{
-                               mPresenter.getContract().responseRegisterCodeResult(Constants.ERROR_REGISTER_CODE);
+                               mPresenter.getContract().responseRegisterCodeResult(Constants.ERROR_REGISTER_CODE,"");
                            }
                        } catch (JSONException e) {
                            e.printStackTrace();

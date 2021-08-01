@@ -22,9 +22,9 @@ public class RegisterPresenter extends BasePresenter<RegisterModel, RegisterFrag
     public IRegister.VP getContract() {
         return new IRegister.VP() {
             @Override
-            public void requestRegister(String username,String password,String nickname,String userEmail,String checkCode) {
+            public void requestRegister(String username, String password, String nickname, String userEmail, String checkCode, String jwt) {
                 try{
-                    mModel.getContract().requestRegister(username,password,nickname,userEmail,checkCode);
+                    mModel.getContract().requestRegister(username,password,nickname,userEmail,checkCode, jwt);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -36,8 +36,8 @@ public class RegisterPresenter extends BasePresenter<RegisterModel, RegisterFrag
             }
 
             @Override
-            public void responseRegisterCodeResult(int registerStatusResult) throws Exception {
-                mView.getContract().responseRegisterCodeResult(registerStatusResult);
+            public void responseRegisterCodeResult(int registerStatusResult,String data) throws Exception {
+                mView.getContract().responseRegisterCodeResult(registerStatusResult,data);
             }
 
             @Override
