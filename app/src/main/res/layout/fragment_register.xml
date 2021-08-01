@@ -16,8 +16,7 @@
         android:layout_height="32dp"/>
     <EditText
         android:textColor="@color/black"
-        android:id="@+id/fragment_register_user_mailbox_et"
-        android:inputType="number"
+        android:id="@+id/fragment_register_users_mailbox_et"
         android:layout_below="@id/fragment_register_user_real_name_et"
         android:layout_marginTop="32dp"
         android:hint="注册邮箱"
@@ -29,7 +28,7 @@
     <TextView
         android:id="@+id/register_tv"
         android:layout_marginTop="32dp"
-        android:layout_toRightOf="@+id/fragment_register_user_mailbox_et"
+        android:layout_toRightOf="@+id/fragment_register_users_mailbox_et"
         android:layout_below="@id/fragment_register_user_real_name_et"
         android:textSize="20dp"
         android:text=" @ "
@@ -51,7 +50,7 @@
         android:textColor="@color/black"
         android:id="@+id/fragment_register_verification_code_et"
         android:layout_marginTop="32dp"
-        android:layout_below="@id/fragment_register_user_mailbox_et"
+        android:layout_below="@id/fragment_register_users_mailbox_et"
         android:hint="验证码"
         android:background="@drawable/login_edittext_background"
         android:layout_marginLeft="24dp"

@@ -1,5 +1,7 @@
 package com.example.myapplication.contract;
 
+import com.example.myapplication.DataBean.FileDataBean;
+
 import java.util.List;
 
 /**
@@ -25,16 +27,14 @@ public interface IFile {
 
     public interface VP{
         //找到初始化页面的文件夹数据
-<<<<<<< Updated upstream
+
         void getFileData();
-        //返回登录结果
-        void getFileDataResult(List<String> data);
-=======
+
         void getFileData(int id);
 
         //返回默认文件夹
         void getFileDataResult(List<FileDataBean> data);
->>>>>>> Stashed changes
+
 
         //上传文件
         void uploadFile(String path) ;

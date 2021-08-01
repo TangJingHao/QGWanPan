@@ -34,6 +34,14 @@ public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.
 
             }
 
+
+            @Override
+            public void getFileData() {
+
+            }
+
+
+
             @Override
             public void uploadFile(String path) {
 

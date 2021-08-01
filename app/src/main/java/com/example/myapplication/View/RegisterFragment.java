@@ -95,7 +95,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter, IRegister.
     @Override
     public void initView(View view) {
         mRegisterUsernameEt = view.findViewById(R.id.fragment_register_user_real_name_et);
-        mRegisterUserEmailEt = view.findViewById(R.id.fragment_register_user_mailbox_et);
+        mRegisterUserEmailEt = view.findViewById(R.id.fragment_register_users_mailbox_et);
         mRegisterChekCodeEt = view.findViewById(R.id.fragment_register_verification_code_et);
         mRegisterPasswordEt = view.findViewById(R.id.fragment_register_password_et);
         mPostCodeBtn = view.findViewById(R.id.fragment_verification_code_btn);

@@ -39,42 +39,47 @@ public class FileModel extends BaseModel<FilePresenter, IFile.M> {
     public IFile.M getContract() {
         return new IFile.M() {
 
+//            @Override
+//            public void getFileData(int id) throws Exception {
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        RequestBody requestBody
+//                                = new FormBody.Builder()
+//                                .add("id", String.valueOf(id))
+//                                .build();
+//                        Request request = new Request.Builder()
+//                                .url(Constants.ServerURL + "folder/enterYun")
+//                                .post(requestBody)
+//                                .build();
+//
+//                        OkHttpClient okHttpClient = new OkHttpClient();
+//                        Response response = null;
+//
+//                        try{
+//                            response = okHttpClient.newCall(request).execute();
+//                            String requestData = response.body().string();
+//                            JSONObject jsonObject = new JSONObject(requestData);
+//                            boolean flag = jsonObject.getBoolean("flag");
+//
+//                            if (flag){
+//                                Gson gson = new Gson();
+//                                FileBean fileBean = gson.fromJson(requestData, FileBean.class);
+//                                List<FileDataBean> list = fileBean.getData();
+//                                mPresenter.getContract().getFileDataResult(list);
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }).start();
+//            }
+
             @Override
-            public void getFileData(int id) throws Exception {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        RequestBody requestBody
-                                = new FormBody.Builder()
-                                .add("id", String.valueOf(id))
-                                .build();
-                        Request request = new Request.Builder()
-                                .url(Constants.ServerURL + "folder/enterYun")
-                                .post(requestBody)
-                                .build();
+            public void getFileData() throws Exception {
 
-                        OkHttpClient okHttpClient = new OkHttpClient();
-                        Response response = null;
-
-                        try{
-                            response = okHttpClient.newCall(request).execute();
-                            String requestData = response.body().string();
-                            JSONObject jsonObject = new JSONObject(requestData);
-                            boolean flag = jsonObject.getBoolean("flag");
-
-                            if (flag){
-                                Gson gson = new Gson();
-                                FileBean fileBean = gson.fromJson(requestData, FileBean.class);
-                                List<FileDataBean> list = fileBean.getData();
-                                mPresenter.getContract().getFileDataResult(list);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
             }
 
             @Override

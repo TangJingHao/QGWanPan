@@ -1,10 +1,7 @@
 package com.example.myapplication.View;
 
 import android.os.Bundle;
-<<<<<<< Updated upstream
 import android.util.Log;
-=======
->>>>>>> Stashed changes
 import android.view.MenuItem;
 import android.view.View;
 
@@ -32,49 +29,37 @@ public class MainActivity extends SuperBaseActivity {
     private BottomPagerAdapter mAdapter;
     private ViewPager mViewPager;
     private BottomNavigationView mBnView;
-
+    private int ID;
+    private String jwt;
+    private String password;
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-<<<<<<< Updated upstream
-        int ID=getIntent().getIntExtra("ID",-1);//接受用户的id
-        /*String jwt=getIntent().getStringExtra("jwt",);*/
-        /*if(ID!=-1){
-            createView(ID,jwt);
-        }*/
-        String jwt = "test";
-        createView(ID,jwt);
-=======
 
-        //注册通信器
-        EventBus.getDefault().register(this);
-
-        /*ID=getIntent().getIntExtra("ID",-1);//接受用户的id
+        ID=getIntent().getIntExtra("ID",-1);//接受用户的id
         jwt=getIntent().getStringExtra("jwt");
         password=getIntent().getStringExtra("password");
         if(ID!=-1){
             createView(ID,jwt,password);
-        }*/
+        }
 
 
 
-        ID = -1;
-        jwt = "jwt";
-        password = "pass";
-        createView(ID,jwt,password);
->>>>>>> Stashed changes
+        //注册通信器
+        EventBus.getDefault().register(this);
+
     }
 
-    private void createView(int ID,String jwt) {
+    private void createView(int ID,String jwt,String password) {
 
         mAdapter = new BottomPagerAdapter(getSupportFragmentManager(),mList);
         mViewPager = this.findViewById(R.id.fragment_viewPager);
         mBnView = this.findViewById(R.id.select_bottomNavigationView);
 
-        mList.add(new HomeFragment(ID));
+        mList.add(new HomeFragment(ID,jwt));
         mList.add(new FileFragment(ID));
-        mList.add(new MyPageFragment(ID,jwt));
+        mList.add(new MyPageFragment(ID,jwt,password));
         Log.d("=============",jwt);
 
 
@@ -124,9 +109,9 @@ public class MainActivity extends SuperBaseActivity {
             }
         });
     }
-<<<<<<< Updated upstream
-}
-=======
+
+
+
 
     @Override
     protected void onDestroy() {
@@ -144,4 +129,4 @@ public class MainActivity extends SuperBaseActivity {
     }
 }
 
->>>>>>> Stashed changes
+

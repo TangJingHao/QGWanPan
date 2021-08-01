@@ -47,7 +47,7 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
            public void requestRegister(String username, String password, String nickname, String userEmail, String checkCode) throws Exception {
                RequestBody requestBody=new FormBody.Builder().add("username",username).
                        add("password",password).add("nickname",nickname).add("userEmail",userEmail)
-                       .add("checkcode",checkCode)
+                       .add("checkCode",checkCode)
                        .build();
                Request request=new Request.Builder().url("http://39.98.41.126:31109/user/register?").post(requestBody).build();
                OkHttpClient okHttpClient=new OkHttpClient();
@@ -60,6 +60,7 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
                    @Override
                    public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
                        String responseData = response.body().string();
+                       Log.d("===================",responseData);
                        try {
                            JSONObject jsonObject=new JSONObject(responseData);
                            Boolean flag=jsonObject.getBoolean("flag");
