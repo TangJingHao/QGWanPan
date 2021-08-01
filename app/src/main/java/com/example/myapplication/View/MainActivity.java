@@ -33,12 +33,17 @@ public class MainActivity extends SuperBaseActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ID=getIntent().getIntExtra("ID",-1);//接受用户的id
+        /*ID=getIntent().getIntExtra("ID",-1);//接受用户的id
         jwt=getIntent().getStringExtra("jwt");
         password=getIntent().getStringExtra("password");
         if(ID!=-1){
             createView(ID,jwt,password);
-        }
+        }*/
+
+        ID = -1;
+        jwt = "jwt";
+        password = "pass";
+        createView(ID,jwt,password);
     }
 
     private void createView(int ID,String jwt,String password) {

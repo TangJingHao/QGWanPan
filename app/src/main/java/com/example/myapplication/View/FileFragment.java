@@ -1,33 +1,41 @@
 package com.example.myapplication.View;
 
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.FileListAdapter;
+import com.example.myapplication.DataBean.FileBean;
+import com.example.myapplication.DataBean.FileDataBean;
+import com.example.myapplication.DataBean.UserDataBean;
 import com.example.myapplication.Presenter.FilePresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
 import com.example.myapplication.contract.IFile;
+import com.example.myapplication.util.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
@@ -46,6 +54,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     private TextView tv_FileFragment_Title;
     private BottomNavigationView select_FileOperation_menu;
 
+
     public FileFragment(int ID,String jwt) {
         this.ID = ID;
         this.jwt = jwt;
@@ -62,12 +71,12 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         View view = inflater.inflate(getContentViewId(),container,false);
         mPresenter.bindView(this);
 
+
         //初始化控件 数据 监听器
         initView(view);
         initData();
         initListener();
-        file_list.setAdapter(new FileListAdapter("test"));
-
+        mPresenter.getContract().getFileData(ID);
         return view;
     }
 
@@ -80,11 +89,11 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     public IFile.VP getContract() {
         return new IFile.VP() {
             @Override
-            public void getFileData() {
-                mPresenter.getContract().getFileData();
+            public void getFileData(int id) {
+                mPresenter.getContract().getFileData(id);
             }
             @Override
-            public void getFileDataResult(List<String> data) {
+            public void getFileDataResult(List<FileDataBean> data) {
 
             }
 
@@ -134,6 +143,16 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         btn_FileFragment_Title_add = view.findViewById(R.id.btn_FileFragment_Title_add);
         tv_FileFragment_Title = view.findViewById(R.id.tv_FileFragment_Title);
         select_FileOperation_menu = view.findViewById(R.id.select_FileOperation_menu);
+
+
+    }
+
+    public void initAdapter(List<FileDataBean> fileData){
+        //加载文件列表
+        FileListAdapter fileListAdapter = new FileListAdapter(fileData);
+        file_list.setAdapter(fileListAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        file_list.setLayoutManager(linearLayoutManager);
     }
 
     @Override

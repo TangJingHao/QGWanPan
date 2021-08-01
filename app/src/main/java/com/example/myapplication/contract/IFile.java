@@ -1,5 +1,7 @@
 package com.example.myapplication.contract;
 
+import com.example.myapplication.DataBean.FileDataBean;
+
 import java.util.List;
 
 /**
@@ -11,7 +13,7 @@ import java.util.List;
 public interface IFile {
     public interface M{
         //找到初始化页面的文件夹数据
-        void getFileData() throws Exception;
+        void getFileData(int id) throws Exception;
 
         //上传文件
         void uploadFile(String path) throws Exception;
@@ -29,8 +31,8 @@ public interface IFile {
         //找到初始化页面的文件夹数据
         void getFileData();
 
-        //返回登录结果
-        void getFileDataResult(List<String> data);
+        //返回默认文件夹
+        void getFileDataResult(List<FileDataBean> data);
 
         //上传文件
         void uploadFile(String path) ;
