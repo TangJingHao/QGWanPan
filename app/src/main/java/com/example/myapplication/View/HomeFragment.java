@@ -131,6 +131,17 @@ public class HomeFragment extends BaseFragment<HomePresenter, IHome.VP> {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getContext(),SearchActivity.class);
+                intent.putExtra("jwt",jwt);
+                intent.putExtra("ID",ID);
+                startActivity(intent);
+            }
+        });
+        mCheckUploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(),TransferFileActivity.class);
+                intent.putExtra("jwt",jwt);
+                intent.putExtra("ID",ID);
                 startActivity(intent);
             }
         });

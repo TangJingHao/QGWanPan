@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,10 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.jvm.internal.Intrinsics;
+
+import static com.example.myapplication.basic.BaseApplication.getContext;
 
 public class TransferFileActivity extends SuperBaseActivity {
 
@@ -48,41 +53,44 @@ public class TransferFileActivity extends SuperBaseActivity {
         deleteIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentPosition==0){
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(TransferFileActivity.this);
-                    dialog.setTitle("");
-                    dialog.setMessage("确认要删除下载记录？");
-                    dialog.setCancelable(false);
-                    dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //删除下载记录
-                        }
-                    });
-                    dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    });
-                    dialog.show();
-                }else{
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(TransferFileActivity.this);
-                    dialog.setTitle("");
-                    dialog.setMessage("确认要删除上传记录？");
-                    dialog.setCancelable(false);
-                    dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //删除上传记录
-                        }
-                    });
-                    dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    });
-                    dialog.show();
-                }
+                Intent intent = new Intent(TransferFileActivity.this,TestLoadActivity.class);
+                startActivity(intent);
+
+//                if(currentPosition==0){
+//                    AlertDialog.Builder dialog = new AlertDialog.Builder(TransferFileActivity.this);
+//                    dialog.setTitle("");
+//                    dialog.setMessage("确认要删除下载记录？");
+//                    dialog.setCancelable(false);
+//                    dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            //删除下载记录
+//                        }
+//                    });
+//                    dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                        }
+//                    });
+//                    dialog.show();
+//                }else{
+//                    AlertDialog.Builder dialog = new AlertDialog.Builder(TransferFileActivity.this);
+//                    dialog.setTitle("");
+//                    dialog.setMessage("确认要删除上传记录？");
+//                    dialog.setCancelable(false);
+//                    dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            //删除上传记录
+//                        }
+//                    });
+//                    dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                        }
+//                    });
+//                    dialog.show();
+//                }
             }
         });
 
