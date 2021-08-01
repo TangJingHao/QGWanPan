@@ -25,7 +25,7 @@ public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.
     public IFile.VP getContract() {
         return new IFile.VP() {
             @Override
-            public void getFileData(int id) {
+            public void getFileData(int userid,String jwt) {
 
             }
 
@@ -33,14 +33,6 @@ public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.
             public void getFileDataResult(List<FileDataBean> data) {
 
             }
-
-
-            @Override
-            public void getFileData() {
-
-            }
-
-
 
             @Override
             public void uploadFile(String path) {

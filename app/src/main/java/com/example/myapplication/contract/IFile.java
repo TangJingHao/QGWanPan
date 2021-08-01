@@ -13,7 +13,7 @@ import java.util.List;
 public interface IFile {
     public interface M{
         //找到初始化页面的文件夹数据
-        void getFileData() throws Exception;
+        void getFileData(int userid,String jwt) throws Exception;
 
         //上传文件
         void uploadFile(String path) throws Exception;
@@ -28,7 +28,7 @@ public interface IFile {
     public interface VP{
         //找到初始化页面的文件夹数据
 
-        void getFileData();
+        void getFileData(int userid,String jwt);
 
         void getFileData(int id);
 

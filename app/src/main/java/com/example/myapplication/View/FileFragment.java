@@ -99,14 +99,10 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     public IFile.VP getContract() {
         return new IFile.VP() {
             @Override
-            public void getFileData() {
-
+            public void getFileData(int userid,String jwt) {
+                mPresenter.getContract().getFileData(userid,jwt);
             }
 
-            @Override
-            public void getFileData(int id) {
-                mPresenter.getContract().getFileData(id);
-            }
             @Override
             public void getFileDataResult(List<FileDataBean> data) {
 
