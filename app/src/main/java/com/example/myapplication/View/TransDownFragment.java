@@ -1,5 +1,6 @@
 package com.example.myapplication.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.example.myapplication.DataBean.FileDownData;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
 import com.example.myapplication.basic.BasePresenter;
+import com.example.myapplication.services.DownloadService;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,7 +40,9 @@ public class TransDownFragment extends Fragment {
     private Button allStartBtn;
     private RecyclerView doingRv,finishRv;
     private List<FileDownData> doingData = new ArrayList<>(),finishData = new ArrayList<>();
-
+    private Intent downServiceIntent;
+    private DownloadService downloadService;
+    private DownloadService.DownFileBinder downFileBinder;
     public TransDownFragment() {
     }
 
@@ -49,7 +53,7 @@ public class TransDownFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_trans_down,container, false);
         FileDownData test = new FileDownData();
         test.setDocname("文件");
-        test.setId(1);
+        test.setId(4);
         doingData.add(test);
         doingData.add(test);
         doingData.add(test);
@@ -77,6 +81,11 @@ public class TransDownFragment extends Fragment {
         finishRv.setAdapter(finishRvAdapter);
         doingRvAdapter.notifyDataSetChanged();
         finishRvAdapter.notifyDataSetChanged();
+        if (doingData!=null){
+            downServiceIntent = new Intent(this.getContext(),DownloadService.class);
+            downServiceIntent.putExtra("ID",doingData.get(1).getId());
+            this.getActivity().startService(downServiceIntent);
+        }
     }
 
     private void initView() {
