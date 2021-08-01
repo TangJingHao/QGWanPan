@@ -45,46 +45,84 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
        return new IRegister.M() {
            @Override
            public void requestRegister(String username, String password, String nickname, String userEmail, String checkCode) throws Exception {
-               IPost post= BaseCreator.create(IPost.class);
-               Log.d("=========","daozheli");
-               Log.d("==================",userEmail);
-               post.registerData(username,password,nickname,userEmail,checkCode).enqueue(new Callback<IsRegister>() {
+               RequestBody requestBody=new FormBody.Builder().add("username",username).
+                       add("password",password).add("nickname",nickname).add("userEmail",userEmail)
+                       .add("checkcode",checkCode)
+                       .build();
+               Request request=new Request.Builder().url("http://39.98.41.126:31109/user/register?").post(requestBody).build();
+               OkHttpClient okHttpClient=new OkHttpClient();
+               okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
                    @Override
-                   public void onResponse(Call<IsRegister> call, Response<IsRegister> response) {
-                       Boolean flag=response.body().getFlag();
-                       if(flag){
-                           try {
-                               mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_SUCCESS_CODE);
-                           } catch (Exception e) {
-                               e.printStackTrace();
-                           }
-                       }else{
-                           String Msg=response.body().getMessage();
-                           if(Msg.equals("注册失败，服务器网络异常")){
-                               try {
-                                   mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_ERROR_NETWORK);
-                               } catch (Exception e) {
-                                   e.printStackTrace();
-                               }
-                           }else if(Msg.equals("已存在该用户名，注册失败")){
-                               try {
-                                   mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_ERROR_USERNAME);
-                               } catch (Exception e) {
-                                   e.printStackTrace();
-                               }
-                           }
-                       }
+                   public void onFailure(okhttp3.Call call, IOException e) {
+
                    }
 
                    @Override
-                   public void onFailure(Call<IsRegister> call, Throwable t) {
+                   public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                       String responseData = response.body().string();
                        try {
-                           mPresenter.getContract().responseRegister(username,password,Constants.NETWORK_ERROR);
+                           JSONObject jsonObject=new JSONObject(responseData);
+                           Boolean flag=jsonObject.getBoolean("flag");
+                           String message=jsonObject.getString("message");
+                           if(flag){
+                               mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_SUCCESS_CODE);
+                           }else{
+                               if(message.equals("注册失败，服务器网络异常")){
+                                   mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_ERROR_NETWORK);
+                               }else if(message.equals("已存在该用户名，注册失败")){
+                                   mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_ERROR_USERNAME);
+                               }
+                           }
+                       } catch (JSONException e) {
+                           e.printStackTrace();
                        } catch (Exception e) {
                            e.printStackTrace();
                        }
+
                    }
                });
+
+//               IPost post= BaseCreator.create(IPost.class);
+//               Log.d("=========","daozheli");
+//               Log.d("===================",userEmail);
+//               post.registerData(username,password,nickname, userEmail, checkCode).enqueue(new Callback<IsRegister>() {
+//                   @Override
+//                   public void onResponse(Call<IsRegister> call, Response<IsRegister> response) {
+//                       Boolean flag=response.body().getFlag();
+//                       if(flag){
+//                           try {
+//                               mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_SUCCESS_CODE);
+//                           } catch (Exception e) {
+//                               e.printStackTrace();
+//                           }
+//                       }else{
+//                           String Msg=response.body().getMessage();
+//                           if(Msg.equals("注册失败，服务器网络异常")){
+//                               try {
+//                                   mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_ERROR_NETWORK);
+//                               } catch (Exception e) {
+//                                   e.printStackTrace();
+//                               }
+//                           }else if(Msg.equals("已存在该用户名，注册失败")){
+//                               try {
+//                                   mPresenter.getContract().responseRegister(username,password,Constants.REGISTER_ERROR_USERNAME);
+//                               } catch (Exception e) {
+//                                   e.printStackTrace();
+//                               }
+//                           }
+//                       }
+//                   }
+//
+//                   @Override
+//                   public void onFailure(Call<IsRegister> call, Throwable t) {
+//                       try {
+//                           mPresenter.getContract().responseRegister(username,password,Constants.NETWORK_ERROR);
+//                           Log.d("===============","baocuole");
+//                       } catch (Exception e) {
+//                           e.printStackTrace();
+//                       }
+//                   }
+//               });
            }
 
            @Override

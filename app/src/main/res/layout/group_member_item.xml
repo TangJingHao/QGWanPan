@@ -13,9 +13,30 @@
         android:textColor="#ff000000"
         android:textSize="18sp"
         />
-    <Button
-        android:layout_marginLeft="304dp"
+    <TextView
+        android:id="@+id/member_group_tv"
+        android:text="组别"
+        android:textColor="#ff000000"
+        android:textSize="18sp"
         android:layout_marginTop="12dp"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/member_information_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/member_permission_tv"
+        android:text="权限"
+        android:layout_toRightOf="@id/member_group_tv"
+        android:textColor="#ff000000"
+        android:textSize="18sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/member_permission_tv"
+        android:layout_marginTop="15dp"
         android:background="@drawable/home_page_file_more"
         android:id="@+id/member_information_btn"
         android:layout_width="16dp"

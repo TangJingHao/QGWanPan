@@ -1,36 +1,17 @@
 package com.example.myapplication.View;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
+import android.content.Intent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.cardview.widget.CardView;
 
-import com.example.myapplication.Adapter.FileListAdapter;
 import com.example.myapplication.DataBean.FileDataBean;
-import com.example.myapplication.Event.FileLongClickEvent;
-import com.example.myapplication.Event.SelectItemEvent;
-import com.example.myapplication.Event.SetBottomNavigationEvent;
 import com.example.myapplication.Presenter.FilePresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
 import com.example.myapplication.contract.IFile;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 

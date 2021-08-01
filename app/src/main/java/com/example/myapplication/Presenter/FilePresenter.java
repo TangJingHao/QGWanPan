@@ -31,7 +31,7 @@ public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.
 
             @Override
             public void getFileDataResult(List<FileDataBean> data) {
-                mView.initAdapter(data);
+
             }
 
             @Override
