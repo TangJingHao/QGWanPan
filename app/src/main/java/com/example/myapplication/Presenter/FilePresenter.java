@@ -25,7 +25,7 @@ public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.
     public IFile.VP getContract() {
         return new IFile.VP() {
             @Override
-            public void getFileData() {
+            public void getFileData(int id) {
 
             }
 

@@ -1,5 +1,6 @@
 package com.example.myapplication.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +12,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.DataBean.FileDataBean;
+import com.example.myapplication.Event.FileLongClickEvent;
+import com.example.myapplication.Event.SelectItemEvent;
+import com.example.myapplication.Event.SetBottomNavigationEvent;
 import com.example.myapplication.R;
-import com.example.myapplication.DataBean.FileBean;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyViewHolder> {
 
     private List<FileDataBean> files;
+
+    private List<String> selectedItem;
     public FileListAdapter(List<FileDataBean> files){
         this.files = files;
+        selectedItem = new ArrayList<String>();
     }
 
     @NonNull
@@ -36,7 +43,24 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
         myViewHolder.select.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    selectedItem.add(myViewHolder.getAdapterPosition() + "");
+                    files.get(myViewHolder.getAdapterPosition()).setSelected(true);
+                }else{
+                    selectedItem.remove(myViewHolder.getAdapterPosition() + "");
+                    files.get(myViewHolder.getAdapterPosition()).setSelected(false);
+                }
+                EventBus.getDefault().post(new SelectItemEvent(selectedItem.size() + ""));
+                Log.d("Hx","已选择");
+            }
+        });
 
+        myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                EventBus.getDefault().post(new FileLongClickEvent("LongClick"));
+                EventBus.getDefault().post(new SetBottomNavigationEvent(true));
+                return false;
             }
         });
 
@@ -55,6 +79,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
         return files.size();
     }
 
+
     class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView filename;
@@ -67,5 +92,9 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
             date = view.findViewById(R.id.fileItem_tv_date);
             select = view.findViewById(R.id.fileitem_cb_select);
         }
+    }
+    //返回多选文件
+    public List<FileDataBean> GetSelectedList(){
+        return files;
     }
 }

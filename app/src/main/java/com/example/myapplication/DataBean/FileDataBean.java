@@ -128,4 +128,13 @@ public class FileDataBean {
                 ", lastDate='" + lastDate + '\'' +
                 '}';
     }
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 }

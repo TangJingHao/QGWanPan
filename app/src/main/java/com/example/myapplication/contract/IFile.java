@@ -29,7 +29,7 @@ public interface IFile {
     public interface VP{
 
         //找到初始化页面的文件夹数据
-        void getFileData();
+        void getFileData(int id);
 
         //返回默认文件夹
         void getFileDataResult(List<FileDataBean> data);
