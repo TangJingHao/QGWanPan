@@ -36,6 +36,7 @@ public class MainActivity extends SuperBaseActivity {
     private int ID;
     private String jwt;
     private String password;
+
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,15 +44,12 @@ public class MainActivity extends SuperBaseActivity {
 
         //注册通信器
         EventBus.getDefault().register(this);
-
-
         ID=getIntent().getIntExtra("ID",-1);//接受用户的id
         jwt=getIntent().getStringExtra("jwt");
         password=getIntent().getStringExtra("password");
         if(ID!=-1){
             createView(ID,jwt,password);
         }
-
     }
 
     private void createView(int ID,String jwt,String password) {

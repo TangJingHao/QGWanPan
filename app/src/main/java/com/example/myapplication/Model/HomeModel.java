@@ -37,6 +37,7 @@ public class HomeModel extends BaseModel<HomePresenter, IHome.M> {
     @Override
     public IHome.M getContract() {
         return new IHome.M() {
+
             @Override
             public void requestSizeData(int ID, String jwt) throws Exception {
                 IPost post= BaseCreator.create(IPost.class);

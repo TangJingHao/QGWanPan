@@ -1,5 +1,6 @@
 package com.example.myapplication.contract;
 
+import com.example.myapplication.DataBean.FileBean;
 import com.example.myapplication.DataBean.IsDeleteHistory;
 import com.example.myapplication.DataBean.IsRegister;
 import com.example.myapplication.DataBean.MyPagerBean;
@@ -44,5 +45,9 @@ public interface IPost {
     @FormUrlEncoded
     @POST("search/deleteAll")
     Call<IsDeleteHistory> deleteAll(@Header("Authorization")@Field("uid")int uid);
+
+    @FormUrlEncoded
+    @POST("folder/enterYun")
+    Call<FileBean> getFileData(@Header("Authorization")String jwt, @Field("userid")int userid);
 
 }

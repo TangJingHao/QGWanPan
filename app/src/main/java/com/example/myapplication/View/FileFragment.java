@@ -1,5 +1,7 @@
 package com.example.myapplication.View;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,21 +43,23 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
     private int ID;
     private String jwt;
-    private ConstraintLayout ll_topTitle_selectFile;
+    private ConstraintLayout CL_topTitle_selectFile;
     private TextView tv_FileFragment_Title_cancel;
     private TextView tv_FileFragment_Title_selectAll;
     private TextView tv_FileFragment_Title_Selected;
     private EditText et_FileFragment_search;
     private RecyclerView file_list;
-    private ConstraintLayout ll_FileFragment_Title;
+    private ConstraintLayout CL_FileFragment_Title;
     private TextView tv_FileFragment_Title_sort;
     private Button btn_FileFragment_Title_transmission;
     private Button btn_FileFragment_Title_add;
     private TextView tv_FileFragment_Title;
     private BottomNavigationView select_FileOperation_menu;
-
+    private Button btn_FileFragment_close;
     private FileListAdapter fileListAdapter;
-
+    private ImageButton btn_FileFragment_NewFolder;
+    private ImageButton btn_FileFragment_upload;
+    private ConstraintLayout CL_FileFragment_topAdd;
 
     public FileFragment(int ID,String jwt) {
         this.ID = ID;
@@ -79,7 +85,8 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         initView(view);
         initData();
         initListener();
-        mPresenter.getContract().getFileData(ID);
+        /*mPresenter.getContract().getFileData(ID);*/
+        initAdapter();
         return view;
     }
 
@@ -134,24 +141,27 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
     @Override
     public void initView(View view) {
-        ll_topTitle_selectFile = view.findViewById(R.id.ll_topTitle_selectFile);
+        CL_topTitle_selectFile = view.findViewById(R.id.CL_topTitle_selectFile);
         tv_FileFragment_Title_cancel = view.findViewById(R.id.tv_FileFragment_Title_cancel);
         tv_FileFragment_Title_selectAll = view.findViewById(R.id.tv_FileFragment_Title_selectAll);
         tv_FileFragment_Title_Selected = view.findViewById(R.id.tv_FileFragment_Title_Selected);
         file_list = view.findViewById(R.id.file_list);
         et_FileFragment_search = view.findViewById(R.id.et_FileFragment_search);
-        ll_FileFragment_Title = view.findViewById(R.id.ll_FileFragment_Title);
+        CL_FileFragment_Title = view.findViewById(R.id.CL_FileFragment_Title);
         tv_FileFragment_Title_sort = view.findViewById(R.id.tv_FileFragment_Title_sort);
         btn_FileFragment_Title_transmission = view.findViewById(R.id.btn_FileFragment_Title_transmission);
         btn_FileFragment_Title_add = view.findViewById(R.id.btn_FileFragment_Title_add);
         tv_FileFragment_Title = view.findViewById(R.id.tv_FileFragment_Title);
         select_FileOperation_menu = view.findViewById(R.id.select_FileOperation_menu);
-
+        btn_FileFragment_upload = view.findViewById(R.id.btn_FileFragment_upload);
+        btn_FileFragment_close = view.findViewById(R.id.btn_FileFragment_close);
+        btn_FileFragment_NewFolder = view.findViewById(R.id.btn_FileFragment_NewFolder);
+        CL_FileFragment_topAdd = view.findViewById(R.id.CL_FileFragment_topAdd);
     }
 
-    public void initAdapter(List<FileDataBean> fileData){
+    public void initAdapter(/*List<FileDataBean> fileData*/){
         //加载文件列表
-        fileListAdapter = new FileListAdapter(fileData);
+        fileListAdapter = new FileListAdapter();
         file_list.setAdapter(fileListAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         file_list.setLayoutManager(linearLayoutManager);
@@ -166,15 +176,19 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     @Override
     public void initListener() {
 
-        /**
-         * 取消键监听
-         */
+        //新建文件夹键监听
+        btn_FileFragment_NewFolder.setOnClickListener(this::onClick);
+
+        //顶部取消键监听
         tv_FileFragment_Title_cancel.setOnClickListener(this::onClick);
 
+        //顶部添加键监听
+        btn_FileFragment_Title_add.setOnClickListener(this::onClick);
 
-        /**
-         * 文件操作底部按钮监听
-         */
+        //顶部关闭键监听
+        btn_FileFragment_close.setOnClickListener(this::onClick);
+
+        //底部文件操作按钮监听
         select_FileOperation_menu.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -227,13 +241,49 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
             }break;
 
             case R.id.tv_FileFragment_Title_cancel:{
-                ll_FileFragment_Title.setVisibility(View.VISIBLE);
-                ll_topTitle_selectFile.setVisibility(View.GONE);
+                CL_FileFragment_Title.setVisibility(View.VISIBLE);
+                CL_topTitle_selectFile.setVisibility(View.GONE);
                 select_FileOperation_menu.setVisibility(View.GONE);
                 EventBus.getDefault().post(new SetBottomNavigationEvent(false));
             }break;
 
+            case R.id.btn_FileFragment_Title_add:{
+                CL_FileFragment_topAdd.setVisibility(View.VISIBLE);
+            }break;
+
+            case R.id.btn_FileFragment_close:{
+                CL_FileFragment_topAdd.setVisibility(View.GONE);
+            }break;
+
+            case R.id.btn_FileFragment_NewFolder:{
+                CL_FileFragment_topAdd.setVisibility(View.GONE);
+                View view = View.inflate(getContext(),R.layout.alertdialogview,null);
+                AlertDialog.Builder builder
+                        = new AlertDialog.Builder(getContext())
+                        .setTitle("新建文件夹")
+                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                EditText editText = view.findViewById(R.id.et_AlertDialogView);
+                                String folderName = editText.getText().toString();
+                                Toast.makeText(getContext(),folderName,Toast.LENGTH_SHORT).show();
+
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                final AlertDialog dialog = builder.create();
+                dialog.setView(view);
+                dialog.show();
+                dialog.getWindow().setLayout(1000,500);
+            }break;
         }
+
+
     }
 
     /**
@@ -243,8 +293,8 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     @Subscribe(threadMode = ThreadMode.POSTING)
     public void onFileLongClickEvent(FileLongClickEvent event){
         String Msg = event.getMsg();
-        ll_FileFragment_Title.setVisibility(View.GONE);
-        ll_topTitle_selectFile.setVisibility(View.VISIBLE);
+        CL_FileFragment_Title.setVisibility(View.GONE);
+        CL_topTitle_selectFile.setVisibility(View.VISIBLE);
         select_FileOperation_menu.setVisibility(View.VISIBLE);
 
     }

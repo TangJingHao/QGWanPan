@@ -133,7 +133,7 @@ public class FileDataBean {
                 ", lastDate='" + lastDate + '\'' +
                 '}';
     }
-    private boolean isSelected;
+    private boolean isSelected = false;
 
     public boolean isSelected() {
         return isSelected;
