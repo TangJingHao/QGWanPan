@@ -1,7 +1,9 @@
 package com.example.myapplication.View;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,27 +17,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.FileListAdapter;
-import com.example.myapplication.DataBean.FileBean;
 import com.example.myapplication.DataBean.FileDataBean;
-import com.example.myapplication.DataBean.UserDataBean;
+import com.example.myapplication.Event.FileLongClickEvent;
+import com.example.myapplication.Event.SelectItemEvent;
+import com.example.myapplication.Event.SetBottomNavigationEvent;
 import com.example.myapplication.Presenter.FilePresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
 import com.example.myapplication.contract.IFile;
-import com.example.myapplication.util.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
 
 import java.util.List;
 
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
@@ -54,6 +52,8 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     private TextView tv_FileFragment_Title;
     private BottomNavigationView select_FileOperation_menu;
 
+    private FileListAdapter fileListAdapter;
+
 
     public FileFragment(int ID,String jwt) {
         this.ID = ID;
@@ -70,6 +70,9 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         mPresenter = getPresenterInstance();
         View view = inflater.inflate(getContentViewId(),container,false);
         mPresenter.bindView(this);
+
+        //注册通信器
+        EventBus.getDefault().register(this);
 
 
         //初始化控件 数据 监听器
@@ -144,15 +147,15 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         tv_FileFragment_Title = view.findViewById(R.id.tv_FileFragment_Title);
         select_FileOperation_menu = view.findViewById(R.id.select_FileOperation_menu);
 
-
     }
 
     public void initAdapter(List<FileDataBean> fileData){
         //加载文件列表
-        FileListAdapter fileListAdapter = new FileListAdapter(fileData);
+        fileListAdapter = new FileListAdapter(fileData);
         file_list.setAdapter(fileListAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         file_list.setLayoutManager(linearLayoutManager);
+
     }
 
     @Override
@@ -163,6 +166,40 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     @Override
     public void initListener() {
 
+        /**
+         * 取消键监听
+         */
+        tv_FileFragment_Title_cancel.setOnClickListener(this::onClick);
+
+
+        /**
+         * 文件操作底部按钮监听
+         */
+        select_FileOperation_menu.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.file_operation_download:{
+                        Log.d("TAG","file_operation_download");
+
+                    }break;
+                    case R.id.file_operation_del:{
+                        Log.d("TAG","file_operation_del");
+
+                    }break;
+                    case R.id.file_operation_rename:{
+                        Log.d("TAG","file_operation_rename");
+
+                    }break;
+                    case R.id.file_operation_detail: {
+                        Log.d("TAG","file_operation_detail");
+
+                    }break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -177,11 +214,49 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
     @Override
     public void destroy() {
-
+        //解除注册通信器
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+
+            case R.id.tv_FileFragment_Title_selectAll:{
+                fileListAdapter.notifyDataSetChanged();
+            }break;
+
+            case R.id.tv_FileFragment_Title_cancel:{
+                ll_FileFragment_Title.setVisibility(View.VISIBLE);
+                ll_topTitle_selectFile.setVisibility(View.GONE);
+                select_FileOperation_menu.setVisibility(View.GONE);
+                EventBus.getDefault().post(new SetBottomNavigationEvent(false));
+            }break;
+
+        }
+    }
+
+    /**
+     * 文件夹长按监听
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void onFileLongClickEvent(FileLongClickEvent event){
+        String Msg = event.getMsg();
+        ll_FileFragment_Title.setVisibility(View.GONE);
+        ll_topTitle_selectFile.setVisibility(View.VISIBLE);
+        select_FileOperation_menu.setVisibility(View.VISIBLE);
+
+    }
+
+    /**
+     * 更新选中文件
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void onSelectItemEvent(SelectItemEvent event){
+        String Num = event.GetSelectedNum();
+        tv_FileFragment_Title_Selected.setText("已选中" + Num + "个文件");
 
     }
 }
