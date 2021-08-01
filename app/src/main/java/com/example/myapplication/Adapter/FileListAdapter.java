@@ -22,12 +22,9 @@ import java.util.List;
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyViewHolder> {
 
     private List<FileDataBean> files;
-    /*public FileListAdapter(List <FileDataBean> files){
-        this.files = files;
-    }*/
-
-    public FileListAdapter(){
-
+    private String string;
+    public FileListAdapter(String string){
+        this.string = string;
     }
 
     @NonNull
@@ -49,8 +46,9 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position) {
-        holder.filename.setText(files.get(position).getId());
-        holder.date.setText(files.get(position).getDate());
+        /*holder.filename.setText(files.get(position).getId());
+        holder.date.setText(files.get(position).getDate());*/
+        holder.filename.setText(string);
     }
 
     @Override

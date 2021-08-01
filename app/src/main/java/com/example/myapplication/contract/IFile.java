@@ -21,25 +21,31 @@ public interface IFile {
 
         //搜索文件
         void searchFile(String fileName)throws Exception;
+
     }
 
     public interface VP{
+
         //找到初始化页面的文件夹数据
         void getFileData();
+
         //返回登录结果
         void getFileDataResult(List<String> data);
 
         //上传文件
         void uploadFile(String path) ;
+
         //返回请求结果
         void uploadFileResult(int resultCode);
 
         //新建文件
         void newFile(String path);
+
         void newFileResult(int resultCode);
 
         //搜索文件
         void searchFile(String fileName);
+
         void searchFileResult(List<String> searchData);
     }
 }

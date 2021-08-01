@@ -144,10 +144,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/select_FileOperation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/file_operation_menu"
         android:background="@drawable/bg_fragment_file_bottomnavigation"
-        android:id="@+id/select_FileOperation_menu"
         app:labelVisibilityMode="labeled"
         android:layout_width="match_parent"
         android:layout_height="64dp"/>
