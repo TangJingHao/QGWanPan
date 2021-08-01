@@ -7,14 +7,15 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.DataBean.FileDataBean;
-import com.example.myapplication.Event.FileLongClickEvent;
 import com.example.myapplication.Event.SelectItemEvent;
 import com.example.myapplication.Event.SetBottomNavigationEvent;
+import com.example.myapplication.Event.FileLongClickEvent;
 import com.example.myapplication.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,11 +27,19 @@ import java.util.List;
 public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyViewHolder> {
 
     private List<FileDataBean> files;
+<<<<<<< Updated upstream
+    /*public FileListAdapter(List <FileDataBean> files){
+        this.files = files;
+    }*/
 
+    public FileListAdapter(){
+
+=======
     private List<String> selectedItem;
     public FileListAdapter(List<FileDataBean> files){
         this.files = files;
         selectedItem = new ArrayList<String>();
+>>>>>>> Stashed changes
     }
 
     @NonNull
@@ -69,14 +78,24 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull MyViewHolder holder, int position) {
+<<<<<<< Updated upstream
         holder.filename.setText(files.get(position).getId());
         holder.date.setText(files.get(position).getDate());
+=======
+        /*holder.filename.setText(files.get(position).getId());
+        holder.date.setText(files.get(position).getDate());*/
 
+>>>>>>> Stashed changes
     }
 
     @Override
     public int getItemCount() {
-        return files.size();
+<<<<<<< Updated upstream
+        return 10;
+=======
+        /*return files.size();*/
+        return 20;
+>>>>>>> Stashed changes
     }
 
 
