@@ -37,6 +37,7 @@ public class UserDataBean {
     }
 
     public static class DataBean {
+
         private String jwt;
         private UserBean user;
 
@@ -57,6 +58,7 @@ public class UserDataBean {
         }
 
         public static class UserBean {
+
             private Integer id;
             private String username;
             private String password;
