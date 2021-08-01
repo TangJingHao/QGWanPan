@@ -1,5 +1,6 @@
 package com.example.myapplication.Presenter;
 
+import com.example.myapplication.DataBean.FileDataBean;
 import com.example.myapplication.Model.FileModel;
 import com.example.myapplication.View.FileFragment;
 import com.example.myapplication.basic.BasePresenter;
@@ -24,13 +25,13 @@ public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.
     public IFile.VP getContract() {
         return new IFile.VP() {
             @Override
-            public void getFileData() {
+            public void getFileData(int id) {
 
             }
 
             @Override
-            public void getFileDataResult(List<String> data) {
-
+            public void getFileDataResult(List<FileDataBean> data) {
+                mView.initAdapter(data);
             }
 
             @Override
