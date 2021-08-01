@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        app:menu="@menu/bottom_menu"
+        app:menu="@menu/bottom_nav_menu"
         android:background="?android:attr/windowBackground"
         android:id="@+id/select_bottomNavigationView"
         android:layout_width="match_parent"

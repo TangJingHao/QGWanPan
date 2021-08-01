@@ -30,8 +30,8 @@ android {
 
 dependencies {
     //glide库
-    implementation 'com.github.bumptech.glide:glide:4.3.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //room库
     def room_version = "2.2.5"
     implementation "androidx.room:room-runtime:$room_version"

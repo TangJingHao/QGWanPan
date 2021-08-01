@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import android.view.View;
 
 import com.example.myapplication.Presenter.HomePresenter;
 import com.example.myapplication.R;
