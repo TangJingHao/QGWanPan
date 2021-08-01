@@ -29,7 +29,7 @@ public interface FileDownDao {
     @Query("DELETE FROM FileDownDetail")//清空  Query不仅是查询 更高级：可以增删改查
     void deleteAllDownFile();
 
-    @Query("SELECT * FROM FileDownDetail ORDER BY AID DESC")//查询哪张表，选择排序方式，DESC降序
+    @Query("SELECT * FROM FileDownDetail ORDER BY id DESC")//查询哪张表，选择排序方式，DESC降序
     List<FileDownDetail> getALLDownFile();
 
 }

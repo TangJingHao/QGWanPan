@@ -13,54 +13,43 @@ import androidx.room.PrimaryKey;
 public class FileDownDetail {
 
     @PrimaryKey(autoGenerate = true)//标记id为主键，让系统自动生成
-    public int aid;
+    private int id;
 
-    private Integer id;
-    private Integer uid;
-    private Integer fid;
-    private transient Object gid;
-    private String docname;
-    private String doctype;
-    private transient Object upstatus;
-    private transient Object downstatus;
-    private Integer own;
-    private Integer gro;
-    private Integer oth;
-    private String md5;
-    private Long date;
-    private Long lastdate;
-    private transient Object path;
+    private int fid;//文件id
+    private int uid;//用户id
+    private String docname;//文件名称
+    private String time;//创建时间
 
-    public Integer getId() {
+    public FileDownDetail(int fid, int uid, String docname, String time) {
+        this.fid = fid;
+        this.uid = uid;
+        this.docname = docname;
+        this.time = time;
+    }
+
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    public Integer getFid() {
+    public int getFid() {
         return fid;
     }
 
-    public void setFid(Integer fid) {
+    public void setFid(int fid) {
         this.fid = fid;
     }
 
-    public Object getGid() {
-        return gid;
+    public int getUid() {
+        return uid;
     }
 
-    public void setGid(Object gid) {
-        this.gid = gid;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getDocname() {
@@ -71,83 +60,11 @@ public class FileDownDetail {
         this.docname = docname;
     }
 
-    public String getDoctype() {
-        return doctype;
+    public String getTime() {
+        return time;
     }
 
-    public void setDoctype(String doctype) {
-        this.doctype = doctype;
-    }
-
-    public Object getUpstatus() {
-        return upstatus;
-    }
-
-    public void setUpstatus(Object upstatus) {
-        this.upstatus = upstatus;
-    }
-
-    public Object getDownstatus() {
-        return downstatus;
-    }
-
-    public void setDownstatus(Object downstatus) {
-        this.downstatus = downstatus;
-    }
-
-    public Integer getOwn() {
-        return own;
-    }
-
-    public void setOwn(Integer own) {
-        this.own = own;
-    }
-
-    public Integer getGro() {
-        return gro;
-    }
-
-    public void setGro(Integer gro) {
-        this.gro = gro;
-    }
-
-    public Integer getOth() {
-        return oth;
-    }
-
-    public void setOth(Integer oth) {
-        this.oth = oth;
-    }
-
-    public String getMd5() {
-        return md5;
-    }
-
-    public void setMd5(String md5) {
-        this.md5 = md5;
-    }
-
-    public Long getDate() {
-        return date;
-    }
-
-    public void setDate(Long date) {
-        this.date = date;
-    }
-
-    public Long getLastdate() {
-        return lastdate;
-    }
-
-    public void setLastdate(Long lastdate) {
-        this.lastdate = lastdate;
-    }
-
-    public Object getPath() {
-        return path;
-    }
-
-    public void setPath(Object path) {
-        this.path = path;
+    public void setTime(String time) {
+        this.time = time;
     }
 }
