@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
+import com.example.myapplication.DataBean.FileDataBean;
 import com.example.myapplication.Presenter.FilePresenter;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.BaseFragment;
@@ -32,9 +33,10 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
             }
 
             @Override
-            public void getFileDataResult(List<String> data) {
+            public void getFileDataResult(List<FileDataBean> data) {
 
             }
+
 
             @Override
             public void uploadFile(String path) {

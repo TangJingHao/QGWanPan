@@ -23,7 +23,8 @@ import retrofit2.http.POST;
 public interface IPost {
     @FormUrlEncoded
     @POST("user/register")
-    Call<IsRegister> registerData(@Field("username")String username, @Field("password")String password,@Field("nickname")String nickname);
+    Call<IsRegister> registerData(@Field("username")String username, @Field("password")String password,@Field("nickname")String nickname,
+                                  @Field("userEmail")String userEmail,@Field("checkCode")String checkCode);
 
     @FormUrlEncoded
     @POST("user/login")

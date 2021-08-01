@@ -45,9 +45,11 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
        return new IRegister.M() {
            @Override
            public void requestRegister(String username, String password, String nickname, String userEmail, String checkCode) throws Exception {
+
                IPost post= BaseCreator.create(IPost.class);
                Log.d("=========","daozheli");
-               post.registerData(username,password,nickname).enqueue(new Callback<IsRegister>() {
+               Log.d("===================",userEmail);
+               post.registerData(username,password,nickname, userEmail, checkCode).enqueue(new Callback<IsRegister>() {
                    @Override
                    public void onResponse(Call<IsRegister> call, Response<IsRegister> response) {
                        Boolean flag=response.body().getFlag();
@@ -79,6 +81,7 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
                    public void onFailure(Call<IsRegister> call, Throwable t) {
                        try {
                            mPresenter.getContract().responseRegister(username,password,Constants.NETWORK_ERROR);
+                           Log.d("===============","baocuole");
                        } catch (Exception e) {
                            e.printStackTrace();
                        }
