@@ -1,8 +1,12 @@
 package com.example.myapplication.View;
 
 import android.os.Bundle;
+<<<<<<< Updated upstream
 import android.util.Log;
+=======
+>>>>>>> Stashed changes
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,10 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myapplication.Adapter.BottomPagerAdapter;
+import com.example.myapplication.Event.SetBottomNavigationEvent;
 import com.example.myapplication.R;
 import com.example.myapplication.basic.SuperBaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -29,6 +37,7 @@ public class MainActivity extends SuperBaseActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+<<<<<<< Updated upstream
         int ID=getIntent().getIntExtra("ID",-1);//接受用户的id
         /*String jwt=getIntent().getStringExtra("jwt",);*/
         /*if(ID!=-1){
@@ -36,6 +45,25 @@ public class MainActivity extends SuperBaseActivity {
         }*/
         String jwt = "test";
         createView(ID,jwt);
+=======
+
+        //注册通信器
+        EventBus.getDefault().register(this);
+
+        /*ID=getIntent().getIntExtra("ID",-1);//接受用户的id
+        jwt=getIntent().getStringExtra("jwt");
+        password=getIntent().getStringExtra("password");
+        if(ID!=-1){
+            createView(ID,jwt,password);
+        }*/
+
+
+
+        ID = -1;
+        jwt = "jwt";
+        password = "pass";
+        createView(ID,jwt,password);
+>>>>>>> Stashed changes
     }
 
     private void createView(int ID,String jwt) {
@@ -96,4 +124,24 @@ public class MainActivity extends SuperBaseActivity {
             }
         });
     }
+<<<<<<< Updated upstream
 }
+=======
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void FileCheckBoxEvent(SetBottomNavigationEvent event){
+        if (event.IsCheckable()){
+            mBnView.setVisibility(View.GONE);
+        }else{
+            mBnView.setVisibility(View.VISIBLE);
+        }
+    }
+}
+
+>>>>>>> Stashed changes
