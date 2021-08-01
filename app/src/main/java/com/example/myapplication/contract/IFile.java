@@ -19,7 +19,7 @@ public interface IFile {
         void uploadFile(String path) throws Exception;
 
         //新建文件
-        void newFile(String path) throws Exception;
+        void newFile(int userid,int fid,String folderName,String jwt) throws Exception;
 
         //搜索文件
         void searchFile(String fileName)throws Exception;
@@ -29,8 +29,6 @@ public interface IFile {
         //找到初始化页面的文件夹数据
 
         void getFileData(int userid,String jwt);
-
-        void getFileData(int id);
 
         //返回默认文件夹
         void getFileDataResult(List<FileDataBean> data);
@@ -42,7 +40,7 @@ public interface IFile {
         void uploadFileResult(int resultCode);
 
         //新建文件
-        void newFile(String path);
+        void newFile(int userid,int fid,String folderName,String jwt);
         void newFileResult(int resultCode);
 
         //搜索文件

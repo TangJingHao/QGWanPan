@@ -4,24 +4,16 @@ import android.util.Log;
 
 import com.example.myapplication.DataBean.FileBean;
 import com.example.myapplication.DataBean.FileDataBean;
+import com.example.myapplication.DataBean.NewFolderBean;
 import com.example.myapplication.Presenter.FilePresenter;
 import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
 import com.example.myapplication.contract.IFile;
 import com.example.myapplication.contract.IPost;
-import com.example.myapplication.util.Constants;
-import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.List;
 
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,8 +62,19 @@ public class FileModel extends BaseModel<FilePresenter, IFile.M> {
             }
 
             @Override
-            public void newFile(String path) throws Exception {
+            public void newFile(int userid,int fid,String folderName,String jwt) throws Exception {
+                IPost post = BaseCreator.create(IPost.class);
+                post.newFile(jwt,userid,userid,folderName,fid).enqueue(new Callback<NewFolderBean>() {
+                    @Override
+                    public void onResponse(Call<NewFolderBean> call, Response<NewFolderBean> response) {
+                            NewFolderBean newFolderBean = response.body();
+                    }
 
+                    @Override
+                    public void onFailure(Call<NewFolderBean> call, Throwable t) {
+                            Log.d("TAG_ERROR","新建文件夹失败");
+                    }
+                });
             }
 
             @Override

@@ -85,8 +85,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         initView(view);
         initData();
         initListener();
-        /*mPresenter.getContract().getFileData(ID);*/
-        initAdapter();
+        mPresenter.getContract().getFileData(ID,jwt);
         return view;
     }
 
@@ -119,7 +118,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
             }
 
             @Override
-            public void newFile(String path) {
+            public void newFile(int userid,int fid,String folderName,String jwt) {
 
             }
 
@@ -160,9 +159,9 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         CL_FileFragment_topAdd = view.findViewById(R.id.CL_FileFragment_topAdd);
     }
 
-    public void initAdapter(/*List<FileDataBean> fileData*/){
+    public void initAdapter(List<FileDataBean> fileData){
         //加载文件列表
-        fileListAdapter = new FileListAdapter();
+        fileListAdapter = new FileListAdapter(fileData);
         file_list.setAdapter(fileListAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         file_list.setLayoutManager(linearLayoutManager);
@@ -267,7 +266,6 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
                             public void onClick(DialogInterface dialog, int which) {
                                 EditText editText = view.findViewById(R.id.et_AlertDialogView);
                                 String folderName = editText.getText().toString();
-                                Toast.makeText(getContext(),folderName,Toast.LENGTH_SHORT).show();
 
                             }
                         })

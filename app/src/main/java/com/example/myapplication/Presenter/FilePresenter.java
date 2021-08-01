@@ -45,7 +45,7 @@ public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.
             }
 
             @Override
-            public void newFile(String path) {
+            public void newFile(int userid,int fid,String folderName,String jwt) {
 
             }
 
