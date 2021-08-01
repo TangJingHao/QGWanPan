@@ -27,8 +27,10 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     @Override
     public IFile.VP getContract() {
         return new IFile.VP() {
+
+
             @Override
-            public void getFileData() {
+            public void getFileData(int id) {
 
             }
 
