@@ -46,6 +46,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter, ILogin.VP> {
                             Toast.makeText(getContext(),"用户密码错误，请重试！",Toast.LENGTH_SHORT).show();
                         }else if(loginStatusResult==Constants.SUCCESS_LOGIN_CODE){
                             Intent intent=new Intent(getContext(),MainActivity.class);
+                            intent.putExtra("password",mPasswordEt.getText().toString().trim());
                             intent.putExtra("jwt",jwt);
                             intent.putExtra("ID",ID);
                             startActivity(intent);

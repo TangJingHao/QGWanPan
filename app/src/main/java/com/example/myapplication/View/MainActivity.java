@@ -28,34 +28,25 @@ public class MainActivity extends SuperBaseActivity {
     private BottomPagerAdapter mAdapter;
     private ViewPager mViewPager;
     private BottomNavigationView mBnView;
-    private MyHandler myHandler=new MyHandler();
-    private final int FINISH_CODE=1;
     private int ID;
     private String jwt;
-
+    private String password;
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ID=getIntent().getIntExtra("ID",-1);//接受用户的id
         jwt=getIntent().getStringExtra("jwt");
+        password=getIntent().getStringExtra("password");
         if(ID!=-1){
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Message message=new Message();
-//                    message.what=FINISH_CODE;
-//                    myHandler.sendMessage(message);
-//                }
-//            });
-            createView(ID,jwt);
+            createView(ID,jwt,password);
         }
     }
 
-    private void createView(int ID,String jwt) {
+    private void createView(int ID,String jwt,String password) {
         mList.add(new HomeFragment(ID, jwt));
         mList.add(new FileFragment(ID,jwt));
-        mList.add(new MyPageFragment(ID,jwt));
+        mList.add(new MyPageFragment(ID,jwt,password));
         mAdapter=new BottomPagerAdapter(getSupportFragmentManager(),mList);
         mViewPager= this.findViewById(R.id.fragment_viewPager);
         mBnView=this.findViewById(R.id.select_bottomNavigationView);
@@ -105,15 +96,5 @@ public class MainActivity extends SuperBaseActivity {
         });
     }
 
-    class MyHandler extends Handler{
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            switch (msg.what){
-                case FINISH_CODE:
-                    createView(ID,jwt);
-                    break;
-            }
-        }
-    }
 }
 

@@ -1,5 +1,6 @@
 package com.example.myapplication.Presenter;
 
+import com.example.myapplication.DataBean.MyPagerBean;
 import com.example.myapplication.Model.HomeModel;
 import com.example.myapplication.basic.BasePresenter;
 import com.example.myapplication.contract.IHome;
@@ -23,7 +24,11 @@ public class HomePresenter extends BasePresenter<HomeModel,HomePresenter, IHome.
         return new IHome.VP() {
             @Override
             public void requestBaseData(int ID, String jwt) {
-
+                try {
+                    mModel.getContract().requestSizeData(ID,jwt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -39,6 +44,11 @@ public class HomePresenter extends BasePresenter<HomeModel,HomePresenter, IHome.
             @Override
             public void requestRecentDataResult(List<String> recentData) {
 
+            }
+
+            @Override
+            public void responseBaseData(MyPagerBean myPagerBean) {
+                mView.getContract().responseBaseData(myPagerBean);
             }
         };
     }

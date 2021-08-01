@@ -1,5 +1,7 @@
 package com.example.myapplication.contract;
 
+import com.example.myapplication.DataBean.MyPagerBean;
+
 import java.util.List;
 
 /**
@@ -22,6 +24,7 @@ public interface IHome {
         //列表信息及返回  返回文件夹名称的集合
         void requestRecentData();
         void requestRecentDataResult(List<String> recentData);
+        void responseBaseData(MyPagerBean myPagerBean);//返回数据
     }
 
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/group_name_rl"
+        android:background="@drawable/group_name_background"
+        android:layout_width="match_parent"
+        android:layout_height="24dp">
+        <TextView
+            android:id="@+id/group_name_tv"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xx组"
+            android:textColor="#ff000000"
+            android:textSize="14sp"
+            />
+    </RelativeLayout>
+    <ListView
+        android:layout_below="@id/group_name_rl"
+        android:id="@+id/group_member_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

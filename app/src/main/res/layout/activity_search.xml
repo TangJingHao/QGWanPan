@@ -25,8 +25,8 @@
             android:src="@mipmap/search_ic_back" />
 
         <TextView
-            android:layout_width="36dp"
-            android:layout_height="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="搜索"
             android:textColor="#ff000000"
@@ -55,8 +55,8 @@
         <TextView
             android:id="@+id/search_history_title"
             style="@style/BrockText"
-            android:layout_width="64dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:text="搜索历史"
             android:textSize="16sp"
