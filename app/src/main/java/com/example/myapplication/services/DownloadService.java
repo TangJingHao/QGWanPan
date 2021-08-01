@@ -11,6 +11,7 @@ import com.example.myapplication.util.DownLoadGFileUtil;
 public class DownloadService extends Service {
 
     private int ID ;
+    private Intent intent;
 
     public DownloadService() {
     }
@@ -21,18 +22,19 @@ public class DownloadService extends Service {
     }
 
     public class DownFileBinder extends Binder{
-        public void startDown(){};
+        public String startDown(){
+            ID = intent.getIntExtra("ID", -1);
+            String url = Constants.DOWN_URL + String.valueOf(ID);
+            String path = DownLoadGFileUtil.download(url, DownloadService.this, "picture.pgn");
+            return path;
+        }
         public void pauseDown(){};
         public void restartDown(){};
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        ID = intent.getIntExtra("ID",-1);
-        if(ID!=-1){
-            String url = Constants.DOWN_URL + "4";
-            DownLoadGFileUtil.download(url,this,"picture.pgn");
-        }
+        this.intent = intent;
         return super.onStartCommand(intent, flags, startId);
     }
 }

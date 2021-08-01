@@ -1,12 +1,16 @@
 package com.example.myapplication.View;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,8 +45,8 @@ public class TransDownFragment extends Fragment {
     private RecyclerView doingRv,finishRv;
     private List<FileDownData> doingData = new ArrayList<>(),finishData = new ArrayList<>();
     private Intent downServiceIntent;
-    private DownloadService downloadService;
     private DownloadService.DownFileBinder downFileBinder;
+    private String path;
     public TransDownFragment() {
     }
 
@@ -66,8 +70,10 @@ public class TransDownFragment extends Fragment {
 
         initView();
         reNewRecycleView();
+        initDown();
         return view;
     }
+
 
     private void reNewRecycleView() {
         DownDoingRvAdapter doingRvAdapter = new DownDoingRvAdapter(doingData);
@@ -81,12 +87,35 @@ public class TransDownFragment extends Fragment {
         finishRv.setAdapter(finishRvAdapter);
         doingRvAdapter.notifyDataSetChanged();
         finishRvAdapter.notifyDataSetChanged();
+    }
+
+    private void initDown() {
         if (doingData!=null){
             downServiceIntent = new Intent(this.getContext(),DownloadService.class);
             downServiceIntent.putExtra("ID",doingData.get(1).getId());
             this.getActivity().startService(downServiceIntent);
+            ServiceConnection connection = new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName name, IBinder service) {
+                    new Thread(()->{
+                        downFileBinder = (DownloadService.DownFileBinder)service;
+                        path = downFileBinder.startDown();
+                    }).start();
+                    getActivity().runOnUiThread(()->{
+                        if(path!=null){
+                            Toast.makeText(getActivity().getParent(),"下载成功",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onServiceDisconnected(ComponentName name) {
+
+                }
+            };
         }
     }
+
 
     private void initView() {
         allStartBtn = view.findViewById(R.id.down_start_bt);
