@@ -10,6 +10,7 @@ public class Constants {
     public static String SEARCH_HISTORY_URL = "search/history";//查看搜索历史
     public static String DELETE_HISTORY_ONE_URL = "search/deleteOne";//删除一条搜索历史信息
     public static String DELETE_HISTORY_ONE_ALL = "search/deleteAll";//删除全部搜索历史
+    public static String DOWN_URL="http://39.98.41.126:31109/file/getFile?fileId=";//下载用到的url地址
     public static int SUCCESS_CODE=1;//成功码
     public static int FAIL_CODE=0;//失败码
     public static int ERROR_ID=0;//登录失败的默认ID

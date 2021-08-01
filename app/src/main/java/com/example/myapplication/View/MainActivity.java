@@ -2,9 +2,9 @@ package com.example.myapplication.View;
 
 import android.os.Bundle;
 
-import android.os.Handler;
-import android.os.Message;
 
+
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -53,12 +53,17 @@ public class MainActivity extends SuperBaseActivity {
     }
 
     private void createView(int ID,String jwt,String password) {
-        mList.add(new HomeFragment(ID, jwt));
+
+        mAdapter = new BottomPagerAdapter(getSupportFragmentManager(),mList);
+        mViewPager = this.findViewById(R.id.fragment_viewPager);
+        mBnView = this.findViewById(R.id.select_bottomNavigationView);
+
+        mList.add(new HomeFragment(ID,jwt));
         mList.add(new FileFragment(ID,jwt));
         mList.add(new MyPageFragment(ID,jwt,password));
-        mAdapter=new BottomPagerAdapter(getSupportFragmentManager(),mList);
-        mViewPager= this.findViewById(R.id.fragment_viewPager);
-        mBnView=this.findViewById(R.id.select_bottomNavigationView);
+        Log.d("=============",jwt);
+
+
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

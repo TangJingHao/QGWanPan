@@ -30,10 +30,11 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -44,9 +45,11 @@ import okhttp3.Response;
 public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> {
     private int ID;
     private String jwt;
+    private TextView mPermissionTv;
     private String mPassword;
     private Button mUpdateUserInformationBtn;//修改用户信息按钮
     private Button mMyGroupBtn;
+    private Button mAddGroupBtn;
     private Button mMyMemberBtn;
     private Button mRelateUsBtn;
     private ProgressBar mProgressBar;
@@ -57,6 +60,7 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
     private TextView mUserNickname;//用户昵称
     private int percentage=0;
     private int TAKE_PHOTO=1;
+
     public MyPageFragment(int ID,String jwt,String password) {
         this.ID = ID;
         this.jwt=jwt;
@@ -76,27 +80,45 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
 
             @Override
             public void requestMyDataResult(MyPagerBean myData) {
-                getActivity().runOnUiThread(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        //改了一下  根据返回的flag来判断进行更改  返回为空的话会崩
-                        if(!myData.getFlag()){
-                            Toast.makeText(getContext(),"发生未知错误，请重试!",Toast.LENGTH_SHORT).show();
-                        }else{
-                            Log.d("test",myData.getData().getNickname()+myData.getData().getId()+myData.getData().getUsername());
-                            double useSpace=Double.valueOf(String.format("%.2f",myData.getData().getSpace()/(1024*1024)));//用户剩余可用空间
-                            percentage= (int) ((1-useSpace)*100);
-                            mUserNickname.setText(myData.getData().getNickname());
-                            if(myData.getData().getImage()!=null){
-
-                            }
-                            mCurrentTv.setText(useSpace+"GB");
-                            mProgressBar.setProgress(percentage);
+                        OkHttpClient client=new OkHttpClient();
+                        FormBody formBody=new FormBody.Builder().add("uid", String.valueOf(ID)).build();
+                        Request request=new Request.Builder().addHeader("Authorization",jwt).addHeader("userId", String.valueOf(ID)).url("http://39.98.41.126:31109/file/getImage").post(formBody).build();
+                        try {
+                            Response execute = client.newCall(request).execute();
+                            byte[] bytes = execute.body().bytes();
+                            createView(myData,bytes);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
-                });
+                }).start();
+
             }
         };
+    }
+
+    private void createView(MyPagerBean myData,byte[] bytes) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //改了一下  根据返回的flag来判断进行更改  返回为空的话会崩
+                if(!myData.getFlag()){
+                    Toast.makeText(getContext(),"发生未知错误，请重试!",Toast.LENGTH_SHORT).show();
+                }else{
+                    Log.d("test", myData.getData().getNickname()+ myData.getData().getId()+ myData.getData().getUsername());
+                    double useSpace=Double.valueOf(String.format("%.2f", myData.getData().getSpace()/(1024*1024)));//用户剩余可用空间
+                    percentage= (int) ((1-useSpace)*100);
+                    mUserNickname.setText(myData.getData().getNickname());
+                    mCurrentTv.setText(useSpace+"GB");
+                    mProgressBar.setProgress(percentage);
+                    mPermissionTv.setText("userID"+"  "+ID+"");
+                    Glide.with(getContext()).load(bytes).into(mMyIcon);
+                }
+            }
+        });
     }
 
     @Override
@@ -111,7 +133,83 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
         mMyGroupBtn=view.findViewById(R.id.group_by_btn);
         mMyMemberBtn=view.findViewById(R.id.member_btn);
         mRelateUsBtn=view.findViewById(R.id.relate_us_btn);
+        mAddGroupBtn=view.findViewById(R.id.add_group_btn);
         mProgressBar.setProgress(percentage);
+        mPermissionTv=view.findViewById(R.id.fragment_my_info_my_permission);
+        mMyGroupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(),GroupActivity.class);
+                intent.putExtra("ID",ID);
+                intent.putExtra("jwt",jwt);
+                startActivity(intent);
+            }
+        });
+        mMyMemberBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(),GroupActivity.class);
+                intent.putExtra("ID",ID);
+                intent.putExtra("jwt",jwt);
+                startActivity(intent);
+            }
+        });
+        mAddGroupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+                View view1=View.inflate(getContext(),R.layout.alter_dialog_add_group_background,null);
+                EditText groupName=(EditText)view1.findViewById(R.id.edit_group_name_et);
+                Button sureBtn=(Button)view1.findViewById(R.id.group_sure_btn);
+                Button falseBtn=(Button)view1.findViewById(R.id.group_false_btn);
+                builder.setView(view1);
+                AlertDialog dialog=builder.create();
+                falseBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                sureBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String newGroupName=groupName.getText().toString().trim();
+                                OkHttpClient client=new OkHttpClient();
+                                FormBody formBody=new FormBody.Builder().add("userid", String.valueOf(ID)).add("groupName",newGroupName).build();
+                                Request request=new Request.Builder().addHeader("Authorization",jwt).addHeader("userId", String.valueOf(ID)).url("http://39.98.41.126:31109/group/creatGroup").post(formBody).build();
+                                try {
+                                    Response execute = client.newCall(request).execute();
+                                    String responseData = execute.body().string();
+                                    Log.d("===========",responseData);
+                                    JSONObject jsonObject=new JSONObject(responseData);
+                                    Boolean flag=jsonObject.getBoolean("flag");
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if(flag){
+                                                Toast.makeText(getContext(),"创建成功",Toast.LENGTH_SHORT).show();
+
+                                            }else{
+                                                Toast.makeText(getContext(),"创建失败",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+                    }
+                });
+                dialog.show();
+            }
+        });
+
         mMyIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,29 +219,70 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
         mUpdateUserInformationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dialog=new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
                 View view1=View.inflate(getContext(),R.layout.alter_dialog_background,null);
                 EditText nickname=(EditText)view1.findViewById(R.id.dialog_nickname_et);
                 EditText password=(EditText)view1.findViewById(R.id.dialog_password_et);
                 Button sureBtn=(Button)view1.findViewById(R.id.sure_btn);
                 Button falseBtn=(Button)view1.findViewById(R.id.false_btn);
-                dialog.setView(view1);
-                dialog.show();
+                builder.setView(view1);
+                AlertDialog dialog=builder.create();
                 sureBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if(!nickname.getText().toString().equals(mUserNickname.getText().toString())&&!mPassword.equals(password)
                         ){
+                            RequestBody requestBody = new MultipartBody.Builder()
+                                    .setType(MultipartBody.FORM).addFormDataPart("uid", String.valueOf(ID))
+                                    .addFormDataPart("password",mPassword)
+                                    .addFormDataPart("nickname",nickname.getText().toString())
+                                    .build();
+                            Request request = new Request.Builder().addHeader("Authorization",jwt).addHeader("userId", String.valueOf(ID))
+                                    .url("http://39.98.41.126:31109/user/updateMsg")
+                                    .post(requestBody)
+                                    .build();
+                            OkHttpClient okHttpClient=new OkHttpClient();
+                            okHttpClient.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                    e.printStackTrace();
+                                }
 
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    String responseData=response.body().string();
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                dialog.dismiss();
+                                                Log.d("===========",responseData);
+                                                JSONObject jsonObject=new  JSONObject(responseData);
+                                                Boolean flag=jsonObject.getBoolean("flag");
+                                                if(flag){
+                                                    Toast.makeText(getContext(),"成功修改用户信息",Toast.LENGTH_SHORT).show();
+                                                    mUserNickname.setText(nickname.getText().toString());
+                                                }else {
+                                                    Toast.makeText(getContext(),"出bug了",Toast.LENGTH_SHORT).show();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
                         }
                     }
                 });
                 falseBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        dialog.dismiss();
                     }
                 });
+                dialog.show();
+
             }
         });
     }
@@ -154,10 +293,7 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
     }
 
     @Override
-    public void initListener() {
-//        mMyGroupBtn.setOnClickListener(this);
-//        mMyMemberBtn.setOnClickListener(this);
-    }
+    public void initListener() { }
 
     @Override
     public int getContentViewId() {
@@ -205,10 +341,10 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file",file.getName(),fileBody)
-                .addFormDataPart("uid", String.valueOf(ID)).addFormDataPart("password",mPassword).addFormDataPart("nickname",mUserNickname.getText().toString())
+                .addFormDataPart("uid", String.valueOf(ID))
                 .build();
         Request request = new Request.Builder().header("Authorization",jwt).addHeader("userId", String.valueOf(ID))
-                .url("http://39.98.41.126:31109/user/updateUser")
+                .url("http://39.98.41.126:31109/user/updateImage")
                 .post(requestBody)
                 .build();
         OkHttpClient okHttpClient=new OkHttpClient();
@@ -220,13 +356,13 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String responseData=response.body().string();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            String responseData=response.body().string();
                             Log.d("===========",responseData);
-                            JSONObject jsonObject=new JSONObject(responseData);
+                            JSONObject jsonObject=new  JSONObject(responseData);
                             Boolean flag=jsonObject.getBoolean("flag");
                             if(flag){
                                 Toast.makeText(getContext(),"成功修改用户信息",Toast.LENGTH_SHORT).show();
@@ -234,8 +370,6 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                                 Toast.makeText(getContext(),"出bug了",Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }

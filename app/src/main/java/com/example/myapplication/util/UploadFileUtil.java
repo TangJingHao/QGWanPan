@@ -43,7 +43,7 @@ public class UploadFileUtil {
         MultipartBody requestForDataBody = new MultipartBody.Builder().addFormDataPart("userId", userID).addFormDataPart("md5", fileMD5).
                 addFormDataPart("filePath", file.getAbsolutePath()).addFormDataPart("file", file.getName(), requestBody)
                 .build();
-        Request request = new Request.Builder().url(Constants.ServerURL).post(requestForDataBody).build();
+        Request request = new Request.Builder().url("http://39.98.41.126:31109/file/upload").post(requestForDataBody).build();
         OkHttpClient client=new OkHttpClient.Builder().build();
         client.newCall(request).enqueue(new Callback() {
             @Override

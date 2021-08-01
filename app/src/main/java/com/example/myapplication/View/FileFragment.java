@@ -99,6 +99,11 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     public IFile.VP getContract() {
         return new IFile.VP() {
             @Override
+            public void getFileData() {
+
+            }
+
+            @Override
             public void getFileData(int id) {
                 mPresenter.getContract().getFileData(id);
             }

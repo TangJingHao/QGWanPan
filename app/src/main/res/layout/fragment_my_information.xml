@@ -28,8 +28,8 @@
                 android:layout_toRightOf="@id/fragment_my_info_my_icon"
                 android:textColor="#ffffffff"
                 android:textSize="16sp"
-                android:layout_width="83dp"
-                android:layout_height="17dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
            <RelativeLayout
                android:background="@drawable/card_view_permission_background"
                android:layout_marginTop="7dp"
@@ -57,11 +57,32 @@
                 android:textColor="#ff9dc8c8"
                 android:textSize="12sp"
                 />
+            <TextView
+                android:layout_toLeftOf="@id/add_group_btn"
+                android:layout_below="@id/edit_tv"
+                android:id="@+id/add_tv"
+                android:layout_marginLeft="244dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="添加群组"
+                android:textColor="#ff9dc8c8"
+                android:textSize="12sp"
+                />
             <Button
                 android:id="@+id/edit_btn"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="26dp"
                 android:layout_toRightOf="@id/edit_tv"
+                android:background="@drawable/card_edit_btn_background"
+                android:layout_width="16dp"
+                android:layout_height="16dp"/>
+            <Button
+                android:id="@+id/add_group_btn"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@id/edit_tv"
+                android:layout_below="@id/edit_btn"
                 android:background="@drawable/card_edit_btn_background"
                 android:layout_width="16dp"
                 android:layout_height="16dp"/>

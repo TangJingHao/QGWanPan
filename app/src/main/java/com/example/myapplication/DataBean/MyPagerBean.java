@@ -76,8 +76,8 @@ public class MyPagerBean {
             this.nickname = nickname;
         }
 
-        public Object getImage() {
-            return image;
+        public byte[] getImage() {
+            return (byte[]) image;
         }
 
         public void setImage(Object image) {

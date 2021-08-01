@@ -13,7 +13,7 @@ import java.util.List;
 public interface IFile {
     public interface M{
         //找到初始化页面的文件夹数据
-        void getFileData(int userid,String jwt) throws Exception;
+        void getFileData() throws Exception;
 
         //上传文件
         void uploadFile(String path) throws Exception;
@@ -23,31 +23,30 @@ public interface IFile {
 
         //搜索文件
         void searchFile(String fileName)throws Exception;
-
     }
 
     public interface VP{
-
         //找到初始化页面的文件夹数据
+
+        void getFileData();
+
         void getFileData(int id);
 
         //返回默认文件夹
         void getFileDataResult(List<FileDataBean> data);
 
+
         //上传文件
         void uploadFile(String path) ;
-
         //返回请求结果
         void uploadFileResult(int resultCode);
 
         //新建文件
         void newFile(String path);
-
         void newFileResult(int resultCode);
 
         //搜索文件
         void searchFile(String fileName);
-
         void searchFileResult(List<String> searchData);
     }
 }

@@ -8,7 +8,7 @@
     android:background="@drawable/bg_fragment_file">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/CL_topTitle_selectFile"
+        android:id="@+id/ll_topTitle_selectFile"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -73,16 +73,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/file_list"
-        android:elevation="2dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_FileFragment_search"
-        tools:itemCount="20"/>
+
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/et_FileFragment_search"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/CL_FileFragment_Title"
+        android:id="@+id/ll_FileFragment_Title"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -141,6 +138,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -152,66 +151,4 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:visibility="gone"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/CL_FileFragment_topAdd"
-        android:layout_width="match_parent"
-        android:layout_height="168dp"
-        android:elevation="2dp"
-        android:background="@drawable/bg_fragment_file_add"
-        android:visibility="gone">
-        <ImageButton
-            android:id="@+id/btn_FileFragment_upload"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_fragment_file_upload"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="48dp"
-            android:layout_marginBottom="48dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="上传文件"
-            android:textColor="#ff9dc8c8"
-            android:textSize="13sp"
-            app:layout_constraintTop_toBottomOf="@id/btn_FileFragment_upload"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="8dp"/>
-        <ImageButton
-            android:id="@+id/btn_FileFragment_NewFolder"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_fragment_file_newfolder"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="136dp"
-            android:layout_marginBottom="48dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="新建文件夹"
-            android:textColor="#ff9dc8c8"
-            android:textSize="13sp"
-            app:layout_constraintTop_toBottomOf="@id/btn_FileFragment_upload"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="8dp"/>
-
-        <Button
-            android:id="@+id/btn_FileFragment_close"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@mipmap/icon_close"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="15dp"/>
-
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

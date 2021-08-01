@@ -1,22 +1,24 @@
 package com.example.myapplication.Model;
 
-import android.util.Log;
-
 import com.example.myapplication.DataBean.FileBean;
 import com.example.myapplication.DataBean.FileDataBean;
 import com.example.myapplication.Presenter.FilePresenter;
-import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
 import com.example.myapplication.contract.IFile;
-import com.example.myapplication.contract.IPost;
+import com.example.myapplication.util.Constants;
 import com.google.gson.Gson;
 
-import java.io.File;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * @Name： FileModel
@@ -37,22 +39,47 @@ public class FileModel extends BaseModel<FilePresenter, IFile.M> {
     public IFile.M getContract() {
         return new IFile.M() {
 
-            @Override
-            public void getFileData(int userid, String jwt) throws Exception {
-                IPost post = BaseCreator.create(IPost.class);
-                post.getFileData(jwt, userid).enqueue(new Callback<FileBean>() {
-                    @Override
-                    public void onResponse(Call<FileBean> call, Response<FileBean> response) {
-                        FileBean fileBean = response.body();
-                        List<FileDataBean> fileList = fileBean.getData();
-                        mPresenter.getContract().getFileDataResult(fileList);
-                    }
+//            @Override
+//            public void getFileData(int id) throws Exception {
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        RequestBody requestBody
+//                                = new FormBody.Builder()
+//                                .add("id", String.valueOf(id))
+//                                .build();
+//                        Request request = new Request.Builder()
+//                                .url(Constants.ServerURL + "folder/enterYun")
+//                                .post(requestBody)
+//                                .build();
+//
+//                        OkHttpClient okHttpClient = new OkHttpClient();
+//                        Response response = null;
+//
+//                        try{
+//                            response = okHttpClient.newCall(request).execute();
+//                            String requestData = response.body().string();
+//                            JSONObject jsonObject = new JSONObject(requestData);
+//                            boolean flag = jsonObject.getBoolean("flag");
+//
+//                            if (flag){
+//                                Gson gson = new Gson();
+//                                FileBean fileBean = gson.fromJson(requestData, FileBean.class);
+//                                List<FileDataBean> list = fileBean.getData();
+//                                mPresenter.getContract().getFileDataResult(list);
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }).start();
+//            }
 
-                    @Override
-                    public void onFailure(Call<FileBean> call, Throwable t) {
-                        Log.d("TAG","加载默认文件夹失败");
-                    }
-                });
+            @Override
+            public void getFileData() throws Exception {
+
             }
 
             @Override
