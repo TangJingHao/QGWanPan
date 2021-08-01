@@ -19,22 +19,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".View.TransferFileActivity">
+        <service
+            android:name=".services.DownloadService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".View.TestLoadActivity" />
+        <activity
+            android:name=".View.TransferFileActivity"
+            android:theme="@style/Theme.MyApplication" />
+        <activity
+            android:name=".View.InitActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".View.InitActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+        <activity android:name=".View.MainActivity" />
+        <activity android:name=".View.RegisterActivity" />
+        <activity android:name=".View.TestActivity" >
 
         </activity>
-        <activity android:name=".View.MainActivity"></activity>
-        <activity android:name=".View.RegisterActivity"></activity>
-        <activity android:name=".View.TestActivity"></activity>
-        <activity android:name=".View.SearchActivity"></activity>
+        <activity android:name=".View.SearchActivity" />
         <activity android:name=".View.GroupActivity" />
     </application>
 
