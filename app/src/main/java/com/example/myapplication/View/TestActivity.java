@@ -38,7 +38,7 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 IPost post=BaseCreator.create(IPost.class);
-                post.registerData("54321","12345","QGer").enqueue(new Callback<IsRegister>() {
+                post.registerData("54321","12345","QGer","","").enqueue(new Callback<IsRegister>() {
                     @Override
                     public void onResponse(Call<IsRegister> call, Response<IsRegister> response) {
                         Boolean flag=response.body().getFlag();
