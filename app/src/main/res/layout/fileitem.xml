@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="328dp"
+    android:layout_height="56dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_fileitem">
+    <ImageView
+        android:id="@+id/fileItem_iv_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@mipmap/icon_folder_green"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"/>
+    <TextView
+        android:id="@+id/fileItem_tv_filename"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:text="未命名文件夹"
+        android:textColor="#ff000000"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fileItem_iv_icon"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"/>
+
+    <TextView
+        android:id="@+id/fileItem_tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2020-07-28  12:00"
+        android:textColor="#ff000000"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/fileItem_tv_filename"
+        app:layout_constraintStart_toEndOf="@id/fileItem_iv_icon"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"/>
+    <CheckBox
+        android:id="@+id/fileitem_cb_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="16dp"
+        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+        android:layout_marginRight="16dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
