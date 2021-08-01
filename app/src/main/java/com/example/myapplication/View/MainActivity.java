@@ -1,6 +1,10 @@
 package com.example.myapplication.View;
 
 import android.os.Bundle;
+
+import android.os.Handler;
+import android.os.Message;
+
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends SuperBaseActivity {
+
     private List<Fragment> mList=new ArrayList<>();
     private BottomPagerAdapter mAdapter;
     private ViewPager mViewPager;
@@ -37,17 +42,16 @@ public class MainActivity extends SuperBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //注册通信器
+        EventBus.getDefault().register(this);
+
+
         ID=getIntent().getIntExtra("ID",-1);//接受用户的id
         jwt=getIntent().getStringExtra("jwt");
         password=getIntent().getStringExtra("password");
         if(ID!=-1){
             createView(ID,jwt,password);
         }
-
-
-
-        //注册通信器
-        EventBus.getDefault().register(this);
 
     }
 
@@ -58,7 +62,7 @@ public class MainActivity extends SuperBaseActivity {
         mBnView = this.findViewById(R.id.select_bottomNavigationView);
 
         mList.add(new HomeFragment(ID,jwt));
-        mList.add(new FileFragment(ID));
+        mList.add(new FileFragment(ID,jwt));
         mList.add(new MyPageFragment(ID,jwt,password));
         Log.d("=============",jwt);
 
@@ -72,7 +76,6 @@ public class MainActivity extends SuperBaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                Log.d("TAG", position + "");
                 switch (position){
                     case 0:
                         mBnView.setSelectedItemId(R.id.HomePage);
@@ -110,9 +113,6 @@ public class MainActivity extends SuperBaseActivity {
         });
     }
 
-
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -127,6 +127,6 @@ public class MainActivity extends SuperBaseActivity {
             mBnView.setVisibility(View.VISIBLE);
         }
     }
-}
 
+}
 

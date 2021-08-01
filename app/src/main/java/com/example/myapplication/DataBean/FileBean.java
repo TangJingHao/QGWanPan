@@ -2,6 +2,11 @@ package com.example.myapplication.DataBean;
 
 import java.util.List;
 
+/**
+ * @Description:
+ * @author:
+ * @date: 2021年08月01日 10:13
+ */
 public class FileBean {
     private String flag;
     private String message;

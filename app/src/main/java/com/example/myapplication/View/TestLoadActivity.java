@@ -13,6 +13,7 @@ import com.example.myapplication.DataBase.FileDownDataBase;
 import com.example.myapplication.DataBase.FileDownDetail;
 import com.example.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.myapplication.basic.BaseApplication.getContext;
@@ -21,7 +22,7 @@ public class TestLoadActivity extends AppCompatActivity{
 
     Button mBtn;
     FileDownDetail testData;
-    List<FileDownDetail> mData;
+    List<FileDownDetail> mData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +37,20 @@ public class TestLoadActivity extends AppCompatActivity{
         mBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 new Thread(()->{
-                    testData = new FileDownDetail();
-                    testData.setId(4);
-                    testData.setDocname("文件1");
-                    downDao.insertDownFile(testData);
-                    Log.d("TeatActivity======",testData.getDocname()+testData.getId());
-                    testData.setId(5);
-                    testData.setDocname("文件2");
-                    downDao.insertDownFile(testData);
-                    Log.d("TeatActivity======",testData.getDocname()+testData.getId());
-                    testData.setId(6);
-                    testData.setDocname("文件3");
-                    downDao.insertDownFile(testData);
-                    Log.d("TeatActivity======",testData.getDocname()+testData.getId());
+                    FileDownDetail testData1 = new FileDownDetail(1,1,"文件名1","2020");
+                    FileDownDetail testData2 = new FileDownDetail(2,1,"文件名2","2021");
+                    FileDownDetail testData3 = new FileDownDetail(3,1,"文件名3","2022");
+                    FileDownDetail testData4 = new FileDownDetail(4,1,"文件名4","2023");
+                    downDao.insertDownFile(testData1,testData2,testData3,testData4);
                     mData = downDao.getALLDownFile();
                 }).start();
                 runOnUiThread(()->{
-                    String string = mData.get(1).getDocname();
-                    Toast.makeText(getContext(),string,Toast.LENGTH_SHORT).show();
+                    String string = mData.get(2).getDocname()+mData.get(3).getTime();
+                    Log.d("TeatActivity======",string);
+                    Toast.makeText(TestLoadActivity.this,string,Toast.LENGTH_SHORT).show();
                 });
-
             }
         });
     }

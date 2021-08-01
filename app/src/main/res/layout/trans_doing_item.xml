@@ -35,7 +35,8 @@
         app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toEndOf="@+id/doing_file_iv"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.499"
+        android:max="100"/>
 
     <ImageView
         android:id="@+id/doing_status_iv"
@@ -51,14 +52,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.6"
-        app:srcCompat="@mipmap/trans_pause_ic" />
+        />
 
     <TextView
         android:id="@+id/doing_file_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="150dp"
+        android:layout_marginRight="150dp"
         android:text="文件夹名字"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.193"
@@ -74,6 +77,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="8dp"
+        android:textSize="12sp"
         android:text="已暂停"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/doing_status_iv"
@@ -84,10 +88,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="100MB/200MB"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.961" />
 </androidx.constraintlayout.widget.ConstraintLayout>

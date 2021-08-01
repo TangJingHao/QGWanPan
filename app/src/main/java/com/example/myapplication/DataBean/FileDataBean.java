@@ -1,5 +1,10 @@
 package com.example.myapplication.DataBean;
 
+/**
+ * @Description:
+ * @author:
+ * @date: 2021年08月01日 10:13
+ */
 public class FileDataBean {
 
     private String id;
