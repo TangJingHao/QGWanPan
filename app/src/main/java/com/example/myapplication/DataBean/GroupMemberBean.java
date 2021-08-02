@@ -10,7 +10,17 @@ package com.example.myapplication.DataBean;
 public class GroupMemberBean {
     private String memberName;
     private String groupName;
+
+    public String getPermissionName() {
+        return permissionName;
+    }
+
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
+    }
+
     private String permissionName;
+
 
     public GroupMemberBean() {
     }
@@ -37,11 +47,5 @@ public class GroupMemberBean {
         this.groupName = groupName;
     }
 
-    public String getPermissionName() {
-        return permissionName;
-    }
 
-    public void setPermissionName(String permissionName) {
-        this.permissionName = permissionName;
-    }
 }

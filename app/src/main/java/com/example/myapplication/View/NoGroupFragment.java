@@ -23,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 public class NoGroupFragment extends Fragment {
     private int ID;
     private String jwt;
-
     public NoGroupFragment(int ID, String jwt) {
         this.ID = ID;
         this.jwt = jwt;
@@ -34,5 +33,11 @@ public class NoGroupFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_no_group,container,false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 }
