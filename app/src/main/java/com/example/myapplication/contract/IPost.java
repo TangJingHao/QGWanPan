@@ -53,7 +53,7 @@ public interface IPost {
     Call<FileBean> getFileData(@Header("Authorization")String jwt, @Header("userid")int userID,@Field("userid")int userid);
 
     @FormUrlEncoded
-    @POST
+    @POST("folder/createFolder")
     Call<NewFolderBean> newFile(@Header("Authorization")String jwt, @Header("userid")int userId ,
                                 @Field("userid") int userid, @Field("folderName")String folderName, @Field("fid")int fid);
 

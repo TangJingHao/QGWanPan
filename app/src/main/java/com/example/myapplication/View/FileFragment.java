@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.FileListAdapter;
 import com.example.myapplication.DataBean.FileDataBean;
+import com.example.myapplication.Event.FileCreate;
 import com.example.myapplication.Event.FileLongClickEvent;
 import com.example.myapplication.Event.SelectItemEvent;
 import com.example.myapplication.Event.SetBottomNavigationEvent;
@@ -265,7 +266,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
                             public void onClick(DialogInterface dialog, int which) {
                                 EditText editText = view.findViewById(R.id.et_AlertDialogView);
                                 String folderName = editText.getText().toString();
-
+                                mPresenter.getContract().newFile(ID,0,folderName,jwt);
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -279,9 +280,8 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
                 dialog.show();
                 dialog.getWindow().setLayout(1000,500);
             }break;
+
         }
-
-
     }
 
     /**
@@ -306,5 +306,9 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         String Num = event.GetSelectedNum();
         tv_FileFragment_Title_Selected.setText("已选中" + Num + "个文件");
 
+    }
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void onFileCreateEvent(FileCreate event){
+        mPresenter.getContract().getFileData(ID,jwt);
     }
 }
