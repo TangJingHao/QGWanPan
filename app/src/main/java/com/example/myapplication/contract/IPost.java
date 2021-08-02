@@ -5,6 +5,7 @@ import com.example.myapplication.DataBean.IsDeleteHistory;
 import com.example.myapplication.DataBean.IsRegister;
 import com.example.myapplication.DataBean.MyPagerBean;
 import com.example.myapplication.DataBean.NewFolderBean;
+import com.example.myapplication.DataBean.ReNameBean;
 import com.example.myapplication.DataBean.SearchHistoryBean;
 import com.example.myapplication.DataBean.SearchResult;
 import com.example.myapplication.DataBean.UserDataBean;
@@ -56,5 +57,10 @@ public interface IPost {
     @POST("folder/createFolder")
     Call<NewFolderBean> newFile(@Header("Authorization")String jwt, @Header("userid")int userId ,
                                 @Field("userid") int userid, @Field("folderName")String folderName, @Field("fid")int fid);
+
+    @FormUrlEncoded
+    @POST("folder/updateFolder")
+    Call<ReNameBean> reName(@Header("Authorization")String jwt, @Header("userid")int userId ,
+                            @Field("userid") int userid, @Field("folderName")String folderName, @Field("newName")String FileId);
 
 }

@@ -71,6 +71,16 @@ public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.
             public void searchFileResult(List<String> searchData) {
 
             }
+
+            @Override
+            public void renameFile(int userid, String jwt, String FileId, String folderName) throws Exception {
+                mModel.getContract().renameFile(userid,jwt,FileId,folderName);
+            }
+
+            @Override
+            public void renameFileresult() {
+                mView.getContract().renameFileresult();
+            }
         };
     }
 }

@@ -10,9 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +39,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,6 +64,8 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
     private ImageButton btn_FileFragment_NewFolder;
     private ImageButton btn_FileFragment_upload;
     private ConstraintLayout CL_FileFragment_topAdd;
+    private CheckBox fileitem_cb_select;
+
 
     public FileFragment(int ID,String jwt) {
         this.ID = ID;
@@ -137,6 +142,18 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
             public void searchFileResult(List<String> searchData) {
 
             }
+
+
+            @Override
+            public void renameFile(int userid, String jwt, String FileId, String folderName) throws Exception {
+                mPresenter.getContract().renameFile(userid, jwt, FileId, folderName);
+            }
+
+            @Override
+            public void renameFileresult() {
+                mPresenter.getContract().getFileData(ID,jwt);
+            }
+
         };
     }
 
@@ -158,6 +175,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         btn_FileFragment_close = view.findViewById(R.id.btn_FileFragment_close);
         btn_FileFragment_NewFolder = view.findViewById(R.id.btn_FileFragment_NewFolder);
         CL_FileFragment_topAdd = view.findViewById(R.id.CL_FileFragment_topAdd);
+        fileitem_cb_select = view.findViewById(R.id.fileitem_cb_select);
     }
 
     public void initAdapter(List<FileDataBean> fileData){
@@ -218,7 +236,38 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
                     }break;
                     case R.id.file_operation_rename:{
-                        Log.d("TAG","file_operation_rename");
+                        ArrayList<String> IdList = fileListAdapter.GetFileIDList();
+                        ArrayList<String> NameList = fileListAdapter.GetFileNameList();
+                        if (IdList.size() != 1){
+                            Toast.makeText(getContext(),"请选择一个文件进行操作",Toast.LENGTH_SHORT).show();
+                        }else {
+                            View view = View.inflate(getContext(),R.layout.alertdialogview,null);
+                            EditText editText = view.findViewById(R.id.et_AlertDialogView);
+                            editText.setHint(NameList.get(0));
+                            AlertDialog.Builder builder
+                                    = new AlertDialog.Builder(getContext())
+                                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            String folderName = editText.getText().toString();
+                                            try {
+                                                mPresenter.getContract().renameFile(ID,jwt,NameList.get(0),folderName);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    })
+                                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            final AlertDialog dialog = builder.create();
+                            dialog.setView(view);
+                            dialog.show();
+                            dialog.getWindow().setLayout(1000,500);
+                        }
 
                     }break;
                     case R.id.file_operation_detail: {
@@ -321,7 +370,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         CL_FileFragment_Title.setVisibility(View.GONE);
         CL_topTitle_selectFile.setVisibility(View.VISIBLE);
         select_FileOperation_menu.setVisibility(View.VISIBLE);
-
+        fileitem_cb_select.setClickable(true);
     }
 
     /**

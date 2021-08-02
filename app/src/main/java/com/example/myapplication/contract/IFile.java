@@ -23,6 +23,8 @@ public interface IFile {
 
         //搜索文件
         void searchFile(String fileName)throws Exception;
+        //重命名
+        void renameFile(int userid, String jwt, String FileId, String folderName) throws Exception;
     }
 
     public interface VP{
@@ -46,5 +48,9 @@ public interface IFile {
         //搜索文件
         void searchFile(String fileName);
         void searchFileResult(List<String> searchData);
+
+        //重命名
+        void renameFile(int userid, String jwt, String FileId, String folderName) throws Exception;
+        void renameFileresult();
     }
 }

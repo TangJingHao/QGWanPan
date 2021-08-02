@@ -1,10 +1,12 @@
 package com.example.myapplication.Model;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.myapplication.DataBean.FileBean;
 import com.example.myapplication.DataBean.FileDataBean;
 import com.example.myapplication.DataBean.NewFolderBean;
+import com.example.myapplication.DataBean.ReNameBean;
 import com.example.myapplication.Event.FileCreate;
 import com.example.myapplication.Presenter.FilePresenter;
 import com.example.myapplication.basic.BaseCreator;
@@ -86,6 +88,29 @@ public class FileModel extends BaseModel<FilePresenter, IFile.M> {
             public void searchFile(String fileName) throws Exception {
 
             }
+
+            @Override
+            public void renameFile(int userid, String jwt, String FileId, String folderName) throws Exception {
+                IPost post = BaseCreator.create(IPost.class);
+                post.reName(jwt,userid,userid,folderName,FileId).enqueue(new Callback<ReNameBean>() {
+                    @Override
+                    public void onResponse(Call<ReNameBean> call, Response<ReNameBean> response) {
+                        ReNameBean reNameBean = response.body();
+                        if (reNameBean.getFlag()){
+                            mPresenter.getContract().renameFileresult();
+                        }else {
+                            Log.d("TAG_ERROR","修改文件名失败");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ReNameBean> call, Throwable t) {
+
+                    }
+                });
+
+            }
+
         };
     }
 }
