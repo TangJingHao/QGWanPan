@@ -27,10 +27,12 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
 
     private List<FileDataBean> files;
 
-    private ArrayList<String> selectedItem;
+    private ArrayList<String> selectedId;
+    private ArrayList<String> selectedName;
     public FileListAdapter(List<FileDataBean> files){
         this.files = files;
-        selectedItem = new ArrayList<String>();
+        selectedId = new ArrayList<String>();
+        selectedName = new ArrayList<String>();
     }
 
     @NonNull
@@ -44,13 +46,15 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    selectedItem.add(files.get(myViewHolder.getAdapterPosition()).getId());
+                    selectedId.add(files.get(myViewHolder.getAdapterPosition()).getId());
+                    selectedName.add(files.get(myViewHolder.getAdapterPosition()).getFoldername());
                     files.get(myViewHolder.getAdapterPosition()).setSelected(true);
                 }else{
-                    selectedItem.remove(files.get(myViewHolder.getAdapterPosition()).getId());
+                    selectedId.remove(files.get(myViewHolder.getAdapterPosition()).getId());
+                    selectedName.remove(files.get(myViewHolder.getAdapterPosition()).getFoldername());
                     files.get(myViewHolder.getAdapterPosition()).setSelected(false);
                 }
-                EventBus.getDefault().post(new SelectItemEvent(selectedItem.size() + ""));
+                EventBus.getDefault().post(new SelectItemEvent(selectedId.size() + ""));
                 Log.d("Hx","已选择");
             }
         });
@@ -92,7 +96,10 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
         }
     }
     //返回多选文件
-    public ArrayList<String> GetSelectedList(){
-        return  selectedItem;
+    public ArrayList<String> GetFileIDList(){
+        return selectedId;
+    }
+    public ArrayList<String> GetFileNameList(){
+        return selectedName;
     }
 }

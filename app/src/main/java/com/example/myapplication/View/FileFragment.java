@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -206,15 +205,16 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
                         CL_topTitle_selectFile.setVisibility(View.GONE);
                         select_FileOperation_menu.setVisibility(View.GONE);
                         EventBus.getDefault().post(new SetBottomNavigationEvent(false));
-                        Intent intent=new Intent(getContext(),TransferFileActivity.class);
+                        Intent intent = new Intent(getContext(),TransferFileActivity.class);
                         intent.putExtra("jwt",jwt);
                         intent.putExtra("ID",ID);
-                        intent.putStringArrayListExtra("FileId",fileListAdapter.GetSelectedList());
+                        intent.putStringArrayListExtra("FileId",fileListAdapter.GetFileIDList());
+                        intent.putStringArrayListExtra("FileName",fileListAdapter.GetFileNameList());
                         startActivity(intent);
 
                     }break;
                     case R.id.file_operation_del:{
-                        Log.d("TAG","file_operation_del");
+
 
                     }break;
                     case R.id.file_operation_rename:{
