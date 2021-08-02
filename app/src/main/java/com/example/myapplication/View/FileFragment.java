@@ -202,7 +202,15 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
             public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.file_operation_download:{
-                        Log.d("TAG","file_operation_download");
+                        CL_FileFragment_Title.setVisibility(View.VISIBLE);
+                        CL_topTitle_selectFile.setVisibility(View.GONE);
+                        select_FileOperation_menu.setVisibility(View.GONE);
+                        EventBus.getDefault().post(new SetBottomNavigationEvent(false));
+                        Intent intent=new Intent(getContext(),TransferFileActivity.class);
+                        intent.putExtra("jwt",jwt);
+                        intent.putExtra("ID",ID);
+                        intent.putStringArrayListExtra("FileId",fileListAdapter.GetSelectedList());
+                        startActivity(intent);
 
                     }break;
                     case R.id.file_operation_del:{
@@ -238,13 +246,13 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         //解除注册通信器
         EventBus.getDefault().unregister(this);
     }
-
+    //点击事件
     @Override
     public void onClick(View v) {
         switch (v.getId()){
 
             case R.id.tv_FileFragment_Title_selectAll:{
-                fileListAdapter.notifyDataSetChanged();
+
             }break;
 
             case R.id.tv_FileFragment_Title_cancel:{

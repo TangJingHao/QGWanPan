@@ -27,7 +27,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
 
     private List<FileDataBean> files;
 
-    private List<String> selectedItem;
+    private ArrayList<String> selectedItem;
     public FileListAdapter(List<FileDataBean> files){
         this.files = files;
         selectedItem = new ArrayList<String>();
@@ -44,10 +44,10 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    selectedItem.add(myViewHolder.getAdapterPosition() + "");
+                    selectedItem.add(files.get(myViewHolder.getAdapterPosition()).getId());
                     files.get(myViewHolder.getAdapterPosition()).setSelected(true);
                 }else{
-                    selectedItem.remove(myViewHolder.getAdapterPosition() + "");
+                    selectedItem.remove(files.get(myViewHolder.getAdapterPosition()).getId());
                     files.get(myViewHolder.getAdapterPosition()).setSelected(false);
                 }
                 EventBus.getDefault().post(new SelectItemEvent(selectedItem.size() + ""));
@@ -92,7 +92,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.MyView
         }
     }
     //返回多选文件
-    public List<FileDataBean> GetSelectedList(){
-        return files;
+    public ArrayList<String> GetSelectedList(){
+        return  selectedItem;
     }
 }
