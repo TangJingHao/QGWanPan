@@ -50,7 +50,11 @@ public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.
 
             @Override
             public void newFile(int userid,int fid,String folderName,String jwt) {
-
+                try {
+                    mModel.getContract().newFile(userid,fid,folderName,jwt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

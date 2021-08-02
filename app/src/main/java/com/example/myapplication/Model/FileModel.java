@@ -5,12 +5,15 @@ import android.util.Log;
 import com.example.myapplication.DataBean.FileBean;
 import com.example.myapplication.DataBean.FileDataBean;
 import com.example.myapplication.DataBean.NewFolderBean;
+import com.example.myapplication.Event.FileCreate;
 import com.example.myapplication.Presenter.FilePresenter;
 import com.example.myapplication.basic.BaseCreator;
 import com.example.myapplication.basic.BaseModel;
 import com.example.myapplication.contract.IFile;
 import com.example.myapplication.contract.IPost;
 import com.google.gson.JsonObject;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,15 +49,11 @@ public class FileModel extends BaseModel<FilePresenter, IFile.M> {
                     public void onResponse(Call<FileBean> call, Response<FileBean> response) {
                         FileBean fileBean = response.body();
                         List<FileDataBean> list = fileBean.getData();
-                        String data = list.get(0).toString();
-                        Log.d("TAG_",data);
                         mPresenter.getContract().getFileDataResult(list);
                     }
 
                     @Override
                     public void onFailure(Call<FileBean> call, Throwable t) {
-
-                        Log.d("TAG_",call.toString());
                         Log.d("TAG_ERROR","获取默认文件夹失败");
                     }
                 });
@@ -73,6 +72,7 @@ public class FileModel extends BaseModel<FilePresenter, IFile.M> {
                     @Override
                     public void onResponse(Call<NewFolderBean> call, Response<NewFolderBean> response) {
                             NewFolderBean newFolderBean = response.body();
+                            EventBus.getDefault().post(new FileCreate("createFolder"));
                     }
 
                     @Override

@@ -2,6 +2,7 @@ package com.example.myapplication.View;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Adapter.FileListAdapter;
 import com.example.myapplication.DataBean.FileDataBean;
+import com.example.myapplication.Event.FileCreate;
 import com.example.myapplication.Event.FileLongClickEvent;
 import com.example.myapplication.Event.SelectItemEvent;
 import com.example.myapplication.Event.SetBottomNavigationEvent;
@@ -188,6 +190,11 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         //顶部关闭键监听
         btn_FileFragment_close.setOnClickListener(this::onClick);
 
+        //顶部传输键监听
+        btn_FileFragment_Title_transmission.setOnClickListener(this::onClick);
+
+        //搜索框监听
+        et_FileFragment_search.setOnClickListener(this::onClick);
         //底部文件操作按钮监听
         select_FileOperation_menu.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -265,7 +272,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
                             public void onClick(DialogInterface dialog, int which) {
                                 EditText editText = view.findViewById(R.id.et_AlertDialogView);
                                 String folderName = editText.getText().toString();
-
+                                mPresenter.getContract().newFile(ID,0,folderName,jwt);
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -279,9 +286,21 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
                 dialog.show();
                 dialog.getWindow().setLayout(1000,500);
             }break;
+
+            case R.id.btn_FileFragment_Title_transmission:{
+                Intent intent=new Intent(getContext(),TransferFileActivity.class);
+                intent.putExtra("jwt",jwt);
+                intent.putExtra("ID",ID);
+                startActivity(intent);
+            }break;
+
+            case R.id.et_FileFragment_search:{
+                Intent intent=new Intent(getContext(),SearchActivity.class);
+                intent.putExtra("jwt",jwt);
+                intent.putExtra("ID",ID);
+                startActivity(intent);
+            }break;
         }
-
-
     }
 
     /**
@@ -306,5 +325,9 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         String Num = event.GetSelectedNum();
         tv_FileFragment_Title_Selected.setText("已选中" + Num + "个文件");
 
+    }
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void onFileCreateEvent(FileCreate event){
+        mPresenter.getContract().getFileData(ID,jwt);
     }
 }
