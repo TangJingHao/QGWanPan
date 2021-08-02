@@ -50,7 +50,7 @@ public interface IPost {
 
     @FormUrlEncoded
     @POST("folder/enterYun")
-    Call<FileBean> getFileData(@Header("Authorization")String jwt, @Field("userid")int userid);
+    Call<FileBean> getFileData(@Header("Authorization")String jwt, @Header("userid")int userID,@Field("userid")int userid);
 
     @FormUrlEncoded
     @POST

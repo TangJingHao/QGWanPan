@@ -104,7 +104,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
 
             @Override
             public void getFileDataResult(List<FileDataBean> data) {
-
+                initAdapter(data);
             }
 
             @Override
@@ -260,13 +260,12 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
                 View view = View.inflate(getContext(),R.layout.alertdialogview,null);
                 AlertDialog.Builder builder
                         = new AlertDialog.Builder(getContext())
-                        .setTitle("新建文件夹")
                         .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 EditText editText = view.findViewById(R.id.et_AlertDialogView);
                                 String folderName = editText.getText().toString();
-
+                                
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {

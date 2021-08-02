@@ -26,12 +26,16 @@ public class FilePresenter extends BasePresenter<FileModel, FileFragment, IFile.
         return new IFile.VP() {
             @Override
             public void getFileData(int userid,String jwt) {
-
+                try {
+                    mModel.getContract().getFileData(userid,jwt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void getFileDataResult(List<FileDataBean> data) {
-
+                mView.getContract().getFileDataResult(data);
             }
 
             @Override

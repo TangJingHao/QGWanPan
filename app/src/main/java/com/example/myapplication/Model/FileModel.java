@@ -12,6 +12,7 @@ import com.example.myapplication.contract.IFile;
 import com.example.myapplication.contract.IPost;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,16 +41,20 @@ public class FileModel extends BaseModel<FilePresenter, IFile.M> {
             @Override
             public void getFileData(int userid, String jwt) throws Exception {
                 IPost post = BaseCreator.create(IPost.class);
-                post.getFileData(jwt,userid).enqueue(new Callback<FileBean>() {
+                post.getFileData(jwt,userid,userid).enqueue(new Callback<FileBean>() {
                     @Override
                     public void onResponse(Call<FileBean> call, Response<FileBean> response) {
                         FileBean fileBean = response.body();
                         List<FileDataBean> list = fileBean.getData();
+                        String data = list.get(0).toString();
+                        Log.d("TAG_",data);
                         mPresenter.getContract().getFileDataResult(list);
                     }
 
                     @Override
                     public void onFailure(Call<FileBean> call, Throwable t) {
+
+                        Log.d("TAG_",call.toString());
                         Log.d("TAG_ERROR","获取默认文件夹失败");
                     }
                 });
