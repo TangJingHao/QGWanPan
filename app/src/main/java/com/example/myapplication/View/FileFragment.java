@@ -2,6 +2,7 @@ package com.example.myapplication.View;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -189,6 +190,11 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
         //顶部关闭键监听
         btn_FileFragment_close.setOnClickListener(this::onClick);
 
+        //顶部传输键监听
+        btn_FileFragment_Title_transmission.setOnClickListener(this::onClick);
+
+        //搜索框监听
+        et_FileFragment_search.setOnClickListener(this::onClick);
         //底部文件操作按钮监听
         select_FileOperation_menu.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -281,6 +287,19 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
                 dialog.getWindow().setLayout(1000,500);
             }break;
 
+            case R.id.btn_FileFragment_Title_transmission:{
+                Intent intent=new Intent(getContext(),TransferFileActivity.class);
+                intent.putExtra("jwt",jwt);
+                intent.putExtra("ID",ID);
+                startActivity(intent);
+            }break;
+
+            case R.id.et_FileFragment_search:{
+                Intent intent=new Intent(getContext(),SearchActivity.class);
+                intent.putExtra("jwt",jwt);
+                intent.putExtra("ID",ID);
+                startActivity(intent);
+            }break;
         }
     }
 
