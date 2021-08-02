@@ -124,7 +124,7 @@ public class RegisterModel extends BaseModel<RegisterPresenter, IRegister.M> {
            public void requestCheckCode(String userEmail) throws Exception {
                Log.d("==================",userEmail);
                RequestBody requestBody=new FormBody.Builder().add("userEmail",userEmail).build();
-               Request request=new Request.Builder().url("http://39.98.41.126:31109/user/sendCheckCode?").post(requestBody).build();
+               Request request=new Request.Builder().url("http://39.98.41.126:31109/user/sendCheckCode").post(requestBody).build();
                OkHttpClient okHttpClient=new OkHttpClient();
                okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
                    @Override

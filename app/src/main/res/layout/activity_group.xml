@@ -14,16 +14,16 @@
             android:background="@drawable/back_to_my_fragment"
             android:layout_width="24dp"
             android:layout_height="24dp"/>
+
         <TextView
             android:id="@+id/group_act_my_tv"
-            android:layout_marginLeft="117dp"
-            android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="超管的成员列表"
+            android:layout_marginLeft="117dp"
+            android:layout_marginTop="40dp"
+            android:text="我的成员和分组信息"
             android:textColor="#ff000000"
-            android:textSize="18sp"
-            />
+            android:textSize="18sp" />
         <Button
             android:layout_marginTop="40dp"
             android:layout_marginLeft="304dp"

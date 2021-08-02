@@ -60,6 +60,7 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
     private TextView mUserNickname;//用户昵称
     private int percentage=0;
     private int TAKE_PHOTO=1;
+    private ArrayList<String> groupNameList=new ArrayList<>();
 
     public MyPageFragment(int ID,String jwt,String password) {
         this.ID = ID;
@@ -191,9 +192,10 @@ public class MyPageFragment extends BaseFragment<MyPagerPresenter, IMyPager.VP> 
                                         public void run() {
                                             if(flag){
                                                 Toast.makeText(getContext(),"创建成功",Toast.LENGTH_SHORT).show();
-
+                                                dialog.dismiss();
                                             }else{
                                                 Toast.makeText(getContext(),"创建失败",Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
                                             }
                                         }
                                     });

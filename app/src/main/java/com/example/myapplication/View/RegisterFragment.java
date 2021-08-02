@@ -1,5 +1,6 @@
 package com.example.myapplication.View;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,17 @@ import com.example.myapplication.contract.IRegister;
 import com.example.myapplication.util.Constants;
 import com.example.myapplication.util.SimpleUtil;
 import com.example.myapplication.util.TimeCount;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created with Android studio
@@ -31,7 +43,6 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter, IRegister.
     private Button mRegisterBtn;
     private int code=0;
     private String jwt;
-    private String userEmail;
 
     @Override
     public IRegister.VP getContract() {
@@ -53,6 +64,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter, IRegister.
                     public void run() {
                         if (registerStatusResult == Constants.SUCCESS_REGISTER_CODE) {
                             jwt=data;
+                            Log.d("================",jwt);
                             Toast.makeText(getContext(), "验证码发送成功", Toast.LENGTH_SHORT).show();
                         } else if (registerStatusResult == Constants.ERROR_REGISTER_CODE) {
                             Toast.makeText(getContext(), "验证码发送失败，请检查邮箱地址", Toast.LENGTH_SHORT).show();
@@ -107,12 +119,45 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter, IRegister.
             @Override
             public void onClick(View view) {
                 if(mRegisterChekCodeEt.getText().toString().trim().length()!=0&&code!=0){
-                    String newUsername=mRegisterUsernameEt.getText().toString().trim();
-                    String newUserPassword=mRegisterPasswordEt.getText().toString().trim();
-                    String newUserNickname="QG云域新用户";
-                    String newEmail=mRegisterUserEmailEt.getText().toString()+"@"+mRegisterUserEmailBackEt.getText().toString();
-                    String newCheckCode=mRegisterChekCodeEt.getText().toString().trim();
-                    mPresenter.getContract().requestRegister(newUsername,newUserPassword,newUserNickname,newEmail,newCheckCode, jwt);
+                    String username=mRegisterUsernameEt.getText().toString().trim();
+                    String password=mRegisterPasswordEt.getText().toString().trim();
+                    String nickname="QG云域新用户";
+                    String userEmail=mRegisterUserEmailEt.getText().toString()+"@"+mRegisterUserEmailBackEt.getText().toString();
+                    String checkCode=mRegisterChekCodeEt.getText().toString().trim();
+//                    mPresenter.getContract().requestRegister(newUsername,newUserPassword,newUserNickname,newEmail,newCheckCode, jwt);
+                    RequestBody requestBody=new FormBody.Builder().add("username",username).
+                            add("password",password).add("nickname",nickname).add("userEmail",userEmail)
+                            .add("checkCode",checkCode)
+                            .build();
+                    Request request=new Request.Builder().addHeader("Authorization",jwt).url("http://39.98.41.126:31109/user/register").post(requestBody).build();
+                    OkHttpClient okHttpClient=new OkHttpClient();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Response response = okHttpClient.newCall(request).execute();
+                                String responseData = response.body().string();
+                                Log.d("===========",responseData);
+                                JSONObject jsonObject=new JSONObject(responseData);
+                                Boolean flag=jsonObject.getBoolean("flag");
+                                String bug=jsonObject.getString("message");
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (flag){
+                                            Toast.makeText(getContext(),"恭喜你成功注册",Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            Toast.makeText(getContext(),bug,Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
                 }
             }
         });
