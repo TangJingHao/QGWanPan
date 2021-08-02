@@ -2,6 +2,8 @@ package com.example.myapplication.View;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -44,6 +46,7 @@ public class GroupActivity extends AppCompatActivity {
     private ArrayList<Integer> listId = new ArrayList<>();
     private int ID;
     private String jwt;
+    private Button button;
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -51,6 +54,13 @@ public class GroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group);
         mTabLayout = this.findViewById(R.id.group_tab_layout);
         mViewPager = this.findViewById(R.id.group_view_pager);
+        button=this.findViewById(R.id.group_act_my_back_btn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         ID = getIntent().getIntExtra("ID", -1);//接受用户的id
         jwt = getIntent().getStringExtra("jwt");
         initView();
