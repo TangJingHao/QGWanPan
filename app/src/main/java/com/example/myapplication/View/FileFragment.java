@@ -265,7 +265,7 @@ public class FileFragment extends BaseFragment<FilePresenter, IFile.VP> {
                             public void onClick(DialogInterface dialog, int which) {
                                 EditText editText = view.findViewById(R.id.et_AlertDialogView);
                                 String folderName = editText.getText().toString();
-                                
+
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
